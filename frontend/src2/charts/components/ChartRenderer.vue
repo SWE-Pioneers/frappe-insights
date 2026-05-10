@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Button } from 'frappe-ui'
-import { Maximize, XIcon } from 'lucide-vue-next'
+import { Maximize, XIcon, RefreshCcw } from 'lucide-vue-next'
 import { computed, ref } from 'vue'
 import { titleCase } from '../../helpers'
 import { FIELDTYPES } from '../../helpers/constants.ts'
@@ -157,11 +157,13 @@ function handleGeneralChartClick(params: any) {
 	return column ? props.chart.dataQuery.getDrillDownQuery(column, row) : null
 }
 
-function onChartElementClick(params: any) {
+async function onChartElementClick(params: any) {
 	if (params.componentType !== 'series') return
 
 	const query =
-		chart_type.value === 'Map' ? handleMapChartClick(params) : handleGeneralChartClick(params)
+		chart_type.value === 'Map'
+			? await handleMapChartClick(params)
+			: await handleGeneralChartClick(params)
 
 	if (query) {
 		drillDownQuery.value = query
@@ -169,8 +171,8 @@ function onChartElementClick(params: any) {
 	}
 }
 
-function onNumberChartDrillDown(column: any, row: any) {
-	drillDownQuery.value = props.chart.dataQuery.getDrillDownQuery(column, row)
+async function onNumberChartDrillDown(column: any, row: any) {
+	drillDownQuery.value = await props.chart.dataQuery.getDrillDownQuery(column, row)
 	if (drillDownQuery.value) {
 		showDrillDown.value = true
 	}
@@ -195,12 +197,23 @@ const showExpandedChartDialog = ref(false)
 			:result="result"
 			@drill-down="onNumberChartDrillDown"
 		/>
-		<TableChart v-else-if="!loading && chart_type == 'Table'" :chart="props.chart" />
+		<TableChart v-else-if="chart_type == 'Table'" :chart="props.chart" />
 
 		<div v-else class="flex h-full flex-1 flex-col items-center justify-center rounded border">
 			<template v-if="loading">
 				<LoadingIndicator class="h-5 w-5 text-gray-500" />
 				<p class="mt-1.5 text-gray-500">Loading data...</p>
+			</template>
+			<template v-else-if="chart.dataQuery.isServerBusy">
+				<Button
+					variant="outline"
+					@click="chart.refresh(true)"
+					label="Server is busy, click to retry"
+				>
+					<template #prefix>
+						<RefreshCcw class="h-4 w-4 text-gray-700" stroke-width="1.5" />
+					</template>
+				</Button>
 			</template>
 			<template v-else>
 				<ChartSectionEmptySvg></ChartSectionEmptySvg>

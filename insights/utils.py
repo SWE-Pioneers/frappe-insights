@@ -90,13 +90,14 @@ def deep_convert_dict_to_dict(d):
     return d
 
 
-def create_execution_log(sql, time_taken=0, query_name=None):
+def create_execution_log(sql, time_taken=0, query_name=None, data_store=False):
     frappe.get_doc(
         {
             "doctype": "Insights Query Execution Log",
             "time_taken": time_taken,
             "query": query_name,
             "sql": sql,
+            "data_store": data_store,
         }
     ).insert(ignore_permissions=True)
 

@@ -11,10 +11,10 @@ import {
 import { GranularityType } from '../helpers/constants'
 import useDocumentResource from '../helpers/resource'
 import { createToast } from '../helpers/toasts'
-import { __ } from '../translation'
 import { column, count, query_table } from '../query/helpers'
 import useQuery, { Query } from '../query/query'
 import router from '../router'
+import { __ } from '../translation'
 import {
 	AXIS_CHARTS,
 	AxisChartConfig,
@@ -72,14 +72,15 @@ function makeChart(name: string) {
 		addFilterOperation(query)
 		addChartOperation(query)
 		addOrderByOperation(query)
-		addLimitOperation(query)
 
+		const currentLimit = chart.doc.config.limit || 100
 		const shouldExecute =
 			force ||
 			reload ||
 			!dataQuery.value.result.executedSQL ||
 			dataQuery.value.adhocFilters ||
-			JSON.stringify(query.doc.operations) !== JSON.stringify(dataQuery.value.doc.operations)
+			JSON.stringify(query.doc.operations) !== JSON.stringify(dataQuery.value.doc.operations) ||
+			currentLimit !== dataQuery.value.pageSize
 
 		if (!shouldExecute) {
 			return
@@ -87,7 +88,7 @@ function makeChart(name: string) {
 
 		dataQuery.value.setOperations(copy(query.doc.operations))
 		dataQuery.value.doc.use_live_connection = query.doc.use_live_connection
-		return dataQuery.value.execute(force)
+		return dataQuery.value.execute(force, chart.doc.config.limit)
 	}
 
 	function validateConfig() {
@@ -360,12 +361,6 @@ function makeChart(name: string) {
 				})
 			}
 		})
-	}
-
-	function addLimitOperation(query: Query) {
-		if (chart.doc.config.limit) {
-			query.addLimit(chart.doc.config.limit)
-		}
 	}
 
 	function updateGranularity(column_name: string, granularity: GranularityType) {
