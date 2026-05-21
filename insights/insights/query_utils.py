@@ -2,6 +2,46 @@
 # For license information, please see license.txt
 
 import frappe
+<<<<<<< HEAD
+=======
+import sqlglot as sg
+
+
+def extract_sql_table_refs(raw_sql: str, dialect: sg.Dialect | None = None) -> list[frappe._dict]:
+    try:
+        parsed = sg.parse_one(raw_sql, dialect=dialect)
+    except Exception:
+        # If parsing fails, we return an empty list to avoid blocking the user from saving their query.
+        # In the future, we may want to log these exceptions to help improve our SQL parsing capabilities.
+        return []
+
+    cte_aliases = {
+        str(alias)
+        for cte_exp in parsed.find_all(sg.exp.CTE)
+        if (alias := getattr(cte_exp, "alias_or_name", None) or cte_exp.alias)
+    }
+
+    table_refs = []
+    seen_refs = set()
+    for table_exp in parsed.find_all(sg.exp.Table):
+        table_name = table_exp.name
+        if not table_name or table_name in cte_aliases:
+            continue
+
+        table_ref = frappe._dict(
+            name=table_name,
+            db=str(table_exp.db) if table_exp.db else None,
+            catalog=str(table_exp.catalog) if table_exp.catalog else None,
+        )
+        ref_key = (table_ref.name, table_ref.db, table_ref.catalog)
+        if ref_key in seen_refs:
+            continue
+
+        seen_refs.add(ref_key)
+        table_refs.append(table_ref)
+
+    return table_refs
+>>>>>>> f873724b (fix: migration failure when unable to parse sql (#1131))
 
 
 def extract_query_deps_from_operations(operations: list) -> list[str]:
