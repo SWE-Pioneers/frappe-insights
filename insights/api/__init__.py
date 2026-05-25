@@ -1,6 +1,8 @@
 # Copyright (c) 2022, Frappe Technologies Pvt. Ltd. and contributors
 # For license information, please see license.txt
 
+import os
+
 import frappe
 from frappe.defaults import get_user_default
 from frappe.handler import is_valid_http_method, is_whitelisted
@@ -106,7 +108,7 @@ def get_file_data(filename: str):
     check_data_source_permission("uploads")
 
     file, ext = get_csv_file(filename)
-    file_path = file.get_full_path()
+    file_path = os.path.realpath(file.get_full_path())
     file_name = file.file_name.split(".")[0]
     file_name = frappe.scrub(file_name)
 
@@ -138,7 +140,7 @@ def import_csv_data(filename: str, tablename: str = ""):
     check_data_source_permission("uploads")
 
     file, ext = get_csv_file(filename)
-    file_path = file.get_full_path()
+    file_path = os.path.realpath(file.get_full_path())
     table_name = frappe.scrub(tablename) if tablename else frappe.scrub(file.file_name.split(".")[0])
 
     create_uploads_if_not_exists()
@@ -205,7 +207,7 @@ def _execute_doc_method(doc, method: str, args: dict | None = None, ignore_permi
         is_whitelisted(fn)
         is_valid_http_method(fn)
 
-    new_kwargs = frappe.get_newargs(fn, args)
+    new_kwargs = frappe.get_newargs(fn, args or {})
     response = doc.run_method(method, **new_kwargs)
     frappe.response.docs.append(doc)
     frappe.response["message"] = response
