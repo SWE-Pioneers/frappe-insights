@@ -5,6 +5,9 @@ def execute():
     if not frappe.db.count("Insights Query"):
         return
 
+    if frappe.conf.get("insights_allow_legacy_v2_upgrade"):
+        return
+
     log_count = frappe.db.count(
         "Insights Query Execution Log",
         filters={
