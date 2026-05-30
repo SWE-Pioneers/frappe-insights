@@ -89,38 +89,30 @@ const listOptions = ref({
 </script>
 
 <template>
-	<Dialog
-		v-model="show"
-		:options="{
-			title: __('Alerts'),
-			size: '2xl',
-		}"
-	>
-		<template #body-content>
-			<div class="flex h-[30rem] w-full flex-1 flex-col gap-3 overflow-auto text-base">
-				<div class="flex justify-between gap-2 overflow-visible py-1">
-					<FormControl :placeholder="__('Search')" v-model="searchQuery" :debounce="300">
-						<template #prefix>
-							<SearchIcon class="h-4 w-4 text-gray-500" />
-						</template>
-					</FormControl>
-					<Button
-						:label="__('New Alert')"
-						variant="outline"
-						@click="
-							() => {
-								emit('set-current-alert-name', 'new-alert-' + getUniqueId())
-								show = false
-							}
-						"
-					>
-						<template #prefix>
-							<Plus class="h-4 w-4 text-gray-700" stroke-width="1.5" />
-						</template>
-					</Button>
-				</div>
-				<ListView class="h-full" v-bind="listOptions"> </ListView>
+	<Dialog v-model:open="show" :title="__('Alerts')" size="2xl">
+		<div class="flex h-[30rem] w-full flex-1 flex-col gap-3 overflow-auto text-base">
+			<div class="flex justify-between gap-2 overflow-visible py-1">
+				<FormControl :placeholder="__('Search')" v-model="searchQuery" :debounce="300">
+					<template #prefix>
+						<SearchIcon class="h-4 w-4 text-gray-500" />
+					</template>
+				</FormControl>
+				<Button
+					:label="__('New Alert')"
+					variant="outline"
+					@click="
+						() => {
+							emit('set-current-alert-name', 'new-alert-' + getUniqueId())
+							show = false
+						}
+					"
+				>
+					<template #prefix>
+						<Plus class="h-4 w-4 text-gray-700" stroke-width="1.5" />
+					</template>
+				</Button>
 			</div>
-		</template>
+			<ListView class="h-full" v-bind="listOptions"> </ListView>
+		</div>
 	</Dialog>
 </template>

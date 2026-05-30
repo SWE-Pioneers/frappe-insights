@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { cachedCall } from '../../helpers'
 import { COLUMN_TYPES, FIELDTYPES } from '../../helpers/constants'
 import ExpressionEditor from '../../query/components/ExpressionEditor.vue'
@@ -38,6 +38,25 @@ const isValid = computed(() => {
 
 const validationState = ref<'unknown' | 'validating' | 'valid' | 'invalid'>('unknown')
 const validationErrors = ref<Array<{ line?: number; column?: number; message: string }>>([])
+
+function getNewMeasureState() {
+	return JSON.stringify(newMeasure.value)
+}
+
+const initialNewMeasureState = ref('')
+watch(
+	showDialog,
+	(open) => {
+		if (open) {
+			initialNewMeasureState.value = getNewMeasureState()
+		}
+	},
+	{ immediate: true },
+)
+
+const isDirty = computed(
+	() => !!initialNewMeasureState.value && getNewMeasureState() !== initialNewMeasureState.value,
+)
 
 async function confirmCalculation() {
 	if (!isValid.value) return
@@ -84,60 +103,51 @@ function resetNewMeasure() {
 
 <template>
 	<Dialog
-		:options="{ size: '2xl' }"
-		:modelValue="Boolean(showDialog)"
-		:disableOutsideClickToClose="true"
+		v-model:open="showDialog"
+		size="2xl"
+		:title="__('Create Measure')"
+		:dismissible="!isDirty"
 		@after-leave="resetNewMeasure"
-		@close="showDialog = false"
 	>
-		<template #body>
-			<div class="bg-white px-4 pb-6 pt-5 sm:px-6">
-				<div class="flex items-center justify-between pb-4">
-					<h3 class="text-2xl font-semibold leading-6 text-gray-900">
-						{{ __('Create Measure') }}
-					</h3>
-					<Button variant="ghost" @click="showDialog = false" icon="x" size="md" />
-				</div>
-
-				<div class="flex flex-col gap-2">
-					<ExpressionEditor
-						v-model="newMeasure.expression"
-						class="column-expression"
-						:column-options="props.columnOptions"
+		<div>
+			<div class="flex flex-col gap-2">
+				<ExpressionEditor
+					v-model="newMeasure.expression"
+					class="column-expression"
+					:column-options="props.columnOptions"
+				/>
+				<div class="flex gap-2">
+					<FormControl
+						type="text"
+						class="flex-1"
+						:label="__('Measure Name')"
+						autocomplete="off"
+						placeholder="Measure Name"
+						v-model="newMeasure.name"
 					/>
-					<div class="flex gap-2">
-						<FormControl
-							type="text"
-							class="flex-1"
-							:label="__('Measure Name')"
-							autocomplete="off"
-							placeholder="Measure Name"
-							v-model="newMeasure.name"
-						/>
-						<FormControl
-							type="select"
-							class="flex-1"
-							:label="__('Data Type')"
-							autocomplete="off"
-							:options="columnTypes"
-							v-model="newMeasure.type"
-						/>
-					</div>
-				</div>
-
-				<div class="mt-2 flex items-center justify-between gap-2">
-					<div></div>
-					<div class="flex items-center gap-2">
-						<Button
-							:label="__('Confirm')"
-							variant="solid"
-							:disabled="!isValid || validationState === 'validating'"
-							@click="confirmCalculation"
-						/>
-					</div>
+					<FormControl
+						type="select"
+						class="flex-1"
+						:label="__('Data Type')"
+						autocomplete="off"
+						:options="columnTypes"
+						v-model="newMeasure.type"
+					/>
 				</div>
 			</div>
-		</template>
+
+			<div class="mt-2 flex items-center justify-between gap-2">
+				<div></div>
+				<div class="flex items-center gap-2">
+					<Button
+						:label="__('Confirm')"
+						variant="solid"
+						:disabled="!isValid || validationState === 'validating'"
+						@click="confirmCalculation"
+					/>
+				</div>
+			</div>
+		</div>
 	</Dialog>
 </template>
 

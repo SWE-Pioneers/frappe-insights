@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DatePicker } from 'frappe-ui'
+import { Combobox, DatePicker } from 'frappe-ui'
 import { computed, onMounted, watch } from 'vue'
 import FormControl from '../../components/FormControl.vue'
 import RadioGroup from '../../components/ui/Radio.vue'
@@ -131,6 +131,10 @@ function onColumnChange(column_name: string) {
 		}
 		format.value = newFormat
 	}
+}
+
+function updateSelectedColumn(value: string | null) {
+	onColumnChange(value ?? '')
 }
 
 const columnType = computed(() => {
@@ -265,6 +269,12 @@ function onScaleScopeChange(newScope: 'global' | 'local') {
 	}
 }
 
+function updateScaleScope(value: string | number | boolean) {
+	if (value === 'global' || value === 'local') {
+		onScaleScopeChange(value)
+	}
+}
+
 function onHighlightColorChange(newColor: string) {
 	if (format.value.mode === 'cell_rules') {
 		;(format.value as cell_rules).color = newColor
@@ -324,12 +334,12 @@ const isInvalidColumn = computed(() => {
 
 <template>
 	<div class="flex flex-col gap-1.5 relative">
-		<Autocomplete
+		<Combobox
 			:label="'Column'"
 			:placeholder="__('Column')"
 			:modelValue="format.column?.column_name"
 			:options="availableColumns"
-			@update:modelValue="onColumnChange(typeof $event === 'string' ? $event : $event?.value)"
+			@update:modelValue="updateSelectedColumn"
 		/>
 		<p v-if="isInvalidColumn" class="text-xs text-red-500">Invalid Column</p>
 	</div>
@@ -375,7 +385,7 @@ const isInvalidColumn = computed(() => {
 				<RadioGroup
 					name="scale-scope"
 					:modelValue="(format as color_scale).scaleScope || 'global'"
-					@update:modelValue="onScaleScopeChange($event)"
+					@update:modelValue="updateScaleScope($event)"
 				>
 					<RadioGroupItem value="global" class="[&_label]:w-full">
 						<div class="flex flex-col gap-0.5">

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, inject, reactive } from 'vue'
+import { Combobox } from 'frappe-ui'
+import { computed, inject, reactive, ref, watch } from 'vue'
 import { UnionArgs } from '../../types/query.types'
 import { workbookKey } from '../../workbook/workbook'
 import { query_table, table } from '../helpers'
@@ -30,14 +31,23 @@ const selectedTableOption = computed({
 			return union.table.query_name
 		}
 	},
-	set(option: any) {
-		if (option.data_source && option.table_name) {
+	set(value: string) {
+		const option = [...queryTableOptions.value, ...tableOptions.options].find(
+			(option) => option.value === value,
+		)
+		if (!option) return
+		if (
+			'data_source' in option &&
+			'table_name' in option &&
+			option.data_source &&
+			option.table_name
+		) {
 			union.table = table({
 				data_source: option.data_source,
 				table_name: option.table_name,
 			})
 		}
-		if (option.query_name) {
+		if ('query_name' in option && option.query_name) {
 			union.table = query_table({
 				workbook: option.workbook,
 				query_name: option.query_name,
@@ -77,14 +87,36 @@ const groupedTableOptions = computed(() => {
 	return [
 		{
 			group: 'Queries',
-			items: queryTableOptions.value,
+			options: queryTableOptions.value,
 		},
 		{
 			group: 'Tables',
-			items: tableOptions.options,
+			options: tableOptions.options,
 		},
 	]
 })
+
+function getUnionState() {
+	return JSON.stringify({
+		table: union.table,
+		distinct: union.distinct,
+	})
+}
+
+const initialUnionState = ref('')
+watch(
+	showDialog,
+	(open) => {
+		if (open) {
+			initialUnionState.value = getUnionState()
+		}
+	},
+	{ immediate: true },
+)
+
+const isDirty = computed(
+	() => !!initialUnionState.value && getUnionState() !== initialUnionState.value,
+)
 
 const isValid = computed(() => {
 	return (
@@ -107,57 +139,44 @@ function reset() {
 </script>
 
 <template>
-	<Dialog :modelValue="showDialog">
-		<template #body>
-			<div class="rounded-lg bg-white px-4 pb-6 pt-5 sm:px-6">
-				<!-- Title & Close -->
-				<div class="flex items-center justify-between pb-4">
-					<h3 class="text-2xl font-semibold leading-6 text-gray-900">
-						{{ __('Append Rows') }}
-					</h3>
-					<Button variant="ghost" @click="showDialog = false" icon="x" size="md">
-					</Button>
+	<Dialog v-model:open="showDialog" :title="__('Append Rows')" :dismissible="!isDirty">
+		<div class="text-base">
+			<!-- Fields -->
+			<div class="flex w-full flex-col gap-3 overflow-auto p-0.5">
+				<div>
+					<label class="mb-1 block text-xs text-gray-600">{{ __('Select Table') }}</label>
+					<Combobox
+						:placeholder="__('Table')"
+						v-model="selectedTableOption"
+						:loading="tableOptions.loading"
+						:options="groupedTableOptions"
+						@input="tableOptions.searchText = $event"
+					/>
 				</div>
-
-				<!-- Fields -->
-				<div class="flex w-full flex-col gap-3 overflow-auto p-0.5 text-base">
-					<div>
-						<label class="mb-1 block text-xs text-gray-600">{{
-							__('Select Table')
-						}}</label>
-						<Autocomplete
-							:placeholder="__('Table')"
-							v-model="selectedTableOption"
-							:loading="tableOptions.loading"
-							:options="groupedTableOptions"
-							@update:query="tableOptions.searchText = $event"
-						/>
-					</div>
-					<div>
-						<FormControl
-							type="select"
-							:label="__('Drop Duplicates')"
-							:modelValue="union.distinct ? 'true' : 'false'"
-							@update:modelValue="union.distinct = $event === 'true'"
-							:options="[
-								{ label: __('Yes'), value: 'true' },
-								{ label: __('No'), value: 'false' },
-							]"
-						/>
-					</div>
-				</div>
-
-				<!-- Actions -->
-				<div class="mt-4 flex justify-end gap-2">
-					<Button variant="outline" :label="__('Cancel')" @click="showDialog = false" />
-					<Button
-						variant="solid"
-						:label="__('Confirm')"
-						:disabled="!isValid"
-						@click="confirm"
+				<div>
+					<FormControl
+						type="select"
+						:label="__('Drop Duplicates')"
+						:modelValue="union.distinct ? 'true' : 'false'"
+						@update:modelValue="union.distinct = $event === 'true'"
+						:options="[
+							{ label: __('Yes'), value: 'true' },
+							{ label: __('No'), value: 'false' },
+						]"
 					/>
 				</div>
 			</div>
-		</template>
+
+			<!-- Actions -->
+			<div class="mt-4 flex justify-end gap-2">
+				<Button variant="outline" :label="__('Cancel')" @click="showDialog = false" />
+				<Button
+					variant="solid"
+					:label="__('Confirm')"
+					:disabled="!isValid"
+					@click="confirm"
+				/>
+			</div>
+		</div>
 	</Dialog>
 </template>

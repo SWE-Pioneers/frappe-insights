@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, ref, watchEffect } from 'vue'
+import { computed, inject, ref, watch, watchEffect } from 'vue'
 import DimensionPicker from '../../charts/components/DimensionPicker.vue'
 import MeasurePicker from '../../charts/components/MeasurePicker.vue'
 import { copy } from '../../helpers'
@@ -73,6 +73,29 @@ const canConfirm = computed(
 	() => areRowsValid.value && areColumnsValid.value && areValuesValid.value,
 )
 
+function getPivotState() {
+	return JSON.stringify({
+		rows: rows.value,
+		columns: columns.value,
+		values: values.value,
+	})
+}
+
+const initialPivotState = ref('')
+watch(
+	showDialog,
+	(open) => {
+		if (open) {
+			initialPivotState.value = getPivotState()
+		}
+	},
+	{ immediate: true },
+)
+
+const isDirty = computed(
+	() => !!initialPivotState.value && getPivotState() !== initialPivotState.value,
+)
+
 function resetSelections() {
 	rows.value = []
 	columns.value = []
@@ -90,91 +113,84 @@ function confirmSelections() {
 </script>
 
 <template>
-	<Dialog :modelValue="showDialog" :options="{ size: '2xl' }">
-		<template #body>
-			<div class="min-w-[36rem] rounded-lg bg-white px-4 pb-6 pt-5 text-base sm:px-6">
-				<div class="flex items-center justify-between pb-4">
-					<h3 class="text-2xl font-semibold leading-6 text-gray-900">Pivot</h3>
-					<Button variant="ghost" @click="showDialog = false" icon="x" size="md" />
-				</div>
-
-				<div class="flex flex-col gap-4">
-					<!-- Three columns: Rows | Columns | Values -->
-					<div class="flex gap-4">
-						<!-- Rows -->
-						<div class="flex-1 flex-shrink-0">
-							<p class="mb-1.5 text-p-sm text-gray-600">Rows</p>
-							<div class="flex flex-col gap-2">
-								<DimensionPicker
-									v-for="(row, idx) in rows"
-									:key="idx"
-									v-model="rows[idx]"
-									:options="dimensionOptions"
-									@remove="rows.splice(idx, 1)"
-								/>
-							</div>
-							<button
-								class="mt-1.5 text-left text-xs text-gray-600 hover:underline"
-								@click="addRow"
-							>
-								+ Add
-							</button>
-						</div>
-
-						<!-- Columns -->
-						<div class="flex-1 flex-shrink-0">
-							<p class="mb-1.5 text-p-sm text-gray-600">Columns</p>
-							<div class="flex flex-col gap-2">
-								<DimensionPicker
-									v-for="(col, idx) in columns"
-									:key="idx"
-									v-model="columns[idx]"
-									:options="dimensionOptions"
-									@remove="columns.splice(idx, 1)"
-								/>
-							</div>
-							<button
-								class="mt-1.5 text-left text-xs text-gray-600 hover:underline"
-								@click="addColumn"
-							>
-								+ Add
-							</button>
-						</div>
-
-						<!-- Values -->
-						<div class="flex-1 flex-shrink-0">
-							<p class="mb-1.5 text-p-sm text-gray-600">Values</p>
-							<div class="flex flex-col gap-2">
-								<MeasurePicker
-									v-for="(value, idx) in values"
-									:key="idx"
-									v-model="values[idx]"
-									:columnOptions="columnOptions"
-									@remove="values.splice(idx, 1)"
-								/>
-							</div>
-							<button
-								class="mt-1.5 text-left text-xs text-gray-600 hover:underline"
-								@click="addValue"
-							>
-								+ Add
-							</button>
-						</div>
-					</div>
-
-					<div class="mt-2 flex justify-end">
-						<div class="flex gap-2">
-							<Button label="Clear" variant="outline" @click="resetSelections" />
-							<Button
-								label="Done"
-								variant="solid"
-								:disabled="!canConfirm"
-								@click="confirmSelections"
+	<Dialog v-model:open="showDialog" size="2xl" title="Pivot" :dismissible="!isDirty">
+		<div class="min-w-[36rem] text-base">
+			<div class="flex flex-col gap-4">
+				<!-- Three columns: Rows | Columns | Values -->
+				<div class="flex gap-4">
+					<!-- Rows -->
+					<div class="flex-1 flex-shrink-0">
+						<p class="mb-1.5 text-p-sm text-gray-600">Rows</p>
+						<div class="flex flex-col gap-2">
+							<DimensionPicker
+								v-for="(row, idx) in rows"
+								:key="idx"
+								v-model="rows[idx]"
+								:options="dimensionOptions"
+								@remove="rows.splice(idx, 1)"
 							/>
 						</div>
+						<button
+							class="mt-1.5 text-left text-xs text-gray-600 hover:underline"
+							@click="addRow"
+						>
+							+ Add
+						</button>
+					</div>
+
+					<!-- Columns -->
+					<div class="flex-1 flex-shrink-0">
+						<p class="mb-1.5 text-p-sm text-gray-600">Columns</p>
+						<div class="flex flex-col gap-2">
+							<DimensionPicker
+								v-for="(col, idx) in columns"
+								:key="idx"
+								v-model="columns[idx]"
+								:options="dimensionOptions"
+								@remove="columns.splice(idx, 1)"
+							/>
+						</div>
+						<button
+							class="mt-1.5 text-left text-xs text-gray-600 hover:underline"
+							@click="addColumn"
+						>
+							+ Add
+						</button>
+					</div>
+
+					<!-- Values -->
+					<div class="flex-1 flex-shrink-0">
+						<p class="mb-1.5 text-p-sm text-gray-600">Values</p>
+						<div class="flex flex-col gap-2">
+							<MeasurePicker
+								v-for="(value, idx) in values"
+								:key="idx"
+								v-model="values[idx]"
+								:columnOptions="columnOptions"
+								@remove="values.splice(idx, 1)"
+							/>
+						</div>
+						<button
+							class="mt-1.5 text-left text-xs text-gray-600 hover:underline"
+							@click="addValue"
+						>
+							+ Add
+						</button>
+					</div>
+				</div>
+
+				<div class="mt-2 flex justify-end">
+					<div class="flex gap-2">
+						<Button label="Clear" variant="outline" @click="resetSelections" />
+						<Button
+							label="Done"
+							variant="solid"
+							:disabled="!canConfirm"
+							@click="confirmSelections"
+						/>
 					</div>
 				</div>
 			</div>
-		</template>
+		</div>
 	</Dialog>
 </template>

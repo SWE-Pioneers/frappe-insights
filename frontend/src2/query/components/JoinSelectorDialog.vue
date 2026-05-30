@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Combobox, MultiSelect } from 'frappe-ui'
 import { Braces } from 'lucide-vue-next'
-import { computed, inject, reactive, watch } from 'vue'
+import { computed, inject, reactive, ref, watch } from 'vue'
 import useTableStore from '../../data_source/tables'
 import { wheneverChanges } from '../../helpers'
 import { joinTypes } from '../../helpers/constants'
@@ -199,6 +199,30 @@ function toggleJoinConditionEditor() {
 	}
 }
 
+function getJoinState() {
+	return JSON.stringify({
+		join_type: join.join_type,
+		table: join.table,
+		join_condition: join.join_condition,
+		select_columns: join.select_columns,
+	})
+}
+
+const initialJoinState = ref('')
+watch(
+	showDialog,
+	(open) => {
+		if (open) {
+			initialJoinState.value = getJoinState()
+		}
+	},
+	{ immediate: true },
+)
+
+const isDirty = computed(
+	() => !!initialJoinState.value && getJoinState() !== initialJoinState.value,
+)
+
 const isValid = computed(() => {
 	const isRightTableSelected =
 		(join.table.type === 'table' && join.table.table_name) ||
@@ -222,6 +246,25 @@ const isValid = computed(() => {
 		(hasValidJoinExpression || hasValidJoinColumns)
 	)
 })
+
+function updateLeftJoinColumn(value: string | null) {
+	if ('left_column' in join.join_condition) {
+		join.join_condition.left_column.column_name = value ?? ''
+	}
+}
+
+function updateRightJoinColumn(value: string | null) {
+	if ('right_column' in join.join_condition) {
+		join.join_condition.right_column.column_name = value ?? ''
+	}
+}
+
+function updateSelectedColumns(value: unknown) {
+	join.select_columns = Array.isArray(value)
+		? (value as string[]).map((columnName) => column(columnName))
+		: []
+}
+
 function confirm() {
 	if (!isValid.value) return
 	emit('select', { ...join })
@@ -242,154 +285,138 @@ function reset() {
 </script>
 
 <template>
-	<Dialog :modelValue="showDialog">
-		<template #body>
-			<div class="rounded-lg bg-white px-4 pb-6 pt-5 sm:px-6">
-				<!-- Title & Close -->
-				<div class="flex items-center justify-between pb-4">
-					<h3 class="text-2xl font-semibold leading-6 text-gray-900">
-						{{ __('Join Table') }}
-					</h3>
-					<Button variant="ghost" @click="showDialog = false" icon="x" size="md">
-					</Button>
+	<Dialog v-model:open="showDialog" :title="__('Join Table')" :dismissible="!isDirty">
+		<div class="text-base">
+			<!-- Fields -->
+			<div class="flex w-full flex-col gap-3 overflow-auto p-0.5">
+				<div class="flex flex-col gap-1.5">
+					<label class="block text-xs text-ink-gray-5">{{ __('Right Table') }}</label>
+					<Combobox
+						:placeholder="__('Table')"
+						:open-on-focus="true"
+						v-model="selectedTable"
+						:loading="tableOptions.loading"
+						:options="groupedTableOptions"
+						@input="tableOptions.searchText = $event"
+					/>
 				</div>
-
-				<!-- Fields -->
-				<div class="flex w-full flex-col gap-3 overflow-auto p-0.5 text-base">
-					<div class="flex flex-col gap-1.5">
-						<label class="block text-xs text-ink-gray-5">{{ __('Right Table') }}</label>
-						<Combobox
-							:placeholder="__('Table')"
-							:open-on-focus="true"
-							v-model="selectedTable"
-							:loading="tableOptions.loading"
-							:options="groupedTableOptions"
-							@input="tableOptions.searchText = $event"
-						/>
-					</div>
-					<div>
-						<div class="flex items-end gap-2">
-							<template
-								v-if="
-									'left_column' in join.join_condition &&
-									'right_column' in join.join_condition
-								"
-							>
-								<div class="flex-1">
-									<label class="mb-1 block text-xs text-gray-600">{{
-										__('Left Column')
-									}}</label>
-									<Combobox
-										:placeholder="__('Column')"
-										:options="query.result.columnOptions"
-										:modelValue="join.join_condition.left_column.column_name"
-										@update:modelValue="
-											join.join_condition.left_column.column_name = $event
-										"
-									/>
-								</div>
-								<div class="flex h-7 flex-shrink-0 items-center font-mono">=</div>
-								<div class="flex-1">
-									<label class="mb-1 block text-xs text-gray-600">{{
-										__('Right Column')
-									}}</label>
-									<Combobox
-										:placeholder="__('Column')"
-										:loading="
-											rightTableColumnOptions.loading ||
-											queryTableColumnOptions.loading
-										"
-										:options="[
-											...rightTableColumnOptions.options,
-											...queryTableColumnOptions.options,
-										]"
-										:modelValue="join.join_condition.right_column.column_name"
-										@update:modelValue="
-											join.join_condition.right_column.column_name = $event
-										"
-									/>
-								</div>
-							</template>
-							<template v-else-if="'join_expression' in join.join_condition">
-								<div class="flex-1">
-									<label class="mb-1 block text-xs text-gray-600"
-										>{{ __('Custom Join Condition') }}
-									</label>
-									<InlineExpression
-										v-model="join.join_condition.join_expression"
-										placeholder="Example: (t1.column_name = t2.column_name) & (t1.column_name > 10)"
-									/>
-								</div>
-							</template>
-							<div class="flex flex-shrink-0 items-start">
-								<Button @click="toggleJoinConditionEditor">
-									<template #icon>
-										<Braces class="h-4 w-4 text-gray-700" stroke-width="1.5" />
-									</template>
-								</Button>
-							</div>
-						</div>
-					</div>
-					<div>
-						<label class="mb-1 block text-xs text-gray-600">{{
-							__('Select Join Type')
-						}}</label>
-						<div class="flex gap-2">
-							<div
-								v-for="joinType in joinTypes"
-								:key="joinType.label"
-								class="flex flex-1 flex-col items-center justify-center rounded border py-3 transition-all"
-								:class="
-									join.join_type === joinType.value
-										? 'border-gray-700'
-										: 'cursor-pointer hover:border-gray-400'
-								"
-								@click="join.join_type = joinType.value"
-							>
-								<component
-									:is="joinType.icon"
-									class="h-6 w-6 text-gray-600"
-									stroke-width="1.5"
+				<div>
+					<div class="flex items-end gap-2">
+						<template
+							v-if="
+								'left_column' in join.join_condition &&
+								'right_column' in join.join_condition
+							"
+						>
+							<div class="flex-1">
+								<label class="mb-1 block text-xs text-gray-600">{{
+									__('Left Column')
+								}}</label>
+								<Combobox
+									:placeholder="__('Column')"
+									:options="query.result.columnOptions"
+									:modelValue="join.join_condition.left_column.column_name"
+									@update:modelValue="updateLeftJoinColumn"
 								/>
-								<span class="block text-center text-xs">{{ joinType.label }}</span>
 							</div>
+							<div class="flex h-7 flex-shrink-0 items-center font-mono">=</div>
+							<div class="flex-1">
+								<label class="mb-1 block text-xs text-gray-600">{{
+									__('Right Column')
+								}}</label>
+								<Combobox
+									:placeholder="__('Column')"
+									:loading="
+										rightTableColumnOptions.loading ||
+										queryTableColumnOptions.loading
+									"
+									:options="[
+										...rightTableColumnOptions.options,
+										...queryTableColumnOptions.options,
+									]"
+									:modelValue="join.join_condition.right_column.column_name"
+									@update:modelValue="updateRightJoinColumn"
+								/>
+							</div>
+						</template>
+						<template v-else-if="'join_expression' in join.join_condition">
+							<div class="flex-1">
+								<label class="mb-1 block text-xs text-gray-600"
+									>{{ __('Custom Join Condition') }}
+								</label>
+								<InlineExpression
+									v-model="join.join_condition.join_expression"
+									placeholder="Example: (t1.column_name = t2.column_name) & (t1.column_name > 10)"
+								/>
+							</div>
+						</template>
+						<div class="flex flex-shrink-0 items-start">
+							<Button @click="toggleJoinConditionEditor">
+								<template #icon>
+									<Braces class="h-4 w-4 text-gray-700" stroke-width="1.5" />
+								</template>
+							</Button>
 						</div>
-						<div class="mt-1 text-xs text-gray-600">
-							{{ joinTypes.find((j) => j.value === join.join_type)?.description }}
-						</div>
-					</div>
-					<div>
-						<label class="mb-1 block text-xs text-gray-600">{{
-							__('Select Columns to Add')
-						}}</label>
-						<MultiSelect
-							:placeholder="__('Columns')"
-							:loading="
-								rightTableColumnOptions.loading || queryTableColumnOptions.loading
-							"
-							:options="[
-								...rightTableColumnOptions.options,
-								...queryTableColumnOptions.options,
-							]"
-							:modelValue="join.select_columns?.map((c) => c.column_name)"
-							@update:modelValue="
-								join.select_columns = $event?.map((o: any) => column(o)) || []
-							"
-						/>
 					</div>
 				</div>
-
-				<!-- Actions -->
-				<div class="mt-4 flex justify-end gap-2">
-					<Button variant="outline" :label="__('Cancel')" @click="showDialog = false" />
-					<Button
-						variant="solid"
-						:label="__('Confirm')"
-						:disabled="!isValid"
-						@click="confirm"
+				<div>
+					<label class="mb-1 block text-xs text-gray-600">{{
+						__('Select Join Type')
+					}}</label>
+					<div class="flex gap-2">
+						<div
+							v-for="joinType in joinTypes"
+							:key="joinType.label"
+							class="flex flex-1 flex-col items-center justify-center rounded border py-3 transition-all"
+							:class="
+								join.join_type === joinType.value
+									? 'border-gray-700'
+									: 'cursor-pointer hover:border-gray-400'
+							"
+							@click="join.join_type = joinType.value"
+						>
+							<component
+								:is="joinType.icon"
+								class="h-6 w-6 text-gray-600"
+								stroke-width="1.5"
+							/>
+							<span class="block text-center text-xs">{{ joinType.label }}</span>
+						</div>
+					</div>
+					<div class="mt-1 text-xs text-gray-600">
+						{{ joinTypes.find((j) => j.value === join.join_type)?.description }}
+					</div>
+				</div>
+				<div>
+					<label class="mb-1 block text-xs text-gray-600">{{
+						__('Select Columns to Add')
+					}}</label>
+					<MultiSelect
+						class="w-full"
+						:placeholder="__('Columns')"
+						:loading="
+							rightTableColumnOptions.loading || queryTableColumnOptions.loading
+						"
+						:options="[
+							...rightTableColumnOptions.options,
+							...queryTableColumnOptions.options,
+						]"
+						:modelValue="join.select_columns?.map((c) => c.column_name)"
+						@update:modelValue="updateSelectedColumns"
 					/>
 				</div>
 			</div>
-		</template>
+
+			<!-- Actions -->
+			<div class="mt-4 flex justify-end gap-2">
+				<Button variant="outline" :label="__('Cancel')" @click="showDialog = false" />
+				<Button
+					variant="solid"
+					:label="__('Confirm')"
+					:disabled="!isValid"
+					@click="confirm"
+				/>
+			</div>
+		</div>
 	</Dialog>
 </template>

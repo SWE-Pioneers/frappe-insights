@@ -1,9 +1,9 @@
 <template>
 	<div class="flex w-[210px] select-none flex-col gap-2 bg-white text-base">
 		<div class="flex items-center justify-between text-gray-700">
-			<Button @click="prevMonth" icon="chevron-left" />
+			<Button @click="prevMonth" icon="lucide-chevron-left" />
 			<Button @dblclick="clearDates"> {{ formatMonth() }} </Button>
-			<Button @click="nextMonth" icon="chevron-right" />
+			<Button @click="nextMonth" icon="lucide-chevron-right" />
 		</div>
 		<div class="flex gap-2">
 			<FormControl
@@ -86,8 +86,8 @@ function selectCurrentMonthYear() {
 	const date = toDateTxt.value
 		? new Date(toDateTxt.value)
 		: fromDateTxt.value
-		? new Date(fromDateTxt.value)
-		: today
+		  ? new Date(fromDateTxt.value)
+		  : today
 	currentYear.value = date.getFullYear()
 	currentMonth.value = date.getMonth() + 1
 }
@@ -121,7 +121,7 @@ const dates = computed(() => {
 
 	let _dates = [...leftPadding, firstDayOfMonth, ...datesInMonth, ...rightPadding]
 	if (_dates.length < 42) {
-		const lastDate = _dates.at(-1)
+		const lastDate = _dates[_dates.length - 1]
 		if (lastDate) {
 			const finalPadding = getDatesAfter(lastDate, 42 - _dates.length)
 			_dates = _dates.concat(...finalPadding)
@@ -141,7 +141,7 @@ function getDatesAfter(firstDayOfMonth: Date, count: number) {
 		firstDayOfMonth = getDate(
 			firstDayOfMonth.getFullYear(),
 			firstDayOfMonth.getMonth(),
-			firstDayOfMonth.getDate() + incrementer
+			firstDayOfMonth.getDate() + incrementer,
 		)
 		dates.push(firstDayOfMonth)
 		count--

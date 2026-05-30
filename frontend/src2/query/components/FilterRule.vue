@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { debounce } from 'frappe-ui'
+import { Combobox, MultiSelect, debounce } from 'frappe-ui'
 import { computed, onMounted, ref } from 'vue'
 import { flattenOptions } from '../../helpers'
 import {
@@ -18,6 +18,7 @@ const filter = defineModel<FilterRule>({ required: true })
 const props = defineProps<{
 	columnOptions: ColumnOption[] | GroupedColumnOption[]
 }>()
+const availableColumnOptions = computed(() => flattenOptions(props.columnOptions) as ColumnOption[])
 
 onMounted(() => {
 	if (valueSelectorType.value === 'select') fetchColumnValues()
@@ -36,8 +37,9 @@ function onColumnChange(column_name: string) {
 const columnType = computed(() => {
 	if (!props.columnOptions?.length) return
 	if (!filter.value.column.column_name) return
-	const options = flattenOptions(props.columnOptions) as ColumnOption[]
-	const col = options.find((c) => c.value === filter.value.column.column_name)
+	const col = availableColumnOptions.value.find(
+		(c) => c.value === filter.value.column.column_name,
+	)
 	if (!col) throw new Error(`Column not found: ${filter.value.column.column_name}`)
 	return col.data_type
 })
@@ -52,6 +54,10 @@ function onOperatorChange(operator: FilterOperator) {
 	filter.value.value = undefined
 }
 
+function updateSelectedColumn(value: string | null) {
+	onColumnChange(value ?? '')
+}
+
 const valueSelectorType = computed(() => {
 	if (!filter.value.column.column_name || !filter.value.operator || !columnType.value) {
 		return
@@ -59,11 +65,32 @@ const valueSelectorType = computed(() => {
 	return getValueSelectorType(filter.value.operator, getFilterType(columnType.value))
 })
 
-const distinctColumnValues = ref<any[]>([])
+const distinctColumnValues = ref<string[]>([])
 const fetchingValues = ref(false)
+const selectedFilterValues = computed(() => {
+	return Array.isArray(filter.value.value)
+		? filter.value.value.filter((value): value is string => typeof value === 'string')
+		: []
+})
+const distinctValueOptions = computed(() => {
+	return [...new Set([...selectedFilterValues.value, ...distinctColumnValues.value])].map(
+		(value) => ({
+			label: value,
+			value,
+		}),
+	)
+})
+
+function updateSelectedValues(value: unknown) {
+	filter.value.value = Array.isArray(value)
+		? value.filter((item): item is string => typeof item === 'string')
+		: []
+}
+
 const fetchColumnValues = debounce((searchTxt: string) => {
-	const options = flattenOptions(props.columnOptions) as ColumnOption[]
-	const option = options.find((c) => c.value === filter.value.column.column_name)
+	const option = availableColumnOptions.value.find(
+		(c) => c.value === filter.value.column.column_name,
+	)
 	if (!option?.query) {
 		fetchingValues.value = false
 		console.warn('Query not found for column:', filter.value.column.column_name)
@@ -87,11 +114,11 @@ const fetchColumnValues = debounce((searchTxt: string) => {
 <template>
 	<div class="flex flex-1 gap-2">
 		<div id="column_name" class="!min-w-[140px] flex-1 flex-shrink-0">
-			<Autocomplete
+			<Combobox
 				placeholder="Column"
 				:modelValue="filter.column.column_name"
-				:options="props.columnOptions"
-				@update:modelValue="onColumnChange($event?.value)"
+				:options="availableColumnOptions"
+				@update:modelValue="updateSelectedColumn"
 			/>
 		</div>
 		<div id="operator" class="!min-w-[100px] flex-1">
@@ -127,24 +154,23 @@ const fetchColumnValues = debounce((searchTxt: string) => {
 			<DatePickerControl
 				v-else-if="valueSelectorType === 'date_range'"
 				:range="true"
-				v-model="(filter.value as string[])"
+				v-model="filter.value as string[]"
 				placeholder="Select Date"
 			/>
 			<RelativeDatePickerControl
 				v-else-if="valueSelectorType === 'relative_date'"
-				v-model="(filter.value as string)"
+				v-model="filter.value as string"
 				placeholder="Relative Date"
 			/>
-			<Autocomplete
+			<MultiSelect
 				v-else-if="valueSelectorType === 'select'"
 				class="max-w-[200px]"
 				placeholder="Value"
-				:multiple="true"
-				:modelValue="filter.value || []"
-				:options="distinctColumnValues"
+				:modelValue="selectedFilterValues"
+				:options="distinctValueOptions"
 				:loading="fetchingValues"
 				@update:query="fetchColumnValues"
-				@update:modelValue="filter.value = $event?.map((v: any) => v.value) || []"
+				@update:modelValue="updateSelectedValues"
 			/>
 			<FormControl v-else disabled />
 		</div>

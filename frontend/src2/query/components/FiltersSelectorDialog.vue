@@ -15,25 +15,18 @@ const showDialog = defineModel()
 </script>
 
 <template>
-	<Dialog
-		v-model="showDialog"
-		:disableOutsideClickToClose="true"
-		:options="{ size: '2xl', title: __('Filter') }"
-		@close="showDialog = false"
-	>
-		<template #body-content>
-			<FiltersSelector
-				:filterGroup="props.filterGroup"
-				:columnOptions="props.columnOptions"
-				:disableLogicalOperator="props.disableLogicalOperator"
-				:disableExpressions="props.disableExpressions"
-				@select="
-					(args) => {
-						emit('select', args)
-						showDialog = false
-					}
-				"
-			/>
-		</template>
+	<Dialog v-model:open="showDialog" :dismissible="false" size="2xl" :title="__('Filter')">
+		<FiltersSelector
+			:filterGroup="props.filterGroup"
+			:columnOptions="props.columnOptions"
+			:disableLogicalOperator="props.disableLogicalOperator"
+			:disableExpressions="props.disableExpressions"
+			@select="
+				(args) => {
+					emit('select', args)
+					showDialog = false
+				}
+			"
+		/>
 	</Dialog>
 </template>

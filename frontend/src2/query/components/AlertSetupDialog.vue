@@ -107,163 +107,159 @@ function toggleAlert() {
 
 <template>
 	<Dialog
-		v-model="show"
-		:disableOutsideClickToClose="alert.isdirty || alert.islocal"
-		:options="{
-			title: __('Setup Alert'),
-			size: '2xl',
-			actions: [
-				{
-					label: __('Send Test Alert'),
-					disabled: !isValidAlert || alert.loading || alert.saving,
-					loading: alert.loading,
-					onClick: testSendAlert,
-				},
-				{
-					label: alert.doc.disabled ? __('Enable Alert') : __('Disable Alert'),
-					disabled: alert.loading || alert.saving,
-					loading: alert.loading,
-					onClick: toggleAlert,
-				},
-				{
-					label: alert.islocal ? __('Create Alert') : __('Update Alert'),
-					variant: 'solid',
-					disabled: !isValidAlert || !alert.isdirty || alert.saving || alert.loading,
-					loading: alert.saving,
-					onClick: updateAlert,
-				},
-			],
-		}"
+		v-model:open="show"
+		:dismissible="!(alert.isdirty || alert.islocal)"
+		:title="__('Setup Alert')"
+		size="2xl"
+		:actions="[
+			{
+				label: __('Send Test Alert'),
+				disabled: !isValidAlert || alert.loading || alert.saving,
+				loading: alert.loading,
+				onClick: testSendAlert,
+			},
+			{
+				label: alert.doc.disabled ? __('Enable Alert') : __('Disable Alert'),
+				disabled: alert.loading || alert.saving,
+				loading: alert.loading,
+				onClick: toggleAlert,
+			},
+			{
+				label: alert.islocal ? __('Create Alert') : __('Update Alert'),
+				variant: 'solid',
+				disabled: !isValidAlert || !alert.isdirty || alert.saving || alert.loading,
+				loading: alert.saving,
+				onClick: updateAlert,
+			},
+		]"
 	>
-		<template #body-content>
-			<div class="flex flex-col gap-3 text-base">
-				<div class="flex gap-4">
-					<div class="flex flex-1 flex-col gap-3">
-						<FormControl
-							type="text"
-							:label="__('Alert Name')"
-							v-model="alert.doc.title"
-							:placeholder="__('e.g. Low Inventory')"
-						/>
-						<FormControl
-							type="select"
-							:label="__('Frequency')"
-							v-model="alert.doc.frequency"
-							:options="[
-								{ value: 'Hourly', label: __('Check once an hour') },
-								{ value: 'Daily', label: __('Check once a day') },
-								{ value: 'Weekly', label: __('Check once a week') },
-								{ value: 'Monthly', label: __('Check once a month') },
-								{ value: 'Cron', label: __('Cron') },
-							]"
-						/>
-						<FormControl
-							v-if="alert.doc.frequency === 'Cron'"
-							type="text"
-							:label="__('Cron')"
-							v-model="alert.doc.cron_format"
-							:placeholder="__('e.g. 0 0 12 * * ?')"
-						/>
-					</div>
-					<div class="flex flex-1 flex-col gap-3">
-						<FormControl
-							type="select"
-							:label="__('Channel')"
-							v-model="alert.doc.channel"
-							:options="[
-								{ label: __('Email'), value: 'Email' },
-								// { label: 'Telegram', value: 'Telegram' },
-							]"
-						/>
-						<FormControl
-							v-if="alert.doc.channel === 'Email'"
-							type="text"
-							:label="__('Recipients')"
-							v-model="alert.doc.recipients"
-							:placeholder="__('e.g. john@example.com, henry@example.com')"
-						/>
-						<FormControl
-							v-if="alert.doc.channel === 'Telegram'"
-							type="text"
-							:label="__('Telegram Chat ID')"
-							v-model="alert.doc.telegram_chat_id"
-							:placeholder="__('e.g. 123456789')"
-						/>
-					</div>
-				</div>
-
-				<div class="flex flex-col">
-					<label class="mb-1.5 block text-xs text-ink-gray-5">{{
-						__('Send alert when')
-					}}</label>
-					<div class="flex gap-4" v-if="!alert.doc.custom_condition">
-						<FormControl
-							type="select"
-							class="flex-1"
-							:placeholder="__('Select Field')"
-							v-model="filterCondition.left"
-							:options="props.query.result.columnOptions"
-						/>
-						<FormControl
-							type="select"
-							class="flex-1"
-							v-model="filterCondition.operator"
-							:options="['==', '!=', '>', '>=', '<', '<=']"
-						/>
-						<FormControl
-							type="text"
-							class="flex-1"
-							v-model="filterCondition.right"
-							placeholder="e.g. 100"
-						/>
-					</div>
-					<div v-else>
-						<ExpressionEditor
-							language="python"
-							placeholder="e.g. order_count < 100"
-							class="inline-expression h-fit max-h-[10rem] min-h-[5rem] text-sm"
-							v-model="alert.doc.condition"
-							:column-options="props.query.result.columnOptions"
-						/>
-					</div>
-					<Checkbox
-						class="mt-1.5"
-						:label="__('Use Custom Condition')"
-						v-model="alert.doc.custom_condition"
+		<div class="flex flex-col gap-3 text-base">
+			<div class="flex gap-4">
+				<div class="flex flex-1 flex-col gap-3">
+					<FormControl
+						type="text"
+						:label="__('Alert Name')"
+						v-model="alert.doc.title"
+						:placeholder="__('e.g. Low Inventory')"
+					/>
+					<FormControl
+						type="select"
+						:label="__('Frequency')"
+						v-model="alert.doc.frequency"
+						:options="[
+							{ value: 'Hourly', label: __('Check once an hour') },
+							{ value: 'Daily', label: __('Check once a day') },
+							{ value: 'Weekly', label: __('Check once a week') },
+							{ value: 'Monthly', label: __('Check once a month') },
+							{ value: 'Cron', label: __('Cron') },
+						]"
+					/>
+					<FormControl
+						v-if="alert.doc.frequency === 'Cron'"
+						type="text"
+						:label="__('Cron')"
+						v-model="alert.doc.cron_format"
+						:placeholder="__('e.g. 0 0 12 * * ?')"
 					/>
 				</div>
+				<div class="flex flex-1 flex-col gap-3">
+					<FormControl
+						type="select"
+						:label="__('Channel')"
+						v-model="alert.doc.channel"
+						:options="[
+							{ label: __('Email'), value: 'Email' },
+							// { label: 'Telegram', value: 'Telegram' },
+						]"
+					/>
+					<FormControl
+						v-if="alert.doc.channel === 'Email'"
+						type="text"
+						:label="__('Recipients')"
+						v-model="alert.doc.recipients"
+						:placeholder="__('e.g. john@example.com, henry@example.com')"
+					/>
+					<FormControl
+						v-if="alert.doc.channel === 'Telegram'"
+						type="text"
+						:label="__('Telegram Chat ID')"
+						v-model="alert.doc.telegram_chat_id"
+						:placeholder="__('e.g. 123456789')"
+					/>
+				</div>
+			</div>
 
-				<div>
-					<Textarea
-						:label="__('Message')"
-						class="min-h-40 text-p-sm"
-						v-model="alert.doc.message"
-						:placeholder="`e.g.
+			<div class="flex flex-col">
+				<label class="mb-1.5 block text-xs text-ink-gray-5">{{
+					__('Send alert when')
+				}}</label>
+				<div class="flex gap-4" v-if="!alert.doc.custom_condition">
+					<FormControl
+						type="select"
+						class="flex-1"
+						:placeholder="__('Select Field')"
+						v-model="filterCondition.left"
+						:options="props.query.result.columnOptions"
+					/>
+					<FormControl
+						type="select"
+						class="flex-1"
+						v-model="filterCondition.operator"
+						:options="['==', '!=', '>', '>=', '<', '<=']"
+					/>
+					<FormControl
+						type="text"
+						class="flex-1"
+						v-model="filterCondition.right"
+						placeholder="e.g. 100"
+					/>
+				</div>
+				<div v-else>
+					<ExpressionEditor
+						language="python"
+						placeholder="e.g. order_count < 100"
+						class="inline-expression h-fit max-h-[10rem] min-h-[5rem] text-sm"
+						v-model="alert.doc.condition"
+						:column-options="props.query.result.columnOptions"
+					/>
+				</div>
+				<Checkbox
+					class="mt-1.5"
+					:label="__('Use Custom Condition')"
+					v-model="alert.doc.custom_condition"
+				/>
+			</div>
+
+			<div>
+				<Textarea
+					:label="__('Message')"
+					class="min-h-40 text-p-sm"
+					v-model="alert.doc.message"
+					:placeholder="`e.g.
 Hey,
 We have **low inventory** for **{{ title }}**.
 Please order more.
 Thanks,
 						`"
-					/>
+				/>
 
-					<div class="mt-2 text-p-sm text-gray-600">
-						{{
-							__(
-								'You can use markdown to format the message. Use double asterisks (**) for bold text. You can use the following fields in the message:',
-							)
-						}}
+				<div class="mt-2 text-p-sm text-gray-600">
+					{{
+						__(
+							'You can use markdown to format the message. Use double asterisks (**) for bold text. You can use the following fields in the message:',
+						)
+					}}
 
-						<div
-							v-html="
-								`<ul class='list-disc pl-4'>
+					<div
+						v-html="
+							`<ul class='list-disc pl-4'>
 							<li>{{ rows }} - The result of the query</li>
 							<li>{{ count }} - The number of rows in the query</li>
 						</ul>`
-							"
-						/>
-					</div>
+						"
+					/>
 				</div>
 			</div>
-		</template>
+		</div>
 	</Dialog>
 </template>

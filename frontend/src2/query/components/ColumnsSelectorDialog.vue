@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { MultiSelect } from 'frappe-ui'
 import { ChevronDown, SearchIcon } from 'lucide-vue-next'
 import { computed, inject, ref, watchEffect } from 'vue'
 import DraggableList from '../../components/DraggableList.vue'
@@ -23,11 +24,16 @@ const columnOptions = ref<ColumnOption[]>([])
 query.getColumnsForSelection().then((cols) => (columnOptions.value = cols))
 
 const columns = ref<HTMLElement | null>(null)
-function addColumns(options: ColumnOption[]) {
-	selectedColumns.value = options.map((o) => ({
-		name: o.value,
-		type: o.data_type,
-	}))
+function addColumns(columnNames: string[]) {
+	const optionMap = new Map(columnOptions.value.map((option) => [option.value, option]))
+	selectedColumns.value = columnNames.map((name) => {
+		const option = optionMap.get(name)
+		const existing = selectedColumns.value.find((column) => column.name === name)
+		return {
+			name,
+			type: option?.data_type || existing?.type || 'String',
+		}
+	})
 
 	setTimeout(() => {
 		columns.value?.scrollTo({
@@ -35,6 +41,14 @@ function addColumns(options: ColumnOption[]) {
 			behavior: 'smooth',
 		})
 	}, 100)
+}
+
+function updateSelectedColumns(value: unknown) {
+	addColumns(
+		Array.isArray(value)
+			? value.filter((item): item is string => typeof item === 'string')
+			: [],
+	)
 }
 
 const confirmDisabled = computed(
@@ -56,70 +70,66 @@ function confirmSelection() {
 
 <template>
 	<Dialog
-		v-model="showDialog"
-		:options="{
-			size: 'sm',
-			title: __('Select Columns'),
-			actions: [
-				{
-					label: __('Confirm'),
-					variant: 'solid',
-					disabled: confirmDisabled,
-					onClick: confirmSelection,
-				},
-				{
-					label: __('Cancel'),
-					onClick: () => (showDialog = false),
-				},
-			],
-		}"
+		v-model:open="showDialog"
+		size="sm"
+		:title="__('Select Columns')"
+		:actions="[
+			{
+				label: __('Confirm'),
+				variant: 'solid',
+				disabled: confirmDisabled,
+				onClick: confirmSelection,
+			},
+			{
+				label: __('Cancel'),
+				onClick: () => (showDialog = false),
+			},
+		]"
 	>
-		<template #body-content>
-			<div class="-mb-7 flex h-[22rem] flex-col p-0.5 text-base">
-				<Autocomplete
-					class="flex-shrink-0"
-					:multiple="true"
-					:options="columnOptions"
-					:placeholder="__('Add column')"
-					:modelValue="selectedColumns.map((c) => c.name)"
-					@update:modelValue="addColumns"
-				>
-					<template #target="{ togglePopover }">
-						<Button class="w-full !justify-start" @click="togglePopover">
-							<template #prefix>
-								<SearchIcon class="h-4 w-4 text-gray-500" stroke-width="1.5" />
-							</template>
-							<span class="flex-1 text-gray-500">{{ __('Add column') }}</span>
-							<template #suffix>
-								<ChevronDown
-									class="ml-auto h-4 w-4 text-gray-500"
-									stroke-width="1.5"
-								/>
-							</template>
-						</Button>
-					</template>
-				</Autocomplete>
-
-				<div ref="columns" class="relative mt-4 flex-1 overflow-y-scroll">
-					<DraggableList
-						v-model:items="selectedColumns"
-						:item-key="'name'"
-						group="columns"
-						:empty-text="__('No columns selected')"
-					>
-						<template #item-content="{ item }">
-							<div class="flex items-center gap-1.5">
-								<DataTypeIcon :columnType="item.type" />
-								<span class="truncate">{{ item.name }}</span>
-							</div>
+		<div class="-mb-7 flex h-[22rem] flex-col p-0.5 text-base">
+			<MultiSelect
+				class="flex-shrink-0"
+				:options="columnOptions"
+				:placeholder="__('Add column')"
+				:modelValue="selectedColumns.map((c) => c.name)"
+				@update:modelValue="updateSelectedColumns"
+			>
+				<template #trigger="{ toggleOpen, open }">
+					<Button class="w-full !justify-start" @click="toggleOpen">
+						<template #prefix>
+							<SearchIcon class="h-4 w-4 text-gray-500" stroke-width="1.5" />
 						</template>
-					</DraggableList>
-				</div>
+						<span class="flex-1 text-gray-500">{{ __('Add column') }}</span>
+						<template #suffix>
+							<ChevronDown
+								class="ml-auto h-4 w-4 text-gray-500 transition-transform"
+								:class="open ? 'rotate-180' : ''"
+								stroke-width="1.5"
+							/>
+						</template>
+					</Button>
+				</template>
+			</MultiSelect>
 
-				<p class="flex-shrink-0 bg-white pt-1.5 text-sm text-gray-500">
-					{{ __('{0} columns selected', String(selectedColumns.length)) }}
-				</p>
+			<div ref="columns" class="relative mt-4 flex-1 overflow-y-scroll">
+				<DraggableList
+					v-model:items="selectedColumns"
+					:item-key="'name'"
+					group="columns"
+					:empty-text="__('No columns selected')"
+				>
+					<template #item-content="{ item }">
+						<div class="flex items-center gap-1.5">
+							<DataTypeIcon :columnType="item.type" />
+							<span class="truncate">{{ item.name }}</span>
+						</div>
+					</template>
+				</DraggableList>
 			</div>
-		</template>
+
+			<p class="flex-shrink-0 bg-white pt-1.5 text-sm text-gray-500">
+				{{ __('{0} columns selected', String(selectedColumns.length)) }}
+			</p>
+		</div>
 	</Dialog>
 </template>

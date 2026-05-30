@@ -118,21 +118,19 @@ function onConfirm() {
 </script>
 
 <template>
-	<Dialog v-model="showDialog" :options="{ size: '4xl' }">
-		<template #body>
-			<div class="relative flex pb-10" :style="{ height: 'calc(100vh - 12rem)' }">
-				<TabbedSidebarLayout
-					:title="__('Pick Starting Data')"
-					:tabs="tabGroups"
-					v-model:activeTab="activeTab"
-				/>
-				<div class="absolute bottom-3 right-3 flex gap-2">
-					<Button @click="showDialog = false"> {{ __('Close') }} </Button>
-					<Button variant="solid" :disabled="confirmDisabled" @click="onConfirm">
-						{{ __('Confirm') }}
-					</Button>
-				</div>
+	<Dialog v-model:open="showDialog" size="4xl">
+		<div class="relative flex pb-10" :style="{ height: 'calc(100vh - 12rem)' }">
+			<TabbedSidebarLayout
+				:title="__('Pick Starting Data')"
+				:tabs="tabGroups"
+				v-model:activeTab="activeTab"
+			/>
+			<div class="absolute bottom-3 right-3 flex gap-2">
+				<Button @click="showDialog = false"> {{ __('Close') }} </Button>
+				<Button variant="solid" :disabled="confirmDisabled" @click="onConfirm">
+					{{ __('Confirm') }}
+				</Button>
 			</div>
-		</template>
+		</div>
 	</Dialog>
 </template>

@@ -55,6 +55,7 @@ export default defineConfig({
 			'highlight.js/lib/core',
 			'echarts/core',
 		],
+		exclude: ['frappe-ui'],
 	},
 	define: {
 		// enable hydration mismatch details in production build
