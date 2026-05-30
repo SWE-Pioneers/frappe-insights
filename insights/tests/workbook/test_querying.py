@@ -1,8 +1,8 @@
 import frappe
 from frappe.utils import add_days, nowdate
 
-from insights.insights.doctype.insights_data_source_v3.ibis_utils import CircularQueryReferenceError
 from insights.insights.doctype.insights_data_source_v3.insights_data_source_v3 import db_connections
+from insights.query_builder import CircularQueryReferenceError
 from insights.tests.base import InsightsIntegrationTestCase
 from insights.tests.factories import (
     DT,

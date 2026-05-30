@@ -10,15 +10,13 @@ from frappe.monitor import add_data_to_monitor
 
 from insights.api.shared import is_public
 from insights.decorators import insights_whitelist, validate_type
-from insights.insights.doctype.insights_data_source_v3.ibis_utils import (
-    get_columns_from_schema,
-)
 from insights.insights.doctype.insights_table_v3.insights_table_v3 import (
     InsightsTablev3,
 )
 from insights.insights.doctype.insights_team.insights_team import (
     check_data_source_permission,
 )
+from insights.query_builder import get_columns_from_schema
 
 
 @insights_whitelist()

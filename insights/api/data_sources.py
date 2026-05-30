@@ -2,11 +2,7 @@ import frappe
 from frappe.utils.caching import site_cache
 
 from insights.decorators import insights_whitelist, validate_type
-from insights.insights.doctype.insights_data_source_v3.ibis_utils import (
-    execute_ibis_query,
-    get_columns_from_schema,
-    to_insights_type,
-)
+from insights.execution import execute_ibis_query
 from insights.insights.doctype.insights_table_link_v3.insights_table_link_v3 import (
     InsightsTableLinkv3,
 )
@@ -14,6 +10,7 @@ from insights.insights.doctype.insights_team.insights_team import (
     check_data_source_permission,
     check_table_permission,
 )
+from insights.query_builder import get_columns_from_schema, to_insights_type
 
 
 @insights_whitelist()

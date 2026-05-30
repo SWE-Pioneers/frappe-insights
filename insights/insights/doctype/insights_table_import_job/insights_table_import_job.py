@@ -17,7 +17,7 @@ from frappe.utils.password import get_decrypted_password
 from frappe.utils.safe_exec import safe_exec
 
 from insights.insights.doctype.insights_data_source_v3.data_warehouse import WarehouseTableWriter
-from insights.insights.doctype.insights_data_source_v3.ibis_utils import SafePandasDataFrame
+from insights.query_builder import SafePandasDataFrame
 from insights.utils import InsightsDataSourcev3
 
 parse_cron = lru_cache(croniter)

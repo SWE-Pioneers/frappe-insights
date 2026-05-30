@@ -7,10 +7,8 @@ from frappe.model.document import Document
 from frappe.utils.caching import site_cache
 from ibis import _
 
-from insights.insights.doctype.insights_data_source_v3.ibis_utils import (
-    exec_with_return,
-)
 from insights.insights.doctype.insights_table_v3.insights_table_v3 import get_table_name
+from insights.query_builder import exec_with_return
 
 
 class InsightsTeam(Document):

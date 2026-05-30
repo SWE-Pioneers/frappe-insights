@@ -49,7 +49,7 @@ class InsightsTablev3(Document):
             self._validate_incremental_sync_config()
 
         if self.before_import_script:
-            from insights.insights.doctype.insights_data_source_v3.ibis_utils import exec_with_return
+            from insights.query_builder import exec_with_return
 
             try:
                 table = self.get_ibis_table(self.data_source, self.table, use_live_connection=True)

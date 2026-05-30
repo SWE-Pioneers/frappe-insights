@@ -2,6 +2,7 @@
 # For license information, please see license.txt
 
 import base64
+import copy
 from contextlib import contextmanager, suppress
 from io import BytesIO
 
@@ -14,18 +15,19 @@ from frappe.model.document import Document
 from ibis import _
 
 from insights.decorators import insights_whitelist
-from insights.insights.doctype.insights_data_source_v3.ibis_utils import (
-    CircularQueryReferenceError,
-    IbisQueryBuilder,
-    execute_ibis_query,
-    get_columns_from_schema,
-)
+from insights.execution import execute_ibis_query
 from insights.insights.query_utils import (
     extract_query_deps_from_operations,
     find_cycle,
     get_direct_dependencies,
     sync_query_references,
     transitive_closure,
+)
+from insights.query_builder import (
+    CircularQueryReferenceError,
+    IbisQueryBuilder,
+    evaluate_expression,
+    get_columns_from_schema,
 )
 from insights.utils import deep_convert_dict_to_dict
 
@@ -154,7 +156,7 @@ class InsightsQueryv3(Document):
         page_size: int = 100,
     ):
         with set_adhoc_filters(adhoc_filters):
-            ibis_query = self.build(active_operation_idx)
+            ibis_query = self.build_with_adhoc_filters(active_operation_idx)
 
         results, time_taken = execute_ibis_query(
             ibis_query,
@@ -194,7 +196,7 @@ class InsightsQueryv3(Document):
     @insights_whitelist()
     def get_count(self, active_operation_idx: int | None = None, adhoc_filters: dict | None = None):
         with set_adhoc_filters(adhoc_filters):
-            ibis_query = self.build(active_operation_idx)
+            ibis_query = self.build_with_adhoc_filters(active_operation_idx)
 
         count_query = ibis_query.aggregate(count=_.count())
         count_results, _time_taken = execute_ibis_query(
@@ -211,7 +213,7 @@ class InsightsQueryv3(Document):
         self, format: str = "csv", active_operation_idx: int | None = None, adhoc_filters: dict | None = None
     ):
         with set_adhoc_filters(adhoc_filters):
-            ibis_query = self.build(active_operation_idx)
+            ibis_query = self.build_with_adhoc_filters(active_operation_idx)
 
         import ibis.expr.datatypes as dt
 
@@ -252,7 +254,7 @@ class InsightsQueryv3(Document):
         adhoc_filters: dict | None = None,
     ):
         with set_adhoc_filters(adhoc_filters):
-            ibis_query = self.build(active_operation_idx)
+            ibis_query = self.build_with_adhoc_filters(active_operation_idx)
 
         values_query = (
             ibis_query.select(column_name)
@@ -278,10 +280,27 @@ class InsightsQueryv3(Document):
         columns = get_columns_from_schema(ibis_query.schema())
         return columns
 
+    def build_with_adhoc_filters(self, active_operation_idx=None, use_live_connection=None):
+        operations = frappe.parse_json(self.operations) or []
+        if (
+            active_operation_idx is not None
+            and active_operation_idx >= 0
+            and active_operation_idx < len(operations)
+        ):
+            operations = operations[: active_operation_idx + 1]
+
+        operations = append_adhoc_filter_operation(operations, self.name)
+        original_operations = self.operations
+        try:
+            self.operations = frappe.as_json(operations)
+            return self.build(use_live_connection=use_live_connection)
+        finally:
+            self.operations = original_operations
+
     def evaluate_alert_expression(self, expression):
         builder = IbisQueryBuilder(self)
         ibis_query = builder.build()
-        filter_expression = builder.evaluate_expression(expression)
+        filter_expression = evaluate_expression(builder, expression)
         ibis_query = ibis_query.filter(filter_expression)
         ibis_query = ibis_query.limit(1)
         results, _ = execute_ibis_query(
@@ -470,3 +489,25 @@ def set_adhoc_filters(filters):
     frappe.local.insights_adhoc_filters = filters or current or {}
     yield
     frappe.local.insights_adhoc_filters = None
+
+
+def append_adhoc_filter_operation(operations, query_name):
+    operations = copy.deepcopy(operations)
+    adhoc_filters_by_query = getattr(frappe.local, "insights_adhoc_filters", None) or {}
+    if query_name not in adhoc_filters_by_query:
+        return operations
+
+    adhoc_filters = copy.deepcopy(adhoc_filters_by_query[query_name])
+    if (
+        adhoc_filters
+        and isinstance(adhoc_filters, dict)
+        and adhoc_filters.get("type") == "filter_group"
+        and adhoc_filters.get("filters")
+    ):
+        adhoc_filters["filters"] = [
+            f for f in adhoc_filters["filters"] if not f.get("expression", {}).get("type")
+        ]
+        if adhoc_filters["filters"]:
+            operations.append(adhoc_filters)
+
+    return operations

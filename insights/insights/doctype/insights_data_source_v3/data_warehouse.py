@@ -508,7 +508,7 @@ class WarehouseTableImporter:
 
     def _apply_before_import_script(self) -> None:
         if self.settings.before_import_script:
-            from .ibis_utils import exec_with_return
+            from insights.query_builder import exec_with_return
 
             self.remote_table = exec_with_return(
                 self.settings.before_import_script, {"table": self.remote_table}
