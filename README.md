@@ -1,6 +1,6 @@
 <div align="center" markdown="1">
 
-<img src=".github/new-logo.svg" alt="Frappe Insights logo" height="80"/>
+<img src="frontend/src2/assets/insights-logo-new.svg" alt="Frappe Insights logo" height="80"/>
 <h1>Frappe Insights</h1>
 
 **Open Source Business Intelligence Tool**
