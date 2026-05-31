@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import { Building2, CircleUser, DatabaseZap, KeyRound, SettingsIcon, Users } from 'lucide-vue-next'
-import { defineAsyncComponent, shallowRef } from 'vue'
-import TabbedSidebarLayout, { Tab, TabGroup } from '../components/TabbedSidebarLayout.vue'
+import { defineAsyncComponent } from 'vue'
+import { SettingsDialog } from 'frappe-ui'
+import type { SettingsSection } from 'frappe-ui'
 import { __ } from '../translation'
 
 const showDialog = defineModel({ required: true, default: false })
-const tabGroups: TabGroup[] = [
+
+const sections: SettingsSection[] = [
 	{
-		groupLabel: __('Account'),
-		tabs: [
+		label: __('Account'),
+		items: [
 			{
 				label: __('Profile'),
 				icon: CircleUser,
@@ -17,18 +19,13 @@ const tabGroups: TabGroup[] = [
 		],
 	},
 	{
-		groupLabel: __('Organization'),
-		tabs: [
+		label: __('Organization'),
+		items: [
 			{
 				label: __('General'),
 				icon: SettingsIcon,
 				component: defineAsyncComponent(() => import('./GeneralSettings.vue')),
 			},
-			// {
-			// 	label: 'Email Accounts',
-			// 	icon: Mail,
-			// 	component: () => {},
-			// },
 			{
 				label: __('Users'),
 				icon: Users,
@@ -47,19 +44,8 @@ const tabGroups: TabGroup[] = [
 		],
 	},
 ]
-const activeTab = shallowRef<Tab>(tabGroups[0].tabs[0])
 </script>
 
 <template>
-	<Dialog v-model="showDialog" :options="{ size: '4xl' }">
-		<template #body>
-			<div class="relative flex text-base" :style="{ height: 'calc(100vh - 12rem)' }">
-				<TabbedSidebarLayout
-					:title="__('Settings')"
-					:tabs="tabGroups"
-					v-model:activeTab="activeTab"
-				/>
-			</div>
-		</template>
-	</Dialog>
+	<SettingsDialog v-model="showDialog" :sections="sections" />
 </template>

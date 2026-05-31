@@ -118,8 +118,8 @@ function onConfirm() {
 </script>
 
 <template>
-	<Dialog v-model:open="showDialog" size="4xl">
-		<div class="relative flex pb-10" :style="{ height: 'calc(100vh - 12rem)' }">
+	<Dialog v-model:open="showDialog" size="4xl" bare>
+		<div class="relative flex" :style="{ height: 'calc(100vh - 12rem)' }">
 			<TabbedSidebarLayout
 				:title="__('Pick Starting Data')"
 				:tabs="tabGroups"

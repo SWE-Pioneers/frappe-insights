@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import { Sidebar } from 'frappe-ui'
 import { computed } from 'vue'
-import SidebarLink from './SidebarLink.vue'
 
 export type Tab = {
 	label: string
@@ -12,50 +12,43 @@ export type TabGroup = {
 	tabs: Tab[]
 }
 export type Tabs = Tab[] | TabGroup[]
-const props = defineProps<{ title?: string; tabs: Tabs }>()
 
-const tabGroups = computed(() => {
-	if (!props.tabs.length) {
-		return []
-	}
-	if (props.tabs[0].hasOwnProperty('tabs')) {
-		return props.tabs as TabGroup[]
-	}
-	return [{ groupLabel: '', tabs: props.tabs as Tab[] }]
-})
+const props = defineProps<{ title?: string; tabs: Tabs }>()
 
 const activeTab = defineModel<Tab>('activeTab', {
 	type: Object,
 })
+
+const tabGroups = computed(() => {
+	if (!props.tabs.length) return []
+	if ('tabs' in props.tabs[0]) return props.tabs as TabGroup[]
+	return [{ groupLabel: '', tabs: props.tabs as Tab[] }]
+})
+
+const sections = computed(() =>
+	tabGroups.value.map((group) => ({
+		label: group.groupLabel,
+		items: group.tabs.map((tab) => ({
+			label: tab.label,
+			icon: tab.icon,
+			isActive: activeTab.value?.label === tab.label,
+			onClick: () => (activeTab.value = tab),
+		})),
+	})),
+)
 </script>
 
 <template>
 	<div class="flex h-full w-full">
-		<div class="flex w-52 shrink-0 flex-col overflow-hidden bg-gray-50 p-2">
-			<h1 v-if="props.title" class="px-2 pt-2 text-lg font-semibold">
-				{{ props.title }}
-			</h1>
-			<div v-for="group in tabGroups" class="flex min-h-[6rem] flex-col overflow-hidden">
-				<div
-					v-if="group.groupLabel"
-					class="mb-2 mt-4 flex flex-shrink-0 px-2 text-sm font-medium text-gray-600"
-				>
-					<span>{{ group.groupLabel }}</span>
-				</div>
-				<nav class="flex-1 space-y-1 overflow-y-scroll p-0.5">
-					<SidebarLink
-						v-for="tab in group.tabs"
-						:icon="tab.icon"
-						:label="tab.label"
-						class="w-full"
-						:is-active="activeTab?.label == tab.label"
-						@click="activeTab = tab"
-					/>
-				</nav>
-			</div>
-		</div>
+		<Sidebar :sections="sections" disable-collapse>
+			<template #header>
+				<h1 v-if="props.title" class="px-2 py-2 text-lg font-semibold text-ink-gray-8">
+					{{ props.title }}
+				</h1>
+			</template>
+		</Sidebar>
 		<div class="flex h-full flex-1 flex-col overflow-hidden">
-			<component v-if="activeTab && activeTab.component" :is="activeTab.component" />
+			<component v-if="activeTab?.component" :is="activeTab.component" />
 		</div>
 	</div>
 </template>
