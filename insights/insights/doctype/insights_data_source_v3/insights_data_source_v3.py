@@ -2,6 +2,7 @@
 # For license information, please see license.txt
 
 
+import os
 import re
 from contextlib import contextmanager
 
@@ -273,6 +274,37 @@ class InsightsDataSourcev3(InsightsDataSourceDocument, Document):
         insights.db_connections[self.name] = db
         return db
 
+    @contextmanager
+    def write_connection(self):
+        """Safely yield a writable DuckDB connection for this data source.
+
+        Evicts the cached read-only connection, opens a write connection with
+        access to private files, then disconnects on exit so the read
+        connection is lazily re-opened cleanly.
+
+        Only supported for local DuckDB data sources.
+        """
+        if self.database_type != "DuckDB" or (self.database_name or "").startswith("http"):
+            raise NotImplementedError(
+                f"write_connection() is only supported for local DuckDB data sources, not '{self.database_type}'"
+            )
+
+        from frappe.utils import get_files_path
+
+        from .connectors.duckdb import get_duckdb_path, local_duckdb_write_connection
+
+        path = get_duckdb_path(self)
+        private_files_path = os.path.realpath(get_files_path(is_private=1))
+        with local_duckdb_write_connection(
+            path,
+            cache_key=self.name,
+            allowed_dir=private_files_path,
+        ) as db:
+            yield db
+
+    def get_sqlglot_dialect(self) -> str | None:
+        return db_type_to_sqlglot_dialect(self.database_type)
+
     def _get_db_connection(self) -> BaseBackend:
         if self.is_site_db:
             return get_sitedb_connection()
@@ -436,3 +468,18 @@ def db_connections():
         yield
     finally:
         after_request()
+
+
+def db_type_to_sqlglot_dialect(db_type: str) -> str | None:
+    if db_type == "REST API":
+        return "duckdb"
+
+    return {
+        "MariaDB": "mysql",
+        "PostgreSQL": "postgres",
+        "SQLite": "sqlite",
+        "DuckDB": "duckdb",
+        "BigQuery": "bigquery",
+        "MSSQL": "tsql",
+        "ClickHouse": "clickhouse",
+    }.get(db_type)
