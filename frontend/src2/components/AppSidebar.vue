@@ -41,6 +41,7 @@ import {
 	LogOut,
 	MessageCircle,
 	SettingsIcon,
+	Sparkles,
 	ToggleRight,
 } from 'lucide-vue-next'
 import { computed, ref } from 'vue'
@@ -134,6 +135,11 @@ function loginToFC() {
 const sections = [
 	{
 		items: [
+			{
+				label: __('Assistant'),
+				icon: Sparkles,
+				to: { name: 'Assistant' },
+			},
 			{
 				label: __('Dashboards'),
 				icon: LayoutGrid,

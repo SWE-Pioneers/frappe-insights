@@ -11,7 +11,7 @@ const routes = [
 	{
 		path: '/',
 		name: 'Home',
-		redirect: '/dashboards',
+		redirect: '/assistant',
 		component: () => import('./home/Home.vue'),
 	},
 	{
@@ -98,6 +98,12 @@ const routes = [
 			hideSidebar: true,
 			isGuestView: true,
 		},
+	},
+	{
+		props: true,
+		name: 'Assistant',
+		path: '/assistant',
+		component: () => import('./assistant/Assistant.vue'),
 	},
 	{
 		path: '/:pathMatch(.*)*',
