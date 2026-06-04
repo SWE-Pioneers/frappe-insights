@@ -38,6 +38,12 @@ app.config.errorHandler = (err, vm, info) => {
 	return false
 }
 
+// Safety net for stray promise rejections (e.g. detached fire-and-forget
+// calls). Logs only — fatal, view-level failures are surfaced by ErrorBoundary.
+window.addEventListener('unhandledrejection', (event) => {
+	console.error('Unhandled promise rejection:', event.reason)
+})
+
 registerGlobalComponents(app)
 registerControllers(app)
 

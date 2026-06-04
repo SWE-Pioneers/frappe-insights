@@ -43,6 +43,8 @@ export default function useDocumentResource<T extends Document>(
 	const isLocal = ref(docname.value.startsWith('new-'))
 	const isLoading = ref(docname.value && !docname.value.startsWith('new-'))
 	const isLoaded = ref(false)
+	const isError = ref(false)
+	const loadError = ref<any>(null)
 	const isSaving = ref(false)
 	const isDeleting = ref(false)
 	const autoSave = ref(options.enableAutoSave ?? false)
@@ -124,12 +126,17 @@ export default function useDocumentResource<T extends Document>(
 		if (isLocal.value) return
 
 		isLoading.value = true
+		isError.value = false
+		loadError.value = null
 
 		const _doc = await call(methods.get, {
 			doctype,
 			name: docname.value,
 		})
-			.catch(showErrorToast)
+			.catch((err: any) => {
+				isError.value = true
+				loadError.value = err
+			})
 			.finally(() => (isLoading.value = false))
 
 		if (!_doc) return
@@ -240,6 +247,8 @@ export default function useDocumentResource<T extends Document>(
 		islocal: isLocal,
 		loading: isLoading,
 		isloaded: isLoaded,
+		iserror: isError,
+		loaderror: loadError,
 		saving: isSaving,
 		deleting: isDeleting,
 		autoSave: autoSave,

@@ -5,9 +5,11 @@
 		</div>
 
 		<div class="flex h-full flex-1 flex-col overflow-auto">
-			<Suspense>
-				<RouterView />
-			</Suspense>
+			<ErrorBoundary>
+				<Suspense>
+					<RouterView />
+				</Suspense>
+			</ErrorBoundary>
 		</div>
 
 		<template>
@@ -28,6 +30,7 @@ import { computed, ref, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import { Toaster } from 'vue-sonner'
 import AppSidebar from './components/AppSidebar.vue'
+import ErrorBoundary from './components/ErrorBoundary.vue'
 import { dialogs } from './helpers/confirm_dialog'
 import { attachRealtimeListener, waitUntil } from './helpers/index.ts'
 import { createToast } from './helpers/toasts.ts'

@@ -19,7 +19,12 @@ const workbook = useWorkbook(props.workbook_name)
 provide(workbookKey, workbook)
 window.workbook = workbook
 
-await waitUntil(() => workbook.isloaded)
+await waitUntil(() => workbook.isloaded || workbook.iserror)
+
+// surface a fatal load failure to the app-level ErrorBoundary
+if (workbook.iserror) {
+	throw workbook.loaderror
+}
 
 if (workbook.doc.queries.length === 0) {
 	workbook.addQuery()
