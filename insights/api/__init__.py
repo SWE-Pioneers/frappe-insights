@@ -28,9 +28,16 @@ def get_app_version():
 
 @insights_whitelist()
 def get_user_info():
-    from insights.insights.doctype.insights_team.insights_team import is_admin
-
-    _is_admin = is_admin(frappe.session.user)
+    _is_admin = frappe.session.user == "Administrator" or bool(
+        frappe.db.exists(
+            "Has Role",
+            {
+                "parenttype": "User",
+                "parent": frappe.session.user,
+                "role": "Insights Admin",
+            },
+        )
+    )
     is_user = frappe.db.exists(
         "Has Role",
         {
