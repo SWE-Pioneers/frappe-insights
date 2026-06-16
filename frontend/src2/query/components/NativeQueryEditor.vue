@@ -1,15 +1,17 @@
 <script setup lang="ts">
-import { useTimeAgo } from '@vueuse/core'
-import { MoreHorizontal, Play, Wand2 } from 'lucide-vue-next'
-import { computed, inject, ref } from 'vue'
+import { Wand2 } from 'lucide-vue-next'
+import { computed, h, inject, ref } from 'vue'
 import Code from '../../components/Code.vue'
-import ContentEditable from '../../components/ContentEditable.vue'
+import { useShortcut } from '../../composables/useShortcut'
 import useDataSourceStore from '../../data_source/data_source'
 import { wheneverChanges } from '../../helpers'
 import { createToast } from '../../helpers/toasts'
 import { __ } from '../../translation'
 import { Query } from '../query'
+import QueryExecutionStatus from './QueryExecutionStatus.vue'
+import QueryToolbar from './QueryToolbar.vue'
 import QueryDataTable from './QueryDataTable.vue'
+import QueryInfo from './QueryInfo.vue'
 import SchemaExplorer from './SchemaExplorer.vue'
 import DataSourceSelector from './source_selector/DataSourceSelector.vue'
 
@@ -20,6 +22,7 @@ query.execute()
 const operation = query.getSQLOperation()
 const data_source = ref(operation ? operation.data_source : '')
 const sql = ref(operation ? operation.raw_sql : '')
+
 function execute(force: boolean = false) {
 	if (!data_source.value) {
 		createToast({
@@ -56,6 +59,14 @@ async function format() {
 		formatting.value = false
 	}
 }
+
+const extraActions = () => [
+	{
+		label: __('Format SQL'),
+		icon: h(Wand2, { class: 'h-3 w-3 text-gray-700', strokeWidth: 1.5 }),
+		onClick: () => format(),
+	},
+]
 
 const codeEditor = ref<InstanceType<typeof Code> | null>(null)
 function insertTextIntoEditor(text: string) {
@@ -104,70 +115,44 @@ const completions = computed(() => {
 		tables,
 	}
 })
+
+useShortcut('Meta+e', () => {
+	execute(true)
+})
 </script>
 
 <template>
-	<div class="flex flex-1 gap-4 overflow-hidden p-4">
-		<div class="flex flex-1 flex-col gap-4 overflow-hidden">
-			<div class="relative flex h-[55%] w-full flex-col rounded border">
-				<div class="flex flex-shrink-0 items-center gap-1 border-b p-1">
-					<DataSourceSelector v-model="data_source" placeholder="Select a data source" />
-					<ContentEditable
-						class="flex h-7 cursor-text items-center justify-center rounded bg-white px-2 text-base leading-7 text-gray-800 focus-visible:ring-1 focus-visible:ring-gray-600"
-						placeholder="Untitled Dashboard"
-						:modelValue="query.doc.title"
-						@returned="query.doc.title = $event"
-						@blur="query.doc.title = $event"
-					></ContentEditable>
-				</div>
-				<div class="flex-1 overflow-hidden">
-					<Code
-						ref="codeEditor"
-						:key="completions.tables.length"
-						v-model="sql"
-						language="sql"
-						:schema="completions.schema"
-						:tables="completions.tables"
-					/>
-				</div>
-				<div class="flex flex-shrink-0 gap-1 border-t p-1">
-					<Button @click="execute(true)" :label="__('Execute')">
-						<template #prefix>
-							<Play class="h-3.5 w-3.5 text-gray-700" stroke-width="1.5" />
-						</template>
-					</Button>
-					<Dropdown
-						:button="{ icon: MoreHorizontal }"
-						:options="[
-							{
-								label: __('Format SQL'),
-								icon: Wand2,
-								onClick: () => format(),
-							},
-						]"
-					/>
-				</div>
+	<div class="flex flex-1 overflow-hidden">
+		<div class="relative flex h-full flex-1 flex-col gap-3 overflow-hidden p-4">
+			<!-- Toolbar -->
+			<QueryToolbar :on-execute="() => execute(true)" :extra-actions="extraActions">
+				<DataSourceSelector v-model="data_source" placeholder="Select a data source" />
+			</QueryToolbar>
+
+			<!-- SQL Editor -->
+			<div class="relative flex flex-1 flex-col overflow-hidden rounded border">
+				<Code
+					ref="codeEditor"
+					:key="completions.tables.length"
+					v-model="sql"
+					language="sql"
+					:schema="completions.schema"
+					:tables="completions.tables"
+				/>
 			</div>
-			<div
-				v-show="query.result.executedSQL"
-				class="tnum flex flex-shrink-0 items-center gap-2 text-sm text-gray-600"
-			>
-				<div class="h-2 w-2 rounded-full bg-green-500"></div>
-				<div class="flex items-center gap-1">
-					<span v-if="query.result.timeTaken == -1">
-						{{ __('Fetched from cache') }}
-					</span>
-					<span v-else>
-						{{ __('Fetched in {0}s', String(query.result.timeTaken)) }}
-					</span>
-					<span> {{ useTimeAgo(query.result.lastExecutedAt).value }} </span>
-				</div>
-			</div>
-			<div class="relative flex w-full flex-1 flex-col overflow-hidden rounded border">
+
+			<!-- Results Table -->
+			<QueryExecutionStatus />
+			<div class="relative flex h-[45%] w-full flex-col overflow-hidden rounded border">
 				<QueryDataTable :query="query" :enable-alerts="true" />
 			</div>
 		</div>
-		<div class="w-64 flex-shrink-0">
+
+		<!-- Right Sidebar -->
+		<div class="relative flex h-full w-[19rem] flex-shrink-0 flex-col overflow-y-auto bg-white">
+			<QueryInfo />
+
+			<!-- Schema Explorer -->
 			<SchemaExplorer :schema="dataSourceSchema" @insert-text="insertTextIntoEditor" />
 		</div>
 	</div>

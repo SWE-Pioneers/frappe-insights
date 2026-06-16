@@ -1,6 +1,8 @@
 # Copyright (c) 2022, Frappe Technologies Pvt. Ltd. and contributors
 # For license information, please see license.txt
 
+import os
+
 import frappe
 from frappe.defaults import get_user_default, set_user_default
 from frappe.handler import is_valid_http_method, is_whitelisted
@@ -26,22 +28,9 @@ def get_app_version():
 
 @insights_whitelist()
 def get_user_info():
-    is_admin = frappe.db.exists(
-        "Has Role",
-        {
-            "parenttype": "User",
-            "parent": frappe.session.user,
-            "role": ["in", ("Insights Admin")],
-        },
-    )
-    is_user = frappe.db.exists(
-        "Has Role",
-        {
-            "parenttype": "User",
-            "parent": frappe.session.user,
-            "role": ["in", ("Insights User")],
-        },
-    )
+    roles = frappe.get_roles()
+    is_user = "Insights User" in roles
+    is_admin = "Insights Admin" in roles
 
     user = frappe.db.get_value(
         "User", frappe.session.user, ["first_name", "last_name", "user_type", "language"], as_dict=1
@@ -49,10 +38,8 @@ def get_user_info():
 
     locale = user.get("language") or frappe.db.get_single_value("System Settings", "language") or "en"
 
-    _is_admin = is_admin or frappe.session.user == "Administrator"
-
     has_demo_data = False
-    if _is_admin:
+    if is_admin:
         from insights.setup.setup_wizard import check_demo_data_exists
 
         has_demo_data = check_demo_data_exists()
@@ -61,8 +48,9 @@ def get_user_info():
         "email": frappe.session.user,
         "first_name": user.get("first_name"),
         "last_name": user.get("last_name"),
-        "is_admin": _is_admin,
+        "is_admin": is_admin,
         "is_user": is_user or frappe.session.user == "Administrator",
+        "can_download": is_admin or bool(frappe.db.get_single_value("Insights Settings", "allow_download")),
         # TODO: move to `get_session_info` since not user specific
         "country": frappe.db.get_single_value("System Settings", "country"),
         "locale": locale,
@@ -115,7 +103,7 @@ def get_file_data(filename: str):
     check_data_source_permission("uploads")
 
     file, ext = get_csv_file(filename)
-    file_path = file.get_full_path()
+    file_path = os.path.realpath(file.get_full_path())
     file_name = file.file_name.split(".")[0]
     file_name = frappe.scrub(file_name)
 
@@ -147,7 +135,7 @@ def import_csv_data(filename: str, tablename: str = ""):
     check_data_source_permission("uploads")
 
     file, ext = get_csv_file(filename)
-    file_path = file.get_full_path()
+    file_path = os.path.realpath(file.get_full_path())
     table_name = frappe.scrub(tablename) if tablename else frappe.scrub(file.file_name.split(".")[0])
 
     create_uploads_if_not_exists()
@@ -214,7 +202,7 @@ def _execute_doc_method(doc, method: str, args: dict | None = None, ignore_permi
         is_whitelisted(fn)
         is_valid_http_method(fn)
 
-    new_kwargs = frappe.get_newargs(fn, args)
+    new_kwargs = frappe.get_newargs(fn, args or {})
     response = doc.run_method(method, **new_kwargs)
     frappe.response.docs.append(doc)
     frappe.response["message"] = response

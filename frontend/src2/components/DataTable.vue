@@ -225,11 +225,11 @@ const pagination = usePagination({
 
 const colorByPercentage = {
 	0: 'bg-white text-gray-900',
-	10: 'bg-blue-100 text-blue-900',
-	30: 'bg-blue-200 text-blue-900',
-	60: 'bg-blue-300 text-blue-900',
-	90: 'bg-blue-400 text-blue-900',
-	100: 'bg-blue-500 text-white',
+	10: 'bg-[#338AD8]/10 text-gray-900',
+	30: 'bg-[#338AD8]/30 text-gray-900',
+	60: 'bg-[#338AD8]/60 text-gray-900',
+	90: 'bg-[#338AD8]/90 text-white',
+	100: 'bg-[#338AD8] text-white',
 }
 
 const colorByValues = computed(() => {
@@ -788,17 +788,17 @@ function toggleNewColumn() {
 		</slot>
 	</div>
 
-	<div
-		v-else-if="props.loading && !props.filtering"
-		class="absolute top-10 flex h-[calc(100%-2.5rem)] rounded-b w-full items-center justify-center bg-white/30 backdrop-blur-sm"
-	>
-		<LoadingIndicator class="h-5 w-5 text-gray-500" />
-	</div>
-
 	<div v-else class="flex h-full w-full items-center justify-center">
 		<div class="flex flex-col items-center gap-2">
 			<Table2Icon class="h-16 w-16 text-gray-300" stroke-width="1.5" />
 			<p class="text-center text-gray-500">No data to display.</p>
 		</div>
+	</div>
+
+	<div
+		v-if="props.loading && !props.filtering"
+		class="absolute top-10 flex h-[calc(100%-2.5rem)] rounded-b w-full items-center justify-center bg-white/30 backdrop-blur-sm"
+	>
+		<LoadingIndicator class="h-5 w-5 text-gray-500" />
 	</div>
 </template>

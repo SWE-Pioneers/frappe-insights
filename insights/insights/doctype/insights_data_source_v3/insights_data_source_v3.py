@@ -2,15 +2,16 @@
 # For license information, please see license.txt
 
 
+import os
 import re
 from contextlib import contextmanager
 
 import frappe
 from frappe.model.document import Document
+from frappe.utils.telemetry import capture
 from ibis import BaseBackend
 
 import insights
-from insights.api.telemetry import capture_event
 from insights.insights.doctype.insights_table_link_v3.insights_table_link_v3 import (
     InsightsTableLinkv3,
 )
@@ -81,7 +82,7 @@ class InsightsDataSourceDocument:
 
     def after_insert(self):
         if not self.is_site_db:
-            capture_event("data_source_created")
+            capture("data_source_created", "insights")
 
     def on_update(self):
         if self.type == "REST API":
@@ -278,8 +279,8 @@ class InsightsDataSourcev3(InsightsDataSourceDocument, Document):
         """Safely yield a writable DuckDB connection for this data source.
 
         Evicts the cached read-only connection, opens a write connection with
-        access to private files (needed for CSV/Excel/JSON imports), then
-        disconnects on exit so the read connection is lazily re-opened cleanly.
+        access to private files, then disconnects on exit so the read
+        connection is lazily re-opened cleanly.
 
         Only supported for local DuckDB data sources.
         """
@@ -288,11 +289,21 @@ class InsightsDataSourcev3(InsightsDataSourceDocument, Document):
                 f"write_connection() is only supported for local DuckDB data sources, not '{self.database_type}'"
             )
 
+        from frappe.utils import get_files_path
+
         from .connectors.duckdb import get_duckdb_path, local_duckdb_write_connection
 
         path = get_duckdb_path(self)
-        with local_duckdb_write_connection(path, cache_key=self.name, allow_private_files=True) as db:
+        private_files_path = os.path.realpath(get_files_path(is_private=1))
+        with local_duckdb_write_connection(
+            path,
+            cache_key=self.name,
+            allowed_dir=private_files_path,
+        ) as db:
             yield db
+
+    def get_sqlglot_dialect(self) -> str | None:
+        return db_type_to_sqlglot_dialect(self.database_type)
 
     def _get_db_connection(self) -> BaseBackend:
         if self.is_site_db:
@@ -345,8 +356,7 @@ class InsightsDataSourcev3(InsightsDataSourceDocument, Document):
         if not contains_special_chars:
             return db.list_tables()
 
-        quoted_db_name = f"{db.dialect.QUOTE_START}{database_name}{db.dialect.QUOTE_END}"
-        return db.list_tables(database=quoted_db_name)
+        return db.list_tables(database=database_name)
 
     @frappe.whitelist()
     def test_connection(self, raise_exception: bool | None = False):
@@ -457,3 +467,18 @@ def db_connections():
         yield
     finally:
         after_request()
+
+
+def db_type_to_sqlglot_dialect(db_type: str) -> str | None:
+    if db_type == "REST API":
+        return "duckdb"
+
+    return {
+        "MariaDB": "mysql",
+        "PostgreSQL": "postgres",
+        "SQLite": "sqlite",
+        "DuckDB": "duckdb",
+        "BigQuery": "bigquery",
+        "MSSQL": "tsql",
+        "ClickHouse": "clickhouse",
+    }.get(db_type)

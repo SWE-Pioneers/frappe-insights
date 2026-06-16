@@ -556,7 +556,7 @@ def textsplit(column: ir.StringColumn, delimiter: str, max_splits: int):
     """
     query = frappe.flags.current_ibis_query
     if query is None:
-        frappe.throw("Query not found")
+        return column  # return original column if query is not found
 
     column_name = column.get_name() if hasattr(column, "get_name") else str(column)
 
@@ -578,9 +578,9 @@ def json_extract(column: ir.StringColumn, *field_names: str):
     """
     query = frappe.flags.current_ibis_query
     if query is None:
-        frappe.throw("Query not found")
+        return column  # return original column if query is not found
 
-    json_column = column.cast("json")
+    json_column = normalize_json(column).cast("json")
 
     # cast JSON values to string and remove quotes
     clean_columns = {}
@@ -611,6 +611,26 @@ def json_extract(column: ir.StringColumn, *field_names: str):
         query = query.mutate({field: clean_col})
 
     return query
+
+
+def normalize_json(column: ir.StringColumn):
+    """
+    def normalize_json(column)
+
+    Normalize a JSON string by replacing single quotes with double quotes and unescaping escaped single quotes.
+
+    Examples:
+    - normalize_json(api_response)
+    """
+    return (
+        column
+        # opening quote: a ' that follows {  [  ,  or  :
+        .re_replace(r"([{\[,:]\s*)'", r'\1"')
+        # closing quote: a ' that precedes }  ]  ,  or  :
+        .re_replace(r"'(\s*[}\],:])", r'"\1')
+        # unescape Python's \' (apostrophe inside a single-quoted value)
+        .re_replace(r"\\'", "'")
+    )
 
 
 # date functions
@@ -1185,9 +1205,10 @@ def week_start(column: ir.DateValue):
         "Sunday",
     ]
     week_starts_on = days.index(week_start_day)
-    day_of_week = column.day_of_week.index().cast("int32")
+    date = column.truncate("D")
+    day_of_week = date.day_of_week.index().cast("int32")
     adjusted_week_start = (day_of_week - week_starts_on + 7) % 7
-    week_start = column - adjusted_week_start.as_interval("D")
+    week_start = date - adjusted_week_start.as_interval("D")
     return week_start
 
 
@@ -1200,9 +1221,7 @@ def month_start(column: ir.DateValue):
     Examples:
     - month_start(order_date)
     """
-
-    month_start = column.strftime("%Y-%m-01").cast("date")
-    return month_start
+    return column.truncate("M")
 
 
 def quarter_start(column: ir.DateValue):
@@ -1214,12 +1233,7 @@ def quarter_start(column: ir.DateValue):
     Examples:
     - quarter_start(order_date)
     """
-
-    year = column.year()
-    quarter = column.quarter()
-    month = (quarter * 3) - 2
-    quarter_start = ibis.date(year, month, 1)
-    return quarter_start
+    return column.truncate("Q")
 
 
 def year_start(column: ir.DateValue):
@@ -1231,9 +1245,7 @@ def year_start(column: ir.DateValue):
     Examples:
     - year_start(order_date)
     """
-
-    year_start = column.strftime("%Y-01-01").cast("date")
-    return year_start
+    return column.truncate("Y")
 
 
 def fiscal_year_start(column: ir.DateValue):

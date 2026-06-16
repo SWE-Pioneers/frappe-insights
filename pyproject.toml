@@ -24,9 +24,17 @@ dependencies = [
     "psycopg[binary]",
 ]
 
+[project.optional-dependencies]
+test = [
+    "coverage~=7.10.0",
+]
+
 [build-system]
 requires = ["flit_core >=3.4,<4"]
 build-backend = "flit_core.buildapi"
+
+[tool.bench.dev-dependencies]
+coverage = "~=7.10.0"
 
 
 [tool.ruff]
@@ -71,4 +79,3 @@ docstring-code-format = true
 Homepage = "https://frappe.io/insights"
 Repository = "https://github.com/frappe/insights.git"
 "Bug Reports" = "https://github.com/frappe/insights/issues"
-
