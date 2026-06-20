@@ -14,7 +14,7 @@ const dashboard = inject<Dashboard>('dashboard')!
 const props = defineProps<{ item: WorkbookDashboardFilter }>()
 
 const filter = reactive(copy(props.item))
-watchEffect(() => Object.assign(filter, copy(props.item)))
+watchEffect(() => Object.assign(filter, props.item))
 if (!filter.links) {
 	filter.links = {}
 }
