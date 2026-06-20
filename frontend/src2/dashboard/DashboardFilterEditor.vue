@@ -6,7 +6,12 @@ import useQuery from '../query/query'
 import { copy } from '../helpers'
 import { FIELDTYPES } from '../helpers/constants'
 import ColumnFilterValueSelector from '../query/components/ColumnFilterValueSelector.vue'
-import { getOperatorOptions, getValueSelectorType } from '../query/components/filter_utils'
+import {
+	getOperatorOptions,
+	getValueSelectorType,
+	parseDateRange,
+	serializeDateRange,
+} from '../query/components/filter_utils'
 import NumberFilterPicker from '../query/components/NumberFilterPicker.vue'
 import RelativeDatePicker from '../query/components/RelativeDatePicker.vue'
 import { ColumnOption, FilterOperator } from '../types/query.types'
@@ -110,6 +115,13 @@ function onDefaultOperatorChange(operator: FilterOperator) {
 		filter.default_value = undefined
 	}
 }
+
+const dateRangeVal = computed({
+	get: () => parseDateRange(filter.default_value),
+	set: (val: string | string[]) => {
+		filter.default_value = serializeDateRange(val)
+	},
+})
 
 function clearDefault() {
 	filter.default_operator = undefined
@@ -270,7 +282,7 @@ function saveEdit() {
 												"
 												class="flex-1"
 												:range="true"
-												v-model="filter.default_value as string[]"
+												v-model="dateRangeVal as string[]"
 											/>
 											<RelativeDatePicker
 												v-else-if="

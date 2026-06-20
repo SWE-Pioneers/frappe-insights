@@ -144,3 +144,19 @@ export function isValidNumber(value: any) {
 		!isNaN(parseFloat(value))
 	)
 }
+
+// dateRangePicker string/array conversion
+export function parseDateRange(val: any) {
+	if (typeof val === 'string') {
+		const [from_date, to_date] = val.split(',')
+		return [from_date, to_date]
+	}
+	return val
+}
+
+export function serializeDateRange(val: string | string[]) {
+	if (typeof val === 'string') {
+		return val.split(',')
+	}
+	return val
+}

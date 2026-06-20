@@ -4,7 +4,12 @@ import { copy } from '../helpers'
 import { FilterType } from '../helpers/constants'
 import { DatePicker, DateRangePicker } from 'frappe-ui'
 import ColumnFilterValueSelector from '../query/components/ColumnFilterValueSelector.vue'
-import { getOperatorOptions, getValueSelectorType } from '../query/components/filter_utils'
+import {
+	getOperatorOptions,
+	getValueSelectorType,
+	parseDateRange,
+	serializeDateRange,
+} from '../query/components/filter_utils'
 import NumberFilterPicker from '../query/components/NumberFilterPicker.vue'
 import RelativeDatePicker from '../query/components/RelativeDatePicker.vue'
 import { FilterOperator, FilterValue } from '../types/query.types'
@@ -54,16 +59,9 @@ function clearFilter() {
 
 // For a bried period, the value of a date filter with 'between' operator is stored as `from_date,to_date` string. This computed property helps to convert it to array and vice versa for the DateRangePicker component.
 const dateRangeVal = computed({
-	get() {
-		let val = state.value
-		if (typeof val === 'string') {
-			const [from_date, to_date] = val.split(',')
-			return [from_date, to_date]
-		}
-		return val
-	},
-	set(val: string) {
-		state.value = val.split(',')
+	get: () => parseDateRange(state.value),
+	set: (val: string | string[]) => {
+		state.value = serializeDateRange(val) as any
 	},
 })
 </script>
