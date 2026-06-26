@@ -7,8 +7,7 @@ import ColumnFilterValueSelector from '../query/components/ColumnFilterValueSele
 import {
 	getOperatorOptions,
 	getValueSelectorType,
-	parseDateRange,
-	serializeDateRange,
+	normalizeDateRange,
 } from '../query/components/filter_utils'
 import NumberFilterPicker from '../query/components/NumberFilterPicker.vue'
 import RelativeDatePicker from '../query/components/RelativeDatePicker.vue'
@@ -59,9 +58,9 @@ function clearFilter() {
 
 // For a bried period, the value of a date filter with 'between' operator is stored as `from_date,to_date` string. This computed property helps to convert it to array and vice versa for the DateRangePicker component.
 const dateRangeVal = computed({
-	get: () => parseDateRange(state.value),
-	set: (val: string | string[]) => {
-		state.value = serializeDateRange(val) as any
+	get: () => normalizeDateRange(state.value),
+	set: (val: any) => {
+		state.value = normalizeDateRange(val)
 	},
 })
 </script>

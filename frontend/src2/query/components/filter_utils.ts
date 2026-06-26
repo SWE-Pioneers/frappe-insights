@@ -146,15 +146,7 @@ export function isValidNumber(value: any) {
 }
 
 // dateRangePicker string/array conversion
-export function parseDateRange(val: any) {
-	if (typeof val === 'string') {
-		const [from_date, to_date] = val.split(',')
-		return [from_date, to_date]
-	}
-	return val
-}
-
-export function serializeDateRange(val: string | string[]) {
+export function normalizeDateRange(val: any) {
 	if (typeof val === 'string') {
 		return val.split(',')
 	}

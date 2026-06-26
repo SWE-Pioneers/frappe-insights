@@ -9,8 +9,7 @@ import ColumnFilterValueSelector from '../query/components/ColumnFilterValueSele
 import {
 	getOperatorOptions,
 	getValueSelectorType,
-	parseDateRange,
-	serializeDateRange,
+	normalizeDateRange,
 } from '../query/components/filter_utils'
 import NumberFilterPicker from '../query/components/NumberFilterPicker.vue'
 import RelativeDatePicker from '../query/components/RelativeDatePicker.vue'
@@ -117,9 +116,9 @@ function onDefaultOperatorChange(operator: FilterOperator) {
 }
 
 const dateRangeVal = computed({
-	get: () => parseDateRange(filter.default_value),
-	set: (val: string | string[]) => {
-		filter.default_value = serializeDateRange(val)
+	get: () => normalizeDateRange(filter.default_value),
+	set: (val: any) => {
+		filter.default_value = normalizeDateRange(val)
 	},
 })
 
