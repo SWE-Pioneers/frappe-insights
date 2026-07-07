@@ -4,22 +4,26 @@ See [plan.md](./plan.md) for specs, design rules, and rationale.
 
 ## Day 1 — Environment + demo-data generator
 
-- [ ] Dev site with ERPNext + Insights
-- [ ] `scripts/erpnext_demo/generate.py` (`bench execute`, seeded RNG, parameterized):
-  - [ ] Masters: ~20 customers (Pareto skew), ~10 suppliers, ~50 items / ~6 groups,
+- [x] Dev site with ERPNext (`erpnext2.localhost`; generator bootstraps the setup
+      wizard on a bare site — company **Summit Supply Co**)
+- [x] `scripts/erpnext_demo/generate.py` (`bench execute`, seeded RNG, parameterized):
+  - [x] Masters: ~20 customers (Pareto skew), ~10 suppliers, ~50 items / ~6 groups,
         2 warehouses; fiscal years for full 18-month range
-  - [ ] Opening stock, then transactions submitted chronologically oldest-first
+  - [x] Opening stock, then transactions submitted chronologically oldest-first
         (`set_posting_time = 1`) — never backdate into existing stock history
-  - [ ] Sales: SO → SI with growth + seasonality; customer payment-behavior classes
+  - [x] Sales: SO → SI with growth + seasonality; customer payment-behavior classes
         (prompt/slow/delinquent) so AR ageing fills all buckets incl. 90+; partial
         payments; a few credit notes (`is_return`)
-  - [ ] Quotations: Open / Ordered / Lost mix with `order_lost_reason`
-  - [ ] Some SOs past `delivery_date` undelivered; POs past `schedule_date` unreceived
-  - [ ] Purchases: PO → PR → PI, receipts with varied delay vs `schedule_date`
-  - [ ] Stock: steady movers + a dead cluster (no movement 90/180+ days) + items below
+  - [x] Quotations: Open / Ordered / Lost mix with `order_lost_reason`
+  - [x] Some SOs past `delivery_date` undelivered; POs past `schedule_date` unreceived
+  - [x] Purchases: PO → PR → PI, receipts with varied delay vs `schedule_date`
+  - [x] Stock: steady movers + a dead cluster (no movement 90/180+ days) + items below
         reorder level (Item Reorder set above current qty)
-- [ ] Run once (~3–5k docs), sanity-eyeball in ERPNext reports, `bench backup` →
+- [x] Run once (~3–5k docs), sanity-eyeball in ERPNext reports, `bench backup` →
       keep `.sql.gz` as instant-reset artifact (local, not in git)
+      — 2026-07-07 run, seed 42: ~3.0k transactional docs, 0 failures; AR Summary /
+      Stock Balance / Sales Analytics all reconcile exactly with the generated data;
+      backup: `sites/erpnext2.localhost/private/backups/20260707_223305-*.sql.gz`
 
 ## Day 2 — Template backend + gallery UI (PR 1)
 
