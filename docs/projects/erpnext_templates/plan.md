@@ -40,9 +40,11 @@ New `insights/api/templates.py` + `insights/workbook_templates/` directory.
   dashboards.
 - `create_workbook_from_template(template_name)` — loads the JSON, delegates to
   `import_workbook()`, returns the new workbook name.
-- Frontend: "Start with a template" section on Home (`frontend/src2/home/Home.vue`) —
-  template cards (preview image, title, description, module badge), frappe-ui components
-  and design tokens. Renders only when the endpoint returns templates, so non-ERPNext
+- Frontend: "Start with a template" section on the workbook list page
+  (`frontend/src2/workbook/WorkbookList.vue`) — templates create workbooks, so the
+  gallery sits where workbook creation lives (the old Home page is unrouted dead code;
+  `/` redirects to `/dashboards`). Template cards (preview image, title, description,
+  module badge), frappe-ui components and design tokens. Renders only when the endpoint returns templates, so non-ERPNext
   sites see zero change. Click → confirm → create → route to the new workbook.
 - CI guard: a test that parses every committed manifest and imports every committed
   `workbook.json` — keeps templates from rotting silently.
@@ -216,7 +218,7 @@ dashboard never blocks the feature.
 | Day | Work |
 |-----|------|
 | 1 | Dev site; demo-data generator (full day — see Demo data strategy) + `bench backup` artifact |
-| 2 | Template registry backend + ERPNext detection; gallery UI on Home; CI import test; **merge PR 1** |
+| 2 | Template registry backend + ERPNext detection; gallery UI on workbook list; CI import test; **merge PR 1** |
 | 3 | Author Sales workbook (the flagship — establish patterns: period comparisons, funnel, action table) |
 | 4 | Author Purchasing (clones Sales patterns) + start Accounting (ageing-bucket mutate is the one hard expression — decide builder-vs-native SQL fast) |
 | 5 | Finish Accounting; **merge PR 2** |

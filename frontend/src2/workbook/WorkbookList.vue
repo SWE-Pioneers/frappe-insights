@@ -10,6 +10,7 @@ import useUserStore from '../users/users'
 import useWorkbook, { newWorkbookName } from './workbook'
 import { getWorkbookColumns } from './workbookListColumns'
 import useWorkbooks from './workbooks'
+import WorkbookTemplates from './WorkbookTemplates.vue'
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -149,6 +150,7 @@ watchEffect(() => {
 			</FormControl>
 			<TabButtons :buttons="scopeTabs" v-model="scope" />
 		</div>
+		<WorkbookTemplates />
 		<!-- plain block wrapper so ListView flows to content height (its root is
 		flex-1 and would otherwise stretch and leave whitespace) -->
 		<div class="w-full">

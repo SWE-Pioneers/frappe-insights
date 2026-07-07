@@ -30,8 +30,10 @@ See [plan.md](./plan.md) for specs, design rules, and rationale.
         installed apps, has-data flag per template
   - [ ] `create_workbook_from_template(template_name)` — load JSON → `import_workbook()`
 - [ ] Temporary hand-rolled seed template so API/UI are testable before real content
-- [ ] "Start with a template" section on Home (`frontend/src2/home/Home.vue`) — cards
-      with preview, title, description, module badge; frappe-ui components + tokens
+- [ ] "Start with a template" section on the workbook list
+      (`frontend/src2/workbook/WorkbookList.vue`; the old Home page is unrouted dead
+      code — `/` redirects to `/dashboards`) — cards with preview, title, description,
+      module badge; frappe-ui components + tokens
 - [ ] Renders only when endpoint returns templates (non-ERPNext sites see zero change)
 - [ ] Click → confirm → create → route to new workbook
 - [ ] Tests: endpoint hidden without ERPNext; create round-trips seed template;
