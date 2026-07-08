@@ -41,8 +41,14 @@ def get_template_preview(template_name: str) -> str | None:
         return "data:image/png;base64," + base64.b64encode(f.read()).decode()
 
 
+def get_installed_apps() -> set[str]:
+    # narrow seam over frappe.get_installed_apps so tests can fake the app set
+    # without patching the global that frappe's own insert hooks rely on
+    return set(frappe.get_installed_apps())
+
+
 def has_required_apps(manifest: dict) -> bool:
-    return set(manifest.get("required_apps") or []) <= set(frappe.get_installed_apps())
+    return set(manifest.get("required_apps") or []) <= get_installed_apps()
 
 
 def has_source_data(manifest: dict) -> bool:
@@ -61,10 +67,25 @@ def has_source_data(manifest: dict) -> bool:
     return bool(rows)
 
 
+def get_imported_templates() -> dict[str, int]:
+    """Map of template name -> workbook the current user already created from it.
+    Derived from a live query (not a stored flag), so deleting the workbook
+    re-enables its template on its own."""
+    rows = frappe.get_all(
+        "Insights Workbook",
+        filters={"from_template": ["!=", ""], "owner": frappe.session.user},
+        fields=["from_template", "name"],
+        order_by="creation asc",
+    )
+    # a user may hold more than one copy; the newest wins (asc order, last write)
+    return {row["from_template"]: row["name"] for row in rows}
+
+
 @insights_whitelist()
 def get_workbook_templates() -> list[dict]:
     """Templates whose required_apps are all installed. Empty on sites
     without ERPNext, so the gallery renders nothing there."""
+    imported = get_imported_templates()
     templates = []
     for name in get_template_names():
         manifest = get_template_manifest(name)
@@ -78,6 +99,8 @@ def get_workbook_templates() -> list[dict]:
                 "module": manifest.get("module"),
                 "has_data": has_source_data(manifest),
                 "preview_image": get_template_preview(name),
+                # workbook this user already imported from the template, else None
+                "imported_workbook": imported.get(name),
             }
         )
     return templates
@@ -102,4 +125,7 @@ def create_workbook_from_template(template_name: str) -> int:
             )
         )
 
-    return import_workbook(get_template_workbook(template_name))
+    workbook_name = import_workbook(get_template_workbook(template_name))
+    # tag the origin so the gallery can mark this template as imported
+    frappe.db.set_value("Insights Workbook", workbook_name, "from_template", template_name)
+    return workbook_name

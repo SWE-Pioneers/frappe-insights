@@ -25,7 +25,9 @@ APPS_WITH_ERPNEXT = ["frappe", "insights", "erpnext"]
 
 
 def installed_apps(apps):
-    return patch("frappe.get_installed_apps", return_value=apps)
+    # patch our narrow seam, not the global — patching frappe.get_installed_apps
+    # breaks other apps' insert hooks on multi-app sites
+    return patch("insights.api.templates.get_installed_apps", return_value=set(apps))
 
 
 class TestWorkbookTemplates(InsightsIntegrationTestCase):
@@ -59,7 +61,28 @@ class TestWorkbookTemplates(InsightsIntegrationTestCase):
         self.assertEqual(seed["title"], "Sales Overview")
         self.assertEqual(seed["module"], "Selling")
         self.assertIn("has_data", seed)
+        self.assertIsNone(seed["imported_workbook"])
         self.assertTrue(seed["preview_image"].startswith("data:image/png;base64,"))
+
+    def test_imported_template_is_marked_and_disabled(self):
+        with self.as_user(USER_1), installed_apps(APPS_WITH_ERPNEXT):
+            workbook_name = create_workbook_from_template(SEED_TEMPLATE)
+
+            # the created workbook remembers its origin
+            self.assertEqual(
+                frappe.db.get_value("Insights Workbook", workbook_name, "from_template"),
+                SEED_TEMPLATE,
+            )
+
+            # and the gallery now points the template at that workbook
+            seed = {t["name"]: t for t in get_workbook_templates()}[SEED_TEMPLATE]
+            self.assertEqual(seed["imported_workbook"], workbook_name)
+
+        # deleting the workbook re-enables the template (state is derived, not stored)
+        frappe.delete_doc("Insights Workbook", workbook_name, force=True)
+        with self.as_user(USER_1), installed_apps(APPS_WITH_ERPNEXT):
+            seed = {t["name"]: t for t in get_workbook_templates()}[SEED_TEMPLATE]
+            self.assertIsNone(seed["imported_workbook"])
 
     def test_create_blocked_when_required_apps_missing(self):
         with self.as_user(USER_1), installed_apps(APPS_WITHOUT_ERPNEXT):

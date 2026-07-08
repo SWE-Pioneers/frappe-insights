@@ -1,6 +1,15 @@
 <script setup lang="tsx">
 import { useMagicKeys, useStorage, whenever } from '@vueuse/core'
-import { Breadcrumbs, ListEmptyState, ListHeader, ListRows, ListView, TabButtons } from 'frappe-ui'
+import {
+	Breadcrumbs,
+	Dropdown,
+	ListEmptyState,
+	ListHeader,
+	ListRows,
+	ListView,
+	TabButtons,
+	call,
+} from 'frappe-ui'
 import { PlusIcon, SearchIcon } from 'lucide-vue-next'
 import { computed, ref, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
@@ -10,7 +19,7 @@ import useUserStore from '../users/users'
 import useWorkbook, { newWorkbookName } from './workbook'
 import { getWorkbookColumns } from './workbookListColumns'
 import useWorkbooks from './workbooks'
-import WorkbookTemplates from './WorkbookTemplates.vue'
+import WorkbookTemplates, { WorkbookTemplate } from './WorkbookTemplates.vue'
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -70,6 +79,14 @@ function openNewWorkbook() {
 		.finally(() => (creatingWorkbook.value = false))
 }
 
+// prebuilt workbook templates — only fetched to know whether to surface the
+// menu; the whole entry point stays hidden when none apply (e.g. no ERPNext)
+const templates = ref<WorkbookTemplate[]>([])
+const showTemplates = ref(false)
+call('insights.api.templates.get_workbook_templates').then(
+	(data: WorkbookTemplate[]) => (templates.value = data || []),
+)
+
 const columns = getWorkbookColumns({ userStore })
 
 function onRowClick(row: any) {
@@ -122,6 +139,18 @@ watchEffect(() => {
 	<header class="flex h-12 items-center justify-between border-b py-2.5 pl-5 pr-2">
 		<Breadcrumbs :items="[{ label: __('Workbooks'), route: '/workbook' }]" />
 		<div class="flex items-center gap-2">
+			<Dropdown
+				v-if="templates.length"
+				placement="right"
+				:button="{ icon: 'more-horizontal', variant: 'outline' }"
+				:options="[
+					{
+						label: __('Prebuilt Workbooks'),
+						icon: 'grid',
+						onClick: () => (showTemplates = true),
+					},
+				]"
+			/>
 			<Button
 				:label="__('New Workbook')"
 				variant="solid"
@@ -134,6 +163,8 @@ watchEffect(() => {
 			</Button>
 		</div>
 	</header>
+
+	<WorkbookTemplates v-model="showTemplates" :templates="templates" />
 
 	<div class="mb-4 flex h-full flex-col gap-3 overflow-auto px-5 pt-3">
 		<div class="flex items-center justify-between gap-2 overflow-visible py-1">
@@ -150,7 +181,6 @@ watchEffect(() => {
 			</FormControl>
 			<TabButtons :buttons="scopeTabs" v-model="scope" />
 		</div>
-		<WorkbookTemplates />
 		<!-- plain block wrapper so ListView flows to content height (its root is
 		flex-1 and would otherwise stretch and leave whitespace) -->
 		<div class="w-full">
