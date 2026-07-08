@@ -357,7 +357,7 @@
 				"config": {
 					"number_columns": [
 						{
-							"measure_name": "stock_value",
+							"measure_name": "Total Stock Value",
 							"column_name": "stock_value",
 							"data_type": "Decimal",
 							"aggregation": "sum"
@@ -384,7 +384,7 @@
 				"config": {
 					"number_columns": [
 						{
-							"measure_name": "stock_value_change",
+							"measure_name": "Stock Value Change",
 							"column_name": "stock_value_difference",
 							"data_type": "Decimal",
 							"aggregation": "sum"
@@ -411,7 +411,7 @@
 				"config": {
 					"number_columns": [
 						{
-							"measure_name": "items_below_reorder",
+							"measure_name": "Items Below Reorder",
 							"column_name": "count",
 							"data_type": "Integer",
 							"aggregation": "count"
@@ -438,7 +438,7 @@
 				"config": {
 					"number_columns": [
 						{
-							"measure_name": "stock_value",
+							"measure_name": "Dead Stock (90d+)",
 							"column_name": "stock_value",
 							"data_type": "Decimal",
 							"aggregation": "sum"
@@ -757,7 +757,7 @@
 							"i": "flt-date",
 							"x": 0,
 							"y": 0,
-							"w": 5,
+							"w": 4,
 							"h": 1
 						}
 					},
@@ -765,7 +765,7 @@
 						"type": "filter",
 						"filter_name": "Company",
 						"filter_type": "String",
-						"icon": "briefcase",
+						"icon": "building-2",
 						"links": {
 							"template-chart-total-stock-value": "`template-query-stock-bins`.`company`",
 							"template-chart-stock-value-change": "`template-query-stock-movements`.`company`",
@@ -780,9 +780,9 @@
 						},
 						"layout": {
 							"i": "flt-company",
-							"x": 5,
+							"x": 4,
 							"y": 0,
-							"w": 5,
+							"w": 4,
 							"h": 1
 						}
 					},
@@ -790,7 +790,7 @@
 						"type": "filter",
 						"filter_name": "Warehouse",
 						"filter_type": "String",
-						"icon": "home",
+						"icon": "warehouse",
 						"links": {
 							"template-chart-total-stock-value": "`template-query-stock-bins`.`warehouse`",
 							"template-chart-stock-value-change": "`template-query-stock-movements`.`warehouse`",
@@ -805,9 +805,9 @@
 						},
 						"layout": {
 							"i": "flt-warehouse",
-							"x": 10,
+							"x": 8,
 							"y": 0,
-							"w": 5,
+							"w": 4,
 							"h": 1
 						}
 					},
@@ -818,7 +818,7 @@
 							"i": "c-total",
 							"x": 0,
 							"y": 1,
-							"w": 5,
+							"w": 4,
 							"h": 3
 						}
 					},
@@ -827,9 +827,9 @@
 						"chart": "template-chart-stock-value-change",
 						"layout": {
 							"i": "c-change",
-							"x": 5,
+							"x": 4,
 							"y": 1,
-							"w": 5,
+							"w": 4,
 							"h": 3
 						}
 					},
@@ -838,9 +838,9 @@
 						"chart": "template-chart-items-below-reorder",
 						"layout": {
 							"i": "c-reorder-num",
-							"x": 10,
+							"x": 8,
 							"y": 1,
-							"w": 5,
+							"w": 4,
 							"h": 3
 						}
 					},
@@ -849,9 +849,9 @@
 						"chart": "template-chart-dead-stock-value",
 						"layout": {
 							"i": "c-dead",
-							"x": 15,
+							"x": 12,
 							"y": 1,
-							"w": 5,
+							"w": 4,
 							"h": 3
 						}
 					},
@@ -923,13 +923,13 @@
 					},
 					{
 						"type": "text",
-						"text": "<p><b>Notes</b> \u2014 Built from live Bin balances and Stock Ledger Entries. Values are in the company's base currency and reflect the site's current valuation state; backdated or un-reposted entries can skew Bin values. Stock ageing and dead-stock use an item-level last-movement proxy, not FIFO lot ageing.</p>",
+						"text": "",
 						"layout": {
-							"i": "item-notes",
-							"x": 0,
-							"y": 29,
-							"w": 20,
-							"h": 2
+							"i": "jgp91auh",
+							"x": 12,
+							"y": 0,
+							"w": 8,
+							"h": 1
 						}
 					}
 				]

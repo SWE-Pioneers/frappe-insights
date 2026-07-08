@@ -612,6 +612,7 @@
 						"type": "filter",
 						"filter_name": "Date Range",
 						"filter_type": "Date",
+						"icon": "calendar",
 						"default_operator": "within",
 						"default_value": "Last 12 months",
 						"links": {
@@ -633,6 +634,7 @@
 						"type": "filter",
 						"filter_name": "Company",
 						"filter_type": "String",
+						"icon": "building-2",
 						"links": {
 							"tc-kpis": "`tq-sales-invoices`.`company`",
 							"tc-revenue-trend": "`tq-sales-invoices`.`company`",
@@ -736,17 +738,6 @@
 							"y": 31,
 							"w": 20,
 							"h": 9
-						}
-					},
-					{
-						"type": "text",
-						"text": "<p><b>Notes</b> \u2014 Amounts are in the company's base currency and are <i>net of returns</i> (credit notes ride along as negative rows). KPI cards compare the latest month with the previous month. POS invoices only affect these figures after POS closing / consolidation. The quotation funnel reflects all submitted quotations (not date-filtered).</p>",
-						"layout": {
-							"i": "item-notes",
-							"x": 0,
-							"y": 40,
-							"w": 20,
-							"h": 2
 						}
 					}
 				]

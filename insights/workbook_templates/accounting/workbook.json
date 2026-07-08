@@ -946,18 +946,19 @@
 						"type": "filter",
 						"filter_name": "Company",
 						"filter_type": "String",
+						"icon": "building-2",
 						"links": {
 							"template-acc-c-total-ar": "`template-acc-ar`.`company`",
 							"template-acc-c-total-ap": "`template-acc-ap`.`company`",
-							"template-acc-c-pct-overdue": "`template-acc-ar`.`company`",
-							"template-acc-c-pct-over90": "`template-acc-ar`.`company`",
 							"template-acc-c-net-cash": "`template-acc-cashflow`.`company`",
 							"template-acc-c-ar-ageing": "`template-acc-ar`.`company`",
 							"template-acc-c-ap-ageing": "`template-acc-ap`.`company`",
 							"template-acc-c-top-overdue": "`template-acc-ar`.`company`",
 							"template-acc-c-due-30": "`template-acc-ap`.`company`",
 							"template-acc-c-cash-in-out": "`template-acc-cashflow`.`company`",
-							"template-acc-c-inv-coll": "`template-acc-invcoll`.`company`"
+							"template-acc-c-inv-coll": "`template-acc-invcoll`.`company`",
+							"template-acc-c-pct-overdue": "`template-acc-ar`.`company`",
+							"template-acc-c-pct-over90": "`template-acc-ar`.`company`"
 						},
 						"layout": {
 							"i": "filter-company",
@@ -971,6 +972,7 @@
 						"type": "filter",
 						"filter_name": "Date",
 						"filter_type": "Date",
+						"icon": "calendar",
 						"links": {
 							"template-acc-c-net-cash": "`template-acc-cashflow`.`posting_date`",
 							"template-acc-c-cash-in-out": "`template-acc-cashflow`.`posting_date`",
@@ -1107,13 +1109,13 @@
 					},
 					{
 						"type": "text",
-						"text": "<p><b>Notes</b> \u2014 Built from submitted Sales/Purchase Invoices, Payment Entries and GL Entry (docstatus=1). Outstanding is reconstructed from GL Entry (is_cancelled=0) so payment-rounding residuals don't inflate receivables/payables. Snapshot figures are as-of-today in the company's base currency; the date filter drives the cash-flow trends.</p>",
+						"text": "",
 						"layout": {
-							"i": "item-notes",
-							"x": 0,
-							"y": 29,
-							"w": 20,
-							"h": 2
+							"i": "ik6qat04",
+							"x": 8,
+							"y": 0,
+							"w": 12,
+							"h": 1
 						}
 					}
 				]
