@@ -1104,6 +1104,17 @@
 							"w": 10,
 							"h": 9
 						}
+					},
+					{
+						"type": "text",
+						"text": "<p><b>Notes</b> \u2014 Built from submitted Sales/Purchase Invoices, Payment Entries and GL Entry (docstatus=1). Outstanding is reconstructed from GL Entry (is_cancelled=0) so payment-rounding residuals don't inflate receivables/payables. Snapshot figures are as-of-today in the company's base currency; the date filter drives the cash-flow trends.</p>",
+						"layout": {
+							"i": "item-notes",
+							"x": 0,
+							"y": 29,
+							"w": 20,
+							"h": 2
+						}
 					}
 				]
 			}

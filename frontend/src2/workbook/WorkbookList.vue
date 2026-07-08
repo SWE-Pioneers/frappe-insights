@@ -2,7 +2,6 @@
 import { useMagicKeys, useStorage, whenever } from '@vueuse/core'
 import {
 	Breadcrumbs,
-	Dropdown,
 	ListEmptyState,
 	ListHeader,
 	ListRows,
@@ -10,10 +9,11 @@ import {
 	TabButtons,
 	call,
 } from 'frappe-ui'
-import { PlusIcon, SearchIcon } from 'lucide-vue-next'
+import { LayoutTemplate as LayoutTemplateIcon, PlusIcon, SearchIcon } from 'lucide-vue-next'
 import { computed, ref, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
 import { wheneverChanges } from '../helpers'
+import session from '../session'
 import { __ } from '../translation'
 import useUserStore from '../users/users'
 import useWorkbook, { newWorkbookName } from './workbook'
@@ -79,12 +79,19 @@ function openNewWorkbook() {
 		.finally(() => (creatingWorkbook.value = false))
 }
 
-// prebuilt workbook templates — only fetched to know whether to surface the
-// menu; the whole entry point stays hidden when none apply (e.g. no ERPNext)
+// prebuilt workbook templates — importing is an admin action for v1, so only
+// admins fetch/see the entry point; it also stays hidden when none apply (no ERPNext)
 const templates = ref<WorkbookTemplate[]>([])
 const showTemplates = ref(false)
-call('insights.api.templates.get_workbook_templates').then(
-	(data: WorkbookTemplate[]) => (templates.value = data || []),
+wheneverChanges(
+	() => session.user.is_admin,
+	(isAdmin) => {
+		if (!isAdmin) return
+		call('insights.api.templates.get_workbook_templates').then(
+			(data: WorkbookTemplate[]) => (templates.value = data || []),
+		)
+	},
+	{ immediate: true },
 )
 
 const columns = getWorkbookColumns({ userStore })
@@ -100,18 +107,11 @@ const listOptions = computed(() => ({
 	options: {
 		showTooltip: false,
 		onRowClick,
+		// actions are rendered via the ListEmptyState slot below — the built-in
+		// supports only one button, and we want New + Prebuilt side by side
 		emptyState: {
 			title: __('No Workbooks'),
 			description: __('No workbooks to display.'),
-			button:
-				scope.value !== 'shared'
-					? {
-							label: __('New Workbook'),
-							variant: 'solid',
-							onClick: openNewWorkbook,
-							loading: creatingWorkbook.value,
-					  }
-					: undefined,
 		},
 	},
 }))
@@ -139,18 +139,16 @@ watchEffect(() => {
 	<header class="flex h-12 items-center justify-between border-b py-2.5 pl-5 pr-2">
 		<Breadcrumbs :items="[{ label: __('Workbooks'), route: '/workbook' }]" />
 		<div class="flex items-center gap-2">
-			<Dropdown
+			<Button
 				v-if="templates.length"
-				placement="right"
-				:button="{ icon: 'more-horizontal', variant: 'outline' }"
-				:options="[
-					{
-						label: __('Prebuilt Workbooks'),
-						icon: 'grid',
-						onClick: () => (showTemplates = true),
-					},
-				]"
-			/>
+				:label="__('Prebuilt Workbooks')"
+				variant="outline"
+				@click="showTemplates = true"
+			>
+				<template #prefix>
+					<LayoutTemplateIcon class="w-4" />
+				</template>
+			</Button>
 			<Button
 				:label="__('New Workbook')"
 				variant="solid"
@@ -188,7 +186,43 @@ watchEffect(() => {
 				<ListHeader />
 				<ListRows v-if="workbookStore.workbooks.length" />
 				<!-- skip the empty state while a fetch is in flight so it doesn't flash on tab switch -->
-				<ListEmptyState v-else-if="!workbookStore.loading" />
+				<ListEmptyState v-else-if="!workbookStore.loading">
+					<div class="flex h-full w-full flex-col items-center justify-center text-base">
+						<div class="mt-6 text-xl font-medium text-ink-gray-8">
+							{{ __('No Workbooks') }}
+						</div>
+						<div class="mt-1 text-base text-ink-gray-5">
+							{{
+								templates.length
+									? __('Create a workbook, or start from a prebuilt one.')
+									: __('No workbooks to display.')
+							}}
+						</div>
+						<div class="mt-4 flex items-center gap-2">
+							<Button
+								v-if="templates.length"
+								:label="__('Prebuilt Workbooks')"
+								variant="outline"
+								@click="showTemplates = true"
+							>
+								<template #prefix>
+									<LayoutTemplateIcon class="w-4" />
+								</template>
+							</Button>
+							<Button
+								v-if="scope !== 'shared'"
+								:label="__('New Workbook')"
+								variant="solid"
+								:loading="creatingWorkbook"
+								@click="openNewWorkbook"
+							>
+								<template #prefix>
+									<PlusIcon class="w-4" />
+								</template>
+							</Button>
+						</div>
+					</div>
+				</ListEmptyState>
 			</ListView>
 			<div v-if="hasMore" class="flex pt-3">
 				<Button

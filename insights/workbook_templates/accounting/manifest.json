@@ -1,6 +1,7 @@
 {
 	"title": "Receivables, Payables & Cash",
-	"description": "AR/AP ageing, collections worklist and cash-flow view built from submitted Sales/Purchase Invoices, Payment Entries and GL. Outstanding is reconstructed from GL Entry (is_cancelled=0) so payment-rounding residuals don't inflate receivables/payables. Snapshot figures are as-of-today in base currency; the date filter drives the cash-flow trends. docstatus=1 only.",
+	"description": "AR/AP ageing, a collections worklist and a cash-flow view for receivables, payables and cash.",
+	"notes": "Built from submitted Sales/Purchase Invoices, Payment Entries and GL (docstatus=1). Outstanding is reconstructed from GL Entry (is_cancelled=0) so payment-rounding residuals don't inflate receivables/payables. Snapshot figures are as-of-today in the company's base currency; the date filter drives the cash-flow trends.",
 	"module": "Accounts",
 	"required_apps": [
 		"erpnext"

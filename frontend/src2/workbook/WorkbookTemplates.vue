@@ -10,6 +10,7 @@ export type WorkbookTemplate = {
 	name: string
 	title: string
 	description: string
+	notes: string | null
 	module: string
 	has_data: boolean
 	preview_image: string | null
@@ -24,18 +25,22 @@ const router = useRouter()
 // name of the template currently being imported, so only its card spins
 const creating = ref<string | null>(null)
 
-function useTemplate(template: WorkbookTemplate) {
+function importTemplate(template: WorkbookTemplate) {
 	creating.value = template.name
 	call('insights.api.templates.create_workbook_from_template', {
 		template_name: template.name,
 	})
-		.then((name: number) => {
-			createToast({ message: __('Workbook created'), variant: 'success' })
-			router.push(`/workbook/${name}`)
+		.then((result: { workbook: number; dashboard: string | null }) => {
+			createToast({ message: __('{0} imported', template.title), variant: 'success' })
+			router.push(
+				result.dashboard
+					? `/workbook/${result.workbook}/dashboard/${result.dashboard}`
+					: `/workbook/${result.workbook}`,
+			)
 		})
 		.catch(() => {
 			createToast({
-				message: __('Failed to create workbook from template'),
+				message: __('Failed to import {0}', template.title),
 				variant: 'error',
 			})
 		})
@@ -53,7 +58,7 @@ function openImported(template: WorkbookTemplate) {
 			<p class="mb-5 text-p-base text-ink-gray-6">
 				{{
 					__(
-						'Ready-made dashboards for your installed apps. Importing one creates your own editable copy — you only need to do it once.',
+						"Ready-made dashboards for your installed apps. Importing adds them to your site's workbooks for everyone to use.",
 					)
 				}}
 			</p>
@@ -110,9 +115,9 @@ function openImported(template: WorkbookTemplate) {
 								variant="solid"
 								:loading="creating === template.name"
 								:disabled="!!creating"
-								@click="useTemplate(template)"
+								@click="importTemplate(template)"
 							>
-								{{ __('Use template') }}
+								{{ __('Import') }}
 							</Button>
 						</div>
 					</div>

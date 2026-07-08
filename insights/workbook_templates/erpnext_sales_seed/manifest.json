@@ -1,7 +1,0 @@
-{
-	"title": "Sales Overview",
-	"description": "A starter sales dashboard with monthly revenue trend and top customers, built from submitted Sales Invoices. Temporary seed template — will be replaced by the full Sales Performance workbook.",
-	"module": "Selling",
-	"required_apps": ["erpnext"],
-	"source_doctypes": ["Sales Invoice"]
-}
