@@ -29,10 +29,18 @@
 						}
 					},
 					{
-						"type": "filter",
-						"column": { "type": "column", "column_name": "docstatus" },
-						"operator": "=",
-						"value": 1
+						"type": "filter_group",
+						"logical_operator": "And",
+						"filters": [
+							{
+								"column": {
+									"type": "column",
+									"column_name": "docstatus"
+								},
+								"operator": "=",
+								"value": 1
+							}
+						]
 					},
 					{
 						"type": "summarize",
@@ -55,10 +63,16 @@
 					},
 					{
 						"type": "order_by",
-						"column": { "type": "column", "column_name": "posting_date" },
+						"column": {
+							"type": "column",
+							"column_name": "posting_date"
+						},
 						"direction": "asc"
 					},
-					{ "type": "limit", "limit": 24 }
+					{
+						"type": "limit",
+						"limit": 24
+					}
 				]
 			},
 			"template-query-top-customers": {
@@ -81,10 +95,18 @@
 						}
 					},
 					{
-						"type": "filter",
-						"column": { "type": "column", "column_name": "docstatus" },
-						"operator": "=",
-						"value": 1
+						"type": "filter_group",
+						"logical_operator": "And",
+						"filters": [
+							{
+								"column": {
+									"type": "column",
+									"column_name": "docstatus"
+								},
+								"operator": "=",
+								"value": 1
+							}
+						]
 					},
 					{
 						"type": "summarize",
@@ -106,10 +128,16 @@
 					},
 					{
 						"type": "order_by",
-						"column": { "type": "column", "column_name": "revenue" },
+						"column": {
+							"type": "column",
+							"column_name": "revenue"
+						},
 						"direction": "desc"
 					},
-					{ "type": "limit", "limit": 10 }
+					{
+						"type": "limit",
+						"limit": 10
+					}
 				]
 			}
 		},
@@ -185,12 +213,24 @@
 					{
 						"type": "chart",
 						"chart": "template-chart-revenue-trend",
-						"layout": { "i": "item-revenue-trend", "x": 0, "y": 0, "w": 12, "h": 9 }
+						"layout": {
+							"i": "item-revenue-trend",
+							"x": 0,
+							"y": 0,
+							"w": 12,
+							"h": 9
+						}
 					},
 					{
 						"type": "chart",
 						"chart": "template-chart-top-customers",
-						"layout": { "i": "item-top-customers", "x": 12, "y": 0, "w": 8, "h": 9 }
+						"layout": {
+							"i": "item-top-customers",
+							"x": 12,
+							"y": 0,
+							"w": 8,
+							"h": 9
+						}
 					}
 				]
 			}

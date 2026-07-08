@@ -59,34 +59,74 @@ Establish the reusable patterns here: period-comparison number cards, funnel, ac
 
 ## Day 4 — Purchasing workbook + start Accounting
 
-- [ ] Purchasing (mirror Sales patterns): Spend, PO count, Avg PO value, Active suppliers
+- [x] Purchasing (mirror Sales patterns): Spend, PO count, Avg PO value, Active suppliers
       cards; Spend trend; Spend by item group; Top 10 suppliers; PO status donut;
       Overdue POs action table
-- [ ] Export + manifest + preview
-- [ ] Accounting: decide ageing-bucket approach (builder `mutate` vs native SQL) — decide
-      fast, don't burn hours
-- [ ] AR ageing bar + AP ageing bar
+- [x] Export + manifest (`insights/workbook_templates/purchasing/`) — "Purchasing
+      Overview": 4 builder queries / 7 charts / 1 dashboard. All-builder (no native
+      SQL), mirroring Sales. KPIs split across two number cards by source since Spend is
+      invoice-based but order metrics are PO-based: Spend + Active Suppliers on Purchase
+      Invoice (posting_date); PO Count + Avg PO Value on Purchase Order (transaction_date).
+      Spend/top-suppliers = PI `base_net_total` (net of returns); item-group donut = PI
+      Item `base_net_amount` (join to PI for posting_date/company); PO-status donut =
+      count by `status`; overdue table = PO `per_received < 100` & `schedule_date <
+      today()`, `days_late = date_diff(today(), schedule_date, "day")`. Date filter drives
+      the performance charts (KPIs/trend/top-N/item-group); Company filters everything;
+      PO-status + overdue are current views, not date-filtered (mirrors Sales'
+      funnel/overdue). Validated by importing into erpnext2.localhost + executing every
+      base query (67 PI / 114 PI Item / 85 PO / 4 overdue). Reconciles with ERPNext:
+      Spend 23,321,010; Active Suppliers 10; PO Count 85; Avg PO Value 326,004; PO status
+      67/10/8; overdue days-late 390/166/25/24. **preview.png pending** — capture during
+      the UI verify pass. NOT committed.
+- [x] Accounting: decide ageing-bucket approach — **builder pipeline, no native SQL**.
+      (First cut used native SQL; reworked to all-builder so imported queries stay
+      UI-editable + permission-aware, matching Sales/Stock convention.) GL-based
+      outstanding = source GL Entry → filter `is_cancelled=0`/party/voucher-type →
+      summarize `sum(debit)-sum(credit)` by `against_voucher` → filter `> 0.5`
+      (rounding cutoff) → join back to the invoice → `mutate` days_overdue
+      (`date_diff(today(), due_date, 'day')`) + bucket (`cases(...)`). One per-invoice
+      AR/AP query feeds the ageing bar + cards + tables (DRY), company-filterable
+      because charts do their own summarize.
+- [x] AR ageing bar + AP ageing bar
 
 ## Day 5 — Finish Accounting (PR 2)
 
-- [ ] Cards: Total AR, Total AP, % AR overdue, % AR > 90d, Net cash flow
-- [ ] Top overdue customers table (collections call list)
-- [ ] Payments due next 30 days table
-- [ ] Cash in vs out (grouped bar, Payment Entry)
-- [ ] Invoiced vs collected (grouped bar)
-- [ ] Export + manifest + preview
+- [x] Cards: Total AR (7,494,343), Total AP (2,915,915), % AR overdue (71.9%),
+      % AR > 90d (30.5%), Net cash flow (9,560,547) — all reconcile with the oracle.
+      No period-over-period delta on cards (point-in-time AR history is v2, per plan).
+- [x] Top overdue customers table (collections call list)
+- [x] Payments due next 30 days table (filter `days_until_due <= 30`, so it also
+      surfaces already-overdue payables the treasury still has to cover)
+- [x] Cash in vs out (grouped bar, Payment Entry)
+- [x] Invoiced vs collected (grouped bar)
+- [x] Export + manifest (`insights/workbook_templates/accounting/`); dashboard filters
+      = Company (all charts) + Date (cash-flow trends only, so AR/AP snapshots keep
+      matching AR Summary). **preview.png pending** — capture during the UI verify pass.
 - [ ] Review + **merge PR 2 (Sales + Purchasing)**
 
 ## Day 6 — Stock workbook
 
-- [ ] Cards: Total stock value, Stock value change, Items below reorder level,
+- [x] Cards: Total stock value, Stock value change, Items below reorder level,
       Dead stock value (90d — needs SLE max-posting-date join)
-- [ ] Stock value by warehouse (Bar), by item group (Bar)
-- [ ] Stock ageing by value (last-movement buckets 0–30/31–90/91–180/180+; label proxy)
-- [ ] In vs out (grouped bar, SLE, `is_cancelled = 0`)
-- [ ] Reorder alert table (Bin ⋈ Item Reorder)
-- [ ] Top items by stock value table (qty, value, days since last movement)
-- [ ] Export + manifest + preview
+- [x] Stock value by warehouse (Bar), by item group (Bar)
+- [x] Stock ageing by value (last-movement buckets 0–30/31–90/91–180/180+; label proxy)
+- [x] In vs out (grouped bar, SLE, `is_cancelled = 0`)
+- [x] Reorder alert table (Bin ⋈ Item Reorder)
+- [x] Top items by stock value table (qty, value, days since last movement)
+- [x] Export + manifest + preview
+      — `insights/workbook_templates/erpnext_stock/` ("Inventory Health": 5 queries /
+      10 charts / 1 dashboard + preview.png). Authored as workbook.json and validated by
+      importing into erpnext2.localhost + executing every chart's data_query (mirroring
+      the frontend). Reconciles with ERPNext: total stock value 16,445,986; by-warehouse
+      10.01M / 6.43M; below-reorder 6; dead stock (90d+) 3,989,883; ageing
+      12.13M / 323K / 650K / 3.34M. Dead-stock/ageing/top-items share an item-level
+      max(posting_date) sub-query joined to Bin; reorder uses a two-column join_expression
+      (Bin.item_code=parent & warehouse=warehouse) + column-vs-column filter. Note:
+      `date_diff` is `col−other`, so days-since = `date_diff(today(), last_movement_date,
+      "day")`. Base queries kept at raw grain so the date/company/warehouse dashboard
+      filters apply; Date filter defaults to "Last 12 Months". Filter-link remapping,
+      `within` filter, and the PR-1 CI import guard all verified. NOT committed —
+      awaiting UI verification.
 
 ## Day 7 — Verification + hardening (PR 3)
 
