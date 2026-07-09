@@ -1,15 +1,25 @@
 <script setup lang="tsx">
 import { useMagicKeys, useStorage, whenever } from '@vueuse/core'
-import { Breadcrumbs, ListEmptyState, ListHeader, ListRows, ListView, TabButtons } from 'frappe-ui'
-import { PlusIcon, SearchIcon } from 'lucide-vue-next'
+import {
+	Breadcrumbs,
+	ListEmptyState,
+	ListHeader,
+	ListRows,
+	ListView,
+	TabButtons,
+	call,
+} from 'frappe-ui'
+import { LayoutTemplate as LayoutTemplateIcon, PlusIcon, SearchIcon } from 'lucide-vue-next'
 import { computed, ref, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
 import { wheneverChanges } from '../helpers'
+import session from '../session'
 import { __ } from '../translation'
 import useUserStore from '../users/users'
 import useWorkbook, { newWorkbookName } from './workbook'
 import { getWorkbookColumns } from './workbookListColumns'
 import useWorkbooks from './workbooks'
+import WorkbookTemplates, { WorkbookTemplate } from './WorkbookTemplates.vue'
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -69,6 +79,23 @@ function openNewWorkbook() {
 		.finally(() => (creatingWorkbook.value = false))
 }
 
+// workbook library (the prebuilt workbooks installed apps seed) — a permanent
+// "Library" button surfaces it whenever the library is non-empty. importing is an admin
+// action for v1, so only admins fetch it; non-admins just receive the shared
+// workbooks in their list once an admin imports.
+const templates = ref<WorkbookTemplate[]>([])
+const showTemplates = ref(false)
+wheneverChanges(
+	() => session.user.is_admin,
+	(isAdmin) => {
+		if (!isAdmin) return
+		call('insights.api.templates.get_workbook_templates').then(
+			(data: WorkbookTemplate[]) => (templates.value = data || []),
+		)
+	},
+	{ immediate: true },
+)
+
 const columns = getWorkbookColumns({ userStore })
 
 function onRowClick(row: any) {
@@ -82,18 +109,11 @@ const listOptions = computed(() => ({
 	options: {
 		showTooltip: false,
 		onRowClick,
+		// actions are rendered via the ListEmptyState slot below — the built-in
+		// supports only one button, and we want New + Library side by side
 		emptyState: {
 			title: __('No Workbooks'),
 			description: __('No workbooks to display.'),
-			button:
-				scope.value !== 'shared'
-					? {
-							label: __('New Workbook'),
-							variant: 'solid',
-							onClick: openNewWorkbook,
-							loading: creatingWorkbook.value,
-					  }
-					: undefined,
 		},
 	},
 }))
@@ -122,6 +142,16 @@ watchEffect(() => {
 		<Breadcrumbs :items="[{ label: __('Workbooks'), route: '/workbook' }]" />
 		<div class="flex items-center gap-2">
 			<Button
+				v-if="templates.length"
+				:label="__('Library')"
+				variant="outline"
+				@click="showTemplates = true"
+			>
+				<template #prefix>
+					<LayoutTemplateIcon class="w-4" />
+				</template>
+			</Button>
+			<Button
 				:label="__('New Workbook')"
 				variant="solid"
 				@click="openNewWorkbook"
@@ -133,6 +163,8 @@ watchEffect(() => {
 			</Button>
 		</div>
 	</header>
+
+	<WorkbookTemplates v-model="showTemplates" :templates="templates" />
 
 	<div class="mb-4 flex h-full flex-col gap-3 overflow-auto px-5 pt-3">
 		<div class="flex items-center justify-between gap-2 overflow-visible py-1">
@@ -149,14 +181,49 @@ watchEffect(() => {
 			</FormControl>
 			<TabButtons :buttons="scopeTabs" v-model="scope" />
 		</div>
-		<!-- plain block wrapper so ListView flows to content height (its root is
-		flex-1 and would otherwise stretch and leave whitespace) -->
-		<div class="w-full">
-			<ListView v-bind="listOptions">
+		<!-- flex parent so ListView (whose root is flex-1) fills the height, which
+		lets the empty state center vertically instead of collapsing to the top -->
+		<div class="flex w-full flex-1 flex-col">
+			<ListView class="h-full" v-bind="listOptions">
 				<ListHeader />
 				<ListRows v-if="workbookStore.workbooks.length" />
 				<!-- skip the empty state while a fetch is in flight so it doesn't flash on tab switch -->
-				<ListEmptyState v-else-if="!workbookStore.loading" />
+				<!-- ListEmptyState already centers its slot content -->
+				<ListEmptyState v-else-if="!workbookStore.loading">
+					<div class="text-xl font-medium text-ink-gray-8">
+						{{ __('No Workbooks') }}
+					</div>
+					<div class="mt-1 text-base text-ink-gray-5">
+						{{
+							templates.length
+								? __('Create a workbook, or start from a prebuilt one.')
+								: __('No workbooks to display.')
+						}}
+					</div>
+					<div class="mt-4 flex items-center gap-2">
+						<Button
+							v-if="templates.length"
+							:label="__('Library')"
+							variant="outline"
+							@click="showTemplates = true"
+						>
+							<template #prefix>
+								<LayoutTemplateIcon class="w-4" />
+							</template>
+						</Button>
+						<Button
+							v-if="scope !== 'shared'"
+							:label="__('New Workbook')"
+							variant="solid"
+							:loading="creatingWorkbook"
+							@click="openNewWorkbook"
+						>
+							<template #prefix>
+								<PlusIcon class="w-4" />
+							</template>
+						</Button>
+					</div>
+				</ListEmptyState>
 			</ListView>
 			<div v-if="hasMore" class="flex pt-3">
 				<Button

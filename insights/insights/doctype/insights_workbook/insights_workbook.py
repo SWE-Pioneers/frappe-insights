@@ -22,6 +22,7 @@ class InsightsWorkbook(Document):
         from frappe.types import DF
 
         data_backup: DF.JSON | None
+        from_template: DF.Data | None
         name: DF.Int | None
         title: DF.Data
     # end: auto-generated types
