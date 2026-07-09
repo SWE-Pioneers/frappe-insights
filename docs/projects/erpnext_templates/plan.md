@@ -254,6 +254,37 @@ dashboard never blocks the feature.
 - GL-based point-in-time AR, ageing drift over time, party-currency views, FIFO-true
   stock ageing.
 
+## Decisions & refinements (post-plan)
+
+Refinements made once the shared-copy model landed. These supersede the "plain
+user-owned workbook" framing in *Why this shape* above.
+
+- **Framing: a workbook library that installed apps seed, not an "ERPNext templates"
+  feature.** The gallery is the catalog of what the site's installed apps offer;
+  ERPNext just happens to be the only source today. Copy avoids treating ERPNext as an
+  aside ("for your installed apps"); it *is* what the apps provide.
+- **Naming (lexicon).** The collection is the **Workbook Library** (dialog title); the
+  entry-point button is just **Library** (context beside *New Workbook* carries it). The
+  action is **Import** — "import from the library" reads right and reinforces that these
+  are available-not-owned until you act. "Template" is avoided in UI copy (clashes with
+  "workbook"). Lock this so a future addon doesn't rename it. (No `docs/v4/lexicon.md`
+  exists on this branch yet; promote this entry there when the v4 lexicon lands.)
+- **Entry point.** One permanent labeled button next to *New Workbook*, shown whenever
+  the catalog is non-empty. No prominence machinery (no `hasSeenGallery` flag, no
+  self-dismissing button, no banner/callout) and no single-item ⋯ dropdown. The button
+  also seeds the empty state so a fresh site points straight at the library.
+- **Shared copy, admin-only (v1).** Import produces one Administrator-owned, org-view
+  shared copy per site (see [shared-copy memory]); only admins trigger it, so only
+  admins fetch/see the entry point for now.
+- **Card attribution (design-ahead, not built).** Cards must leave room for a
+  source-app attribution (a badge beside the module, or per-source grouped sections).
+  Not rendered while ERPNext is the only source, but the card/grid layout must be able
+  to take it without a redesign.
+- **Update semantics — explicit punt.** When an app ships a newer version of an
+  already-imported workbook there is **no sync/upgrade**; the story is
+  delete-and-reimport (deletion re-enables the template via the derived `from_template`
+  lookup). A managed/refresh path is deferred, not overlooked.
+
 ## Research provenance
 
 Three inputs, July 2026:

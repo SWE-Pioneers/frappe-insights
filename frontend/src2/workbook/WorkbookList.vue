@@ -79,8 +79,10 @@ function openNewWorkbook() {
 		.finally(() => (creatingWorkbook.value = false))
 }
 
-// prebuilt workbook templates — importing is an admin action for v1, so only
-// admins fetch/see the entry point; it also stays hidden when none apply (no ERPNext)
+// workbook library (the catalog installed apps seed) — a permanent "Library"
+// button surfaces it whenever the catalog is non-empty. importing is an admin
+// action for v1, so only admins fetch it; non-admins just receive the shared
+// workbooks in their list once an admin imports.
 const templates = ref<WorkbookTemplate[]>([])
 const showTemplates = ref(false)
 wheneverChanges(
@@ -141,7 +143,7 @@ watchEffect(() => {
 		<div class="flex items-center gap-2">
 			<Button
 				v-if="templates.length"
-				:label="__('Prebuilt Workbooks')"
+				:label="__('Library')"
 				variant="outline"
 				@click="showTemplates = true"
 			>
@@ -201,7 +203,7 @@ watchEffect(() => {
 						<div class="mt-4 flex items-center gap-2">
 							<Button
 								v-if="templates.length"
-								:label="__('Prebuilt Workbooks')"
+								:label="__('Library')"
 								variant="outline"
 								@click="showTemplates = true"
 							>

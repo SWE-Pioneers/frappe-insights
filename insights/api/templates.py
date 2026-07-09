@@ -11,42 +11,117 @@ from insights.utils import DocShare
 
 MANIFEST_REQUIRED_KEYS = ["title", "description", "required_apps", "source_doctypes"]
 
-
-def get_templates_path() -> str:
-    return frappe.get_app_path("insights", "workbook_templates")
-
-
-def get_template_names() -> list[str]:
-    base = get_templates_path()
-    if not os.path.isdir(base):
-        return []
-    return sorted(
-        name for name in os.listdir(base) if os.path.isfile(os.path.join(base, name, "manifest.json"))
-    )
-
-
-def get_template_manifest(template_name: str) -> dict:
-    with open(os.path.join(get_templates_path(), template_name, "manifest.json")) as f:
-        return json.load(f)
-
-
-def get_template_workbook(template_name: str) -> dict:
-    with open(os.path.join(get_templates_path(), template_name, "workbook.json")) as f:
-        return json.load(f)
-
-
-def get_template_preview(template_name: str) -> str | None:
-    path = os.path.join(get_templates_path(), template_name, "preview.png")
-    if not os.path.isfile(path):
-        return None
-    with open(path, "rb") as f:
-        return "data:image/png;base64," + base64.b64encode(f.read()).decode()
+# The hook apps point at their templates directory with. Insights declares it
+# too (see hooks.py), so the bundled ERPNext templates ride the same contract.
+TEMPLATES_HOOK = "insights_workbook_templates"
 
 
 def get_installed_apps() -> set[str]:
     # narrow seam over frappe.get_installed_apps so tests can fake the app set
     # without patching the global that frappe's own insert hooks rely on
     return set(frappe.get_installed_apps())
+
+
+def _app_title(app: str) -> str:
+    """The app's display title (e.g. "ERPNext"), for attribution in the gallery
+    — falls back to the package name if the app declares no title."""
+    return (frappe.get_hooks("app_title", app_name=app) or [app])[0]
+
+
+def _grouping_app(entry: dict) -> str:
+    """The app a template belongs to, for gallery grouping. Its first required
+    app when it declares one — an Insights-bundled ERPNext dashboard belongs
+    under ERPNext, not Insights, because the shipping app is an implementation
+    detail. Otherwise the app that ships it (a standalone app groups under
+    itself). required_apps are all installed by the time a template is listed,
+    so the title always resolves."""
+    required = entry["manifest"].get("required_apps") or []
+    return required[0] if required else entry["app"]
+
+
+def _load_manifest(folder_path: str) -> dict:
+    """Read and validate a manifest; raise if a required key is missing or the
+    list fields are the wrong shape, so _discover_templates can skip it."""
+    with open(os.path.join(folder_path, "manifest.json")) as f:
+        manifest = json.load(f)
+    for key in MANIFEST_REQUIRED_KEYS:
+        if key not in manifest:
+            raise ValueError(f"manifest is missing required key '{key}'")
+    for key in ("required_apps", "source_doctypes"):
+        if not isinstance(manifest[key], list):
+            raise ValueError(f"manifest key '{key}' must be a list")
+    return manifest
+
+
+def _discover_templates() -> dict[str, dict]:
+    """The site's template library, derived live from installed apps' hooks —
+    installing an app adds its workbooks, uninstalling removes them, with no
+    migrate step or registry doctype.
+
+    Returns qualified-id -> {app, folder, path, manifest}. The id is
+    "{app}/{folder}" so two apps can ship a "sales" template without colliding,
+    and so imported-state lookup has a stable key. Only enumerated ids are ever
+    resolved to a path, which is what keeps path traversal out of the callers.
+
+    A single app shipping a broken manifest is skipped with a log line rather
+    than taking down the whole library."""
+    registry: dict[str, dict] = {}
+    for app in sorted(get_installed_apps()):
+        for rel_path in frappe.get_hooks(TEMPLATES_HOOK, app_name=app) or []:
+            base = os.path.join(frappe.get_app_path(app), rel_path)
+            if not os.path.isdir(base):
+                continue
+            for folder in sorted(os.listdir(base)):
+                folder_path = os.path.join(base, folder)
+                if not os.path.isfile(os.path.join(folder_path, "manifest.json")):
+                    continue
+                try:
+                    manifest = _load_manifest(folder_path)
+                except Exception:
+                    frappe.log_error(
+                        title="Invalid workbook template manifest",
+                        message=f"Skipping template {app}/{folder}",
+                    )
+                    continue
+                registry[f"{app}/{folder}"] = {
+                    "app": app,
+                    "folder": folder,
+                    "path": folder_path,
+                    "manifest": manifest,
+                }
+    return registry
+
+
+def _resolve_template(template_name: str) -> dict:
+    entry = _discover_templates().get(template_name)
+    if not entry:
+        frappe.throw(_("Workbook template {0} does not exist").format(frappe.bold(template_name)))
+    return entry
+
+
+def get_template_names() -> list[str]:
+    return sorted(_discover_templates().keys())
+
+
+def get_template_path(template_name: str) -> str:
+    return _resolve_template(template_name)["path"]
+
+
+def get_template_manifest(template_name: str) -> dict:
+    return _resolve_template(template_name)["manifest"]
+
+
+def get_template_workbook(template_name: str) -> dict:
+    with open(os.path.join(get_template_path(template_name), "workbook.json")) as f:
+        return json.load(f)
+
+
+def get_template_preview(template_name: str) -> str | None:
+    path = os.path.join(get_template_path(template_name), "preview.png")
+    if not os.path.isfile(path):
+        return None
+    with open(path, "rb") as f:
+        return "data:image/png;base64," + base64.b64encode(f.read()).decode()
 
 
 def has_required_apps(manifest: dict) -> bool:
@@ -85,14 +160,16 @@ def get_imported_templates() -> dict[str, str]:
 
 @insights_whitelist()
 def get_workbook_templates() -> list[dict]:
-    """Templates whose required_apps are all installed. Empty on sites
-    without ERPNext, so the gallery renders nothing there."""
+    """Every installed app's templates whose required_apps are also all
+    installed. Empty on a site without the apps a template needs, so the gallery
+    renders nothing there."""
     imported = get_imported_templates()
     templates = []
-    for name in get_template_names():
-        manifest = get_template_manifest(name)
+    for name, entry in sorted(_discover_templates().items()):
+        manifest = entry["manifest"]
         if not has_required_apps(manifest):
             continue
+        group_app = _grouping_app(entry)
         templates.append(
             {
                 "name": name,
@@ -100,6 +177,11 @@ def get_workbook_templates() -> list[dict]:
                 "description": manifest.get("description"),
                 "notes": manifest.get("notes"),
                 "module": manifest.get("module"),
+                # the app the template is for — its section in the gallery
+                "app": group_app,
+                "app_title": _app_title(group_app),
+                # absent = v1; the key that makes "update available" possible later
+                "version": manifest.get("version") or 1,
                 "has_data": has_source_data(manifest),
                 "preview_image": get_template_preview(name),
                 # workbook the site already imported from the template, else None
@@ -166,11 +248,9 @@ def _template_import_result(workbook_name: str) -> dict:
 def create_workbook_from_template(template_name: str) -> dict:
     from insights.insights.doctype.insights_workbook.insights_workbook import import_workbook
 
-    # names come from a directory listing, so this also blocks path traversal
-    if template_name not in get_template_names():
-        frappe.throw(_("Workbook template {0} does not exist").format(frappe.bold(template_name)))
-
-    manifest = get_template_manifest(template_name)
+    # resolve against the enumerated registry (never split+join the id onto a
+    # path), so an unknown id — or a "../" traversal attempt — is thrown out here
+    manifest = _resolve_template(template_name)["manifest"]
     if not has_required_apps(manifest):
         frappe.throw(
             _("Workbook template {0} requires apps that are not installed: {1}").format(
@@ -180,8 +260,10 @@ def create_workbook_from_template(template_name: str) -> dict:
         )
 
     # One shared copy per site. Serialize the check-then-insert so two admins
-    # clicking simultaneously on a fresh site can't both create a copy.
-    with filelock(f"insights_template_import_{template_name}", timeout=60):
+    # clicking simultaneously on a fresh site can't both create a copy. The id's
+    # "/" is flattened so it stays a plain lock filename, not a nested path.
+    lock_key = f"insights_template_import_{template_name.replace('/', '_')}"
+    with filelock(lock_key, timeout=60):
         existing = _find_imported_workbook(template_name)
         if existing:
             return _template_import_result(existing)

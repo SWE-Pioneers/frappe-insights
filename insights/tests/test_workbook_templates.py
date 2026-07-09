@@ -9,8 +9,8 @@ from insights.api.templates import (
     create_workbook_from_template,
     get_template_manifest,
     get_template_names,
+    get_template_path,
     get_template_workbook,
-    get_templates_path,
     get_workbook_templates,
 )
 from insights.insights.doctype.insights_workbook.insights_workbook import import_workbook
@@ -18,11 +18,12 @@ from insights.tests.base import InsightsIntegrationTestCase
 from insights.tests.factories import USER_1, create_test_user, delete_users
 from insights.tests.workbook_utils import get_workbook
 
-TEMPLATE = "sales"
+# ids are qualified by the app that ships the template ("{app}/{folder}")
+TEMPLATE = "insights/sales"
 TEMPLATE_TITLE = "Sales Performance"
 TEMPLATE_MODULE = "Selling"
 # a committed template that ships a preview.png, so preview handling stays covered
-TEMPLATE_WITH_PREVIEW = "stock"
+TEMPLATE_WITH_PREVIEW = "insights/stock"
 
 # importing is admin-only for v1; two extra actors let us prove the shared-copy model
 ADMIN_USER = "workbook_template_admin@test.com"
@@ -80,6 +81,10 @@ class TestWorkbookTemplates(InsightsIntegrationTestCase):
         self.assertIn("has_data", sales)
         self.assertTrue(sales["notes"])  # technical caveats split out of the description
         self.assertIsNone(sales["imported_workbook"])
+        # grouped under the app it's for (its required app), not the shipping app
+        self.assertEqual(sales["app"], "erpnext")
+        self.assertEqual(sales["app_title"], "ERPNext")
+        self.assertEqual(sales["version"], 1)
 
         # a template that ships a preview exposes it as a data URI
         self.assertTrue(
@@ -214,6 +219,10 @@ class TestWorkbookTemplates(InsightsIntegrationTestCase):
         template_names = get_template_names()
         self.assertGreater(len(template_names), 0)
 
+        # every committed id is app-qualified, not a bare folder name
+        for name in template_names:
+            self.assertIn("/", name, f"template id {name!r} must be qualified as app/folder")
+
         for name in template_names:
             with self.subTest(template=name):
                 manifest = get_template_manifest(name)
@@ -222,7 +231,7 @@ class TestWorkbookTemplates(InsightsIntegrationTestCase):
                 self.assertIsInstance(manifest["required_apps"], list)
                 self.assertIsInstance(manifest["source_doctypes"], list)
 
-                workbook_path = os.path.join(get_templates_path(), name, "workbook.json")
+                workbook_path = os.path.join(get_template_path(name), "workbook.json")
                 self.assertTrue(os.path.isfile(workbook_path), f"{name} has no workbook.json")
                 with open(workbook_path) as f:
                     workbook = json.load(f)
