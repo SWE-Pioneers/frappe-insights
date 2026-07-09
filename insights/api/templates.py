@@ -276,5 +276,9 @@ def create_workbook_from_template(template_name: str) -> dict:
         frappe.db.set_value("Insights Workbook", workbook_name, "from_template", template_name)
         _reassign_to_administrator(workbook_name)
         _share_with_organization(workbook_name)
+        # Commit inside the lock so the copy is visible to the next admin who
+        # takes it — the lock only serializes; without the commit the next holder
+        # reads a pre-insert snapshot and creates a silent duplicate.
+        frappe.db.commit()
 
     return _template_import_result(workbook_name)
