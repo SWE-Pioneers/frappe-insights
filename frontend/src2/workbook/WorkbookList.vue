@@ -181,48 +181,47 @@ watchEffect(() => {
 			</FormControl>
 			<TabButtons :buttons="scopeTabs" v-model="scope" />
 		</div>
-		<!-- plain block wrapper so ListView flows to content height (its root is
-		flex-1 and would otherwise stretch and leave whitespace) -->
-		<div class="w-full">
-			<ListView v-bind="listOptions">
+		<!-- flex parent so ListView (whose root is flex-1) fills the height, which
+		lets the empty state center vertically instead of collapsing to the top -->
+		<div class="flex w-full flex-1 flex-col">
+			<ListView class="h-full" v-bind="listOptions">
 				<ListHeader />
 				<ListRows v-if="workbookStore.workbooks.length" />
 				<!-- skip the empty state while a fetch is in flight so it doesn't flash on tab switch -->
+				<!-- ListEmptyState already centers its slot content -->
 				<ListEmptyState v-else-if="!workbookStore.loading">
-					<div class="flex h-full w-full flex-col items-center justify-center text-base">
-						<div class="mt-6 text-xl font-medium text-ink-gray-8">
-							{{ __('No Workbooks') }}
-						</div>
-						<div class="mt-1 text-base text-ink-gray-5">
-							{{
-								templates.length
-									? __('Create a workbook, or start from a prebuilt one.')
-									: __('No workbooks to display.')
-							}}
-						</div>
-						<div class="mt-4 flex items-center gap-2">
-							<Button
-								v-if="templates.length"
-								:label="__('Library')"
-								variant="outline"
-								@click="showTemplates = true"
-							>
-								<template #prefix>
-									<LayoutTemplateIcon class="w-4" />
-								</template>
-							</Button>
-							<Button
-								v-if="scope !== 'shared'"
-								:label="__('New Workbook')"
-								variant="solid"
-								:loading="creatingWorkbook"
-								@click="openNewWorkbook"
-							>
-								<template #prefix>
-									<PlusIcon class="w-4" />
-								</template>
-							</Button>
-						</div>
+					<div class="text-xl font-medium text-ink-gray-8">
+						{{ __('No Workbooks') }}
+					</div>
+					<div class="mt-1 text-base text-ink-gray-5">
+						{{
+							templates.length
+								? __('Create a workbook, or start from a prebuilt one.')
+								: __('No workbooks to display.')
+						}}
+					</div>
+					<div class="mt-4 flex items-center gap-2">
+						<Button
+							v-if="templates.length"
+							:label="__('Library')"
+							variant="outline"
+							@click="showTemplates = true"
+						>
+							<template #prefix>
+								<LayoutTemplateIcon class="w-4" />
+							</template>
+						</Button>
+						<Button
+							v-if="scope !== 'shared'"
+							:label="__('New Workbook')"
+							variant="solid"
+							:loading="creatingWorkbook"
+							@click="openNewWorkbook"
+						>
+							<template #prefix>
+								<PlusIcon class="w-4" />
+							</template>
+						</Button>
 					</div>
 				</ListEmptyState>
 			</ListView>
