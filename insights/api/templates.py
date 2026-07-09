@@ -23,9 +23,14 @@ def get_installed_apps() -> set[str]:
 
 
 def _app_title(app: str) -> str:
-    """The app's display title (e.g. "ERPNext"), for attribution in the gallery
-    — falls back to the package name if the app declares no title."""
-    return (frappe.get_hooks("app_title", app_name=app) or [app])[0]
+    """The app's display title (e.g. "ERPNext"), for attribution in the gallery.
+    Falls back to the package name if the title can't be read — doing so imports
+    the app, which a not-genuinely-installed app (e.g. one faked in a test) can't
+    satisfy, and a broken app shouldn't take down the gallery."""
+    try:
+        return (frappe.get_hooks("app_title", app_name=app) or [app])[0]
+    except Exception:
+        return app
 
 
 def _grouping_app(entry: dict) -> str:
@@ -66,7 +71,10 @@ def _discover_templates() -> dict[str, dict]:
     A single app shipping a broken manifest is skipped with a log line rather
     than taking down the whole library."""
     registry: dict[str, dict] = {}
-    for app in sorted(get_installed_apps()):
+    # iterate genuinely-installed apps, NOT the get_installed_apps() seam: reading
+    # an app's hooks imports its module, and tests fake apps into that seam that
+    # aren't importable. The seam is only for required_apps filtering downstream.
+    for app in sorted(frappe.get_installed_apps()):
         for rel_path in frappe.get_hooks(TEMPLATES_HOOK, app_name=app) or []:
             base = os.path.join(frappe.get_app_path(app), rel_path)
             if not os.path.isdir(base):

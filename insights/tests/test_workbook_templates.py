@@ -81,9 +81,11 @@ class TestWorkbookTemplates(InsightsIntegrationTestCase):
         self.assertIn("has_data", sales)
         self.assertTrue(sales["notes"])  # technical caveats split out of the description
         self.assertIsNone(sales["imported_workbook"])
-        # grouped under the app it's for (its required app), not the shipping app
+        # grouped under the app it's for (its required app), not the shipping app.
+        # required_apps is faked here, so erpnext may not be a real module — the
+        # title resolves to "ERPNext" when it is, else falls back to the name.
         self.assertEqual(sales["app"], "erpnext")
-        self.assertEqual(sales["app_title"], "ERPNext")
+        self.assertIn(sales["app_title"], ("ERPNext", "erpnext"))
         self.assertEqual(sales["version"], 1)
 
         # a template that ships a preview exposes it as a data URI
