@@ -218,7 +218,6 @@ def delete_data_source(data_source: str):
 
 
 @insights_whitelist()
-@redis_cache()
 def fetch_column_values(data_source: str, table: str, column: str, search_text: str | None = None):
     if not data_source or not isinstance(data_source, str):
         frappe.throw("Data Source is required")
@@ -226,12 +225,21 @@ def fetch_column_values(data_source: str, table: str, column: str, search_text: 
         frappe.throw("Table is required")
     if not column or not isinstance(column, str):
         frappe.throw("Column is required")
+    check_table_permission(data_source, table)
+    # cache keyed on args only, so resolve access before the cached read
+    return _fetch_column_values(data_source, table, column, search_text)
+
+
+@redis_cache()
+def _fetch_column_values(data_source: str, table: str, column: str, search_text: str | None = None):
     doc = frappe.get_doc("Insights Data Source", data_source)
     return doc.get_column_options(table, column, search_text)
 
 
 @insights_whitelist()
 def get_relation(data_source: str, table_one: str, table_two: str):
+    check_table_permission(data_source, table_one)
+    check_table_permission(data_source, table_two)
     table_one_doc = InsightsTable.get_doc({"data_source": data_source, "table": table_one})
     if not table_one_doc:
         frappe.throw(f"Table {table_one} not found")
