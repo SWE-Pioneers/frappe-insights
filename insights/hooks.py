@@ -21,11 +21,13 @@ add_to_apps_screen = [
     }
 ]
 
-# Any app can contribute workbook templates by pointing this hook at a directory
+# Any app can ship workbooks to Insights by pointing this hook at a directory
 # (relative to the app) holding one folder per workbook — manifest.json +
 # workbook.json + optional preview.png. Insights is its own first consumer: the
-# bundled ERPNext templates are discovered through the same public contract.
-insights_workbook_templates = "workbook_templates"
+# bundled ERPNext workbooks are discovered through the same public contract.
+# Deliberately policy-free name: how the site consumes these (import a copy
+# today, versioned updates later) can evolve without breaking the hook.
+insights_workbooks = "workbook_templates"
 
 
 # Includes in <head>

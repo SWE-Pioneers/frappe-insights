@@ -11,9 +11,10 @@ from insights.utils import DocShare
 
 MANIFEST_REQUIRED_KEYS = ["title", "description", "required_apps", "source_doctypes"]
 
-# The hook apps point at their templates directory with. Insights declares it
-# too (see hooks.py), so the bundled ERPNext templates ride the same contract.
-TEMPLATES_HOOK = "insights_workbook_templates"
+# The hook apps point at their shipped-workbooks directory with. Insights
+# declares it too (see hooks.py), so the bundled ERPNext templates ride the
+# same contract.
+TEMPLATES_HOOK = "insights_workbooks"
 
 
 def get_installed_apps() -> set[str]:
@@ -23,10 +24,10 @@ def get_installed_apps() -> set[str]:
 
 
 def _app_title(app: str) -> str:
-    """The app's display title (e.g. "ERPNext"), for attribution in the gallery.
+    """The app's display title (e.g. "ERPNext"), for attribution in the library.
     Falls back to the package name if the title can't be read — doing so imports
     the app, which a not-genuinely-installed app (e.g. one faked in a test) can't
-    satisfy, and a broken app shouldn't take down the gallery."""
+    satisfy, and a broken app shouldn't take down the library."""
     try:
         return (frappe.get_hooks("app_title", app_name=app) or [app])[0]
     except Exception:
@@ -34,7 +35,7 @@ def _app_title(app: str) -> str:
 
 
 def _grouping_app(entry: dict) -> str:
-    """The app a template belongs to, for gallery grouping. Its first required
+    """The app a template belongs to, for library grouping. Its first required
     app when it declares one — an Insights-bundled ERPNext dashboard belongs
     under ERPNext, not Insights, because the shipping app is an implementation
     detail. Otherwise the app that ships it (a standalone app groups under
@@ -65,8 +66,9 @@ def _discover_templates() -> dict[str, dict]:
 
     Returns qualified-id -> {app, folder, path, manifest}. The id is
     "{app}/{folder}" so two apps can ship a "sales" template without colliding,
-    and so imported-state lookup has a stable key. Only enumerated ids are ever
-    resolved to a path, which is what keeps path traversal out of the callers.
+    and so imported-state lookup has a stable key. Ids travel as `name` over the
+    API, per Frappe convention. Only enumerated ids are ever resolved to a path,
+    which is what keeps path traversal out of the callers.
 
     A single app shipping a broken manifest is skipped with a log line rather
     than taking down the whole library."""
@@ -169,7 +171,7 @@ def get_imported_templates() -> dict[str, str]:
 @insights_whitelist()
 def get_workbook_templates() -> list[dict]:
     """Every installed app's templates whose required_apps are also all
-    installed. Empty on a site without the apps a template needs, so the gallery
+    installed. Empty on a site without the apps a template needs, so the library
     renders nothing there."""
     imported = get_imported_templates()
     templates = []
@@ -185,7 +187,7 @@ def get_workbook_templates() -> list[dict]:
                 "description": manifest.get("description"),
                 "notes": manifest.get("notes"),
                 "module": manifest.get("module"),
-                # the app the template is for — its section in the gallery
+                # the app the template is for — its section in the library
                 "app": group_app,
                 "app_title": _app_title(group_app),
                 # absent = v1; the key that makes "update available" possible later
@@ -285,7 +287,7 @@ def create_workbook_from_template(template_name: str) -> dict:
         # session sid and logs the user out), then hand the copy to Administrator so
         # it becomes a shared org resource that everyone else reads via the share.
         workbook_name = import_workbook(get_template_workbook(template_name))
-        # tag the origin so the gallery can mark this template as imported
+        # tag the origin so the library can mark this template as imported
         frappe.db.set_value("Insights Workbook", workbook_name, "from_template", template_name)
         _reassign_to_administrator(workbook_name)
         _share_with_organization(workbook_name)

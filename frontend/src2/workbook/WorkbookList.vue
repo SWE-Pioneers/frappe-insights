@@ -79,8 +79,8 @@ function openNewWorkbook() {
 		.finally(() => (creatingWorkbook.value = false))
 }
 
-// workbook library (the catalog installed apps seed) — a permanent "Library"
-// button surfaces it whenever the catalog is non-empty. importing is an admin
+// workbook library (the prebuilt workbooks installed apps seed) — a permanent
+// "Library" button surfaces it whenever the library is non-empty. importing is an admin
 // action for v1, so only admins fetch it; non-admins just receive the shared
 // workbooks in their list once an admin imports.
 const templates = ref<WorkbookTemplate[]>([])
@@ -110,7 +110,7 @@ const listOptions = computed(() => ({
 		showTooltip: false,
 		onRowClick,
 		// actions are rendered via the ListEmptyState slot below — the built-in
-		// supports only one button, and we want New + Prebuilt side by side
+		// supports only one button, and we want New + Library side by side
 		emptyState: {
 			title: __('No Workbooks'),
 			description: __('No workbooks to display.'),

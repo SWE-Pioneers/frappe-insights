@@ -40,10 +40,10 @@ const sections = computed(() => {
 const router = useRouter()
 
 // name of the template currently being imported, so only its card spins
-const creating = ref<string | null>(null)
+const importing = ref<string | null>(null)
 
 function importTemplate(template: WorkbookTemplate) {
-	creating.value = template.name
+	importing.value = template.name
 	call('insights.api.templates.create_workbook_from_template', {
 		template_name: template.name,
 	})
@@ -61,7 +61,7 @@ function importTemplate(template: WorkbookTemplate) {
 				variant: 'error',
 			})
 		})
-		.finally(() => (creating.value = null))
+		.finally(() => (importing.value = null))
 }
 
 function openImported(template: WorkbookTemplate) {
@@ -75,7 +75,7 @@ function openImported(template: WorkbookTemplate) {
 			<p class="mb-5 text-p-base text-ink-gray-6">
 				{{
 					__(
-						"Ready-made workbooks your installed apps bring to Insights. Import one to add it to your site's workbooks — everyone can use it.",
+						"Prebuilt workbooks your installed apps bring to Insights. Import one to add it to your site's workbooks — everyone can use it.",
 					)
 				}}
 			</p>
@@ -149,8 +149,8 @@ function openImported(template: WorkbookTemplate) {
 									<Button
 										v-else
 										class="ml-auto"
-										:loading="creating === template.name"
-										:disabled="!!creating"
+										:loading="importing === template.name"
+										:disabled="!!importing"
 										@click="importTemplate(template)"
 									>
 										{{ __('Import') }}
