@@ -238,6 +238,11 @@ def _share_with_organization(workbook_name: str) -> None:
     share.read = 1
     share.write = 0
     share.notify_by_email = 0
+    # Creating the org-shared copy is a privileged system action; it must not
+    # hinge on the acting admin's share right on the workbook (which they lose
+    # once ownership moves to Administrator). ignore_permissions doesn't cover
+    # DocShare's own share-permission check — ignore_share_permission does.
+    share.flags.ignore_share_permission = True
     share.save(ignore_permissions=True)
 
 
