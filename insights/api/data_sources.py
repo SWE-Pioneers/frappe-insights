@@ -17,7 +17,7 @@ from insights.insights.doctype.insights_team.insights_team import (
     check_table_permission,
     get_permission_filter,
 )
-from insights.utils import InsightsTable, detect_encoding
+from insights.utils import InsightsTable, detect_encoding, get_owned_file
 
 
 @insights_whitelist()
@@ -129,7 +129,7 @@ def create_table_link(
 def get_columns_from_uploaded_file(filename: str):
     import pandas as pd
 
-    file = frappe.get_doc("File", filename)
+    file = get_owned_file(filename)
     parts = file.get_extension()
     if "csv" not in parts[1]:
         frappe.throw("Only CSV files are supported")
@@ -166,7 +166,7 @@ def import_csv(
     table_import.table_label = table_label
     table_import.table_name = table_name
     table_import.if_exists = if_exists
-    table_import.source = frappe.get_doc("File", filename).file_url
+    table_import.source = get_owned_file(filename).file_url
     table_import.save()
     table_import.columns = []
     for column in columns:
