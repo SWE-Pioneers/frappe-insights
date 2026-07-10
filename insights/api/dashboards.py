@@ -48,19 +48,10 @@ def create_dashboard(title: str):
 
 @insights_whitelist()
 def get_dashboard_options(chart: str):
-    # find all dashboards that don't have the chart within the allowed dashboards
-    Dashboard = frappe.qb.DocType("Insights Dashboard")
-    DashboardItem = frappe.qb.DocType("Insights Dashboard Item")
-
-    return (
-        frappe.qb.from_(Dashboard)
-        .left_join(DashboardItem)
-        .on(Dashboard.name == DashboardItem.parent)
-        .select(Dashboard.name.as_("value"), Dashboard.title.as_("label"))
-        .where(DashboardItem.chart != chart)
-        .groupby(Dashboard.name)
-        .run(as_dict=True)
-    )
+    # dashboards the caller can access that don't already contain this chart
+    dashboards = frappe.get_list("Insights Dashboard", fields=["name", "title"])
+    with_chart = set(frappe.get_all("Insights Dashboard Item", filters={"chart": chart}, pluck="parent"))
+    return [{"value": d.name, "label": d.title} for d in dashboards if d.name not in with_chart]
 
 
 @insights_whitelist()
@@ -219,6 +210,7 @@ def _dashboard_chart_counts(names: list[str]) -> dict[str, int]:
 @insights_whitelist()
 @validate_type
 def update_dashboard_preview(dashboard_name: str):
+    frappe.has_permission("Insights Dashboard v3", ptype="read", doc=dashboard_name, throw=True)
     dashboard = frappe.get_doc("Insights Dashboard v3", dashboard_name)
     file_url = dashboard.generate_dashboard_preview()
     return file_url
