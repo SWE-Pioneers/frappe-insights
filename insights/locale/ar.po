@@ -1,0 +1,2414 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: frappe\n"
+"Language-Team: Arabic\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+
+#. ai-translated; needs-native-review
+msgid "# Example"
+msgstr "# مثال"
+
+#. ai-translated; needs-native-review
+msgid "# Syntax"
+msgstr "# الصياغة"
+
+#. ai-translated; needs-native-review
+msgid "* required"
+msgstr "* مطلوب"
+
+#. ai-translated; needs-native-review
+msgid "ADD"
+msgstr "إضافة"
+
+#. ai-translated; needs-native-review
+msgid "Action if exists"
+msgstr "الإجراء عند وجوده"
+
+#. ai-translated; needs-native-review
+msgid "Actions"
+msgstr "الإجراءات"
+
+#. ai-translated; needs-native-review
+msgid "Add"
+msgstr "إضافة"
+
+#. ai-translated; needs-native-review
+msgid "Add "
+msgstr "إضافة"
+
+#. ai-translated; needs-native-review
+msgid "Add Column"
+msgstr "إضافة عمود"
+
+#. ai-translated; needs-native-review
+msgid "Add Database"
+msgstr "إضافة قاعدة بيانات"
+
+#. ai-translated; needs-native-review
+msgid "Add Link"
+msgstr "إضافة رابط"
+
+#. ai-translated; needs-native-review
+msgid "Add Team"
+msgstr "إضافة فريق"
+
+#. ai-translated; needs-native-review
+msgid "Add User"
+msgstr "إضافة مستخدم"
+
+#. ai-translated; needs-native-review
+msgid "Add Variable"
+msgstr "إضافة متغير"
+
+#. ai-translated; needs-native-review
+msgid "Add a chart"
+msgstr "إضافة مخطط"
+
+#. ai-translated; needs-native-review
+msgid "Add a member"
+msgstr "إضافة عضو"
+
+#. ai-translated; needs-native-review
+msgid "Add a team to share with"
+msgstr "إضافة فريق للمشاركة معه"
+
+#. ai-translated; needs-native-review
+msgid "Add a {0}"
+msgstr "إضافة {0}"
+
+#. ai-translated; needs-native-review
+msgid "Add filter"
+msgstr "إضافة تصفية"
+
+#. ai-translated; needs-native-review
+msgid "Add to Dashboard"
+msgstr "إضافة إلى لوحة المعلومات"
+
+#. ai-translated; needs-native-review
+msgid "Add to dashboard"
+msgstr "إضافة إلى لوحة المعلومات"
+
+#. ai-translated; needs-native-review
+msgid "Adding Database..."
+msgstr "جاري إضافة قاعدة البيانات..."
+
+#. ai-translated; needs-native-review
+msgid "Aggregation Type"
+msgstr "نوع التجميع"
+
+#. ai-translated; needs-native-review
+msgid "Alert Name"
+msgstr "اسم التنبيه"
+
+#. ai-translated; needs-native-review
+msgid "Alert sent"
+msgstr "تم إرسال التنبيه"
+
+#. ai-translated; needs-native-review
+msgid "All"
+msgstr "الكل"
+
+#. ai-translated; needs-native-review
+msgid "All set! 🎉"
+msgstr "كل شيء جاهز! 🎉"
+
+#. ai-translated; needs-native-review
+msgid "All the changes you have made in the Classic Query Builder will be converted to the Visual Query Builder. Are you sure you want to continue?"
+msgstr "سيتم تحويل جميع التغييرات التي أجريتها في منشئ الاستعلامات الكلاسيكي إلى منشئ الاستعلامات المرئي. هل أنت متأكد من أنك تريد المتابعة؟"
+
+#. ai-translated; needs-native-review
+msgid "All the changes you have made in the query will be preserved. However, if you make any changes in the Classic Query Builder, they will be lost when you switch back to the Visual Query Builder. Are you sure you want to continue?"
+msgstr "سيتم الحفاظ على جميع التغييرات التي أجريتها في الاستعلام. ومع ذلك، إذا أجريت أي تغييرات في منشئ الاستعلامات الكلاسيكي، فسيتم فقدانها عند التبديل مرة أخرى إلى منشئ الاستعلامات المرئي. هل أنت متأكد من أنك تريد المتابعة؟"
+
+#. ai-translated; needs-native-review
+msgid "All the tables from these data source will be accessible to the team."
+msgstr "ستكون جميع الجداول من مصدر البيانات هذا متاحة للفريق."
+
+#. ai-translated; needs-native-review
+msgid "Allow selecting query as a table in another query. Any query selected as a table will be appended as a sub query using CTE (Common Table Expression)."
+msgstr "السماح بتحديد الاستعلام كجدول في استعلام آخر. أي استعلام يتم تحديده كجدول سيتم إلحاقه كاستعلام فرعي باستخدام CTE (تعبير الجدول العام)."
+
+#. ai-translated; needs-native-review
+msgid "An eCommerce dataset with orders, products, customers, and suppliers data."
+msgstr "مجموعة بيانات للتجارة الإلكترونية تحتوي على بيانات الطلبات والمنتجات والعملاء والموردين."
+
+#. ai-translated; needs-native-review
+msgid "And"
+msgstr "و"
+
+#. ai-translated; needs-native-review
+msgid "Anyone with the link can view this"
+msgstr "يمكن لأي شخص لديه الرابط عرض هذا"
+
+#. ai-translated; needs-native-review
+msgid "Apply"
+msgstr "تطبيق"
+
+#. ai-translated; needs-native-review
+msgid "Apply filters to narrow down the results."
+msgstr "طبق عوامل التصفية لتضييق نطاق النتائج."
+
+#. ai-translated; needs-native-review
+msgid "Are you sure you want to delete this dashboard?"
+msgstr "هل أنت متأكد من أنك تريد حذف لوحة المعلومات هذه؟"
+
+#. ai-translated; needs-native-review
+msgid "Are you sure you want to delete this data source?"
+msgstr "هل أنت متأكد من أنك تريد حذف مصدر البيانات هذا؟"
+
+#. ai-translated; needs-native-review
+msgid "Are you sure you want to delete this notebook?"
+msgstr "هل أنت متأكد من أنك تريد حذف هذا الدفتر؟"
+
+#. ai-translated; needs-native-review
+msgid "Are you sure you want to delete this page?"
+msgstr "هل أنت متأكد من أنك تريد حذف هذه الصفحة؟"
+
+#. ai-translated; needs-native-review
+msgid "Are you sure you want to delete this query?"
+msgstr "هل أنت متأكد من أنك تريد حذف هذا الاستعلام؟"
+
+#. ai-translated; needs-native-review
+msgid "Are you sure you want to delete this team?"
+msgstr "هل أنت متأكد من أنك تريد حذف هذا الفريق؟"
+
+#. ai-translated; needs-native-review
+msgid "Ascending"
+msgstr "تصاعدي"
+
+#. ai-translated; needs-native-review
+msgid "Attach File"
+msgstr "إرفاق ملف"
+
+#. ai-translated; needs-native-review
+msgid "Auto Execute Query"
+msgstr "تنفيذ الاستعلام تلقائيا"
+
+#. ai-translated; needs-native-review
+msgid "Automatically execute when tables, columns, or filters are changed."
+msgstr "التنفيذ تلقائيا عند تغيير الجداول أو الأعمدة أو عوامل التصفية."
+
+#. ai-translated; needs-native-review
+msgid "Axis Type"
+msgstr "نوع المحور"
+
+#. ai-translated; needs-native-review
+msgid "Back"
+msgstr "رجوع"
+
+#. ai-translated; needs-native-review
+msgid "Bar"
+msgstr "شريطي"
+
+#. ai-translated; needs-native-review
+msgid "Blues"
+msgstr "درجات الأزرق"
+
+#. ai-translated; needs-native-review
+msgid "Browse Data Sources"
+msgstr "تصفح مصادر البيانات"
+
+#. ai-translated; needs-native-review
+msgid "Build Query"
+msgstr "إنشاء استعلام"
+
+#. ai-translated; needs-native-review
+msgid "Build Your First Query"
+msgstr "أنشئ أول استعلام لك"
+
+#. ai-translated; needs-native-review
+msgid "COLUMNS"
+msgstr "الأعمدة"
+
+#. ai-translated; needs-native-review
+msgid "CSV Column"
+msgstr "عمود CSV"
+
+#. ai-translated; needs-native-review
+msgid "CSV Import"
+msgstr "استيراد CSV"
+
+#. ai-translated; needs-native-review
+msgid "Cache Query Results For"
+msgstr "تخزين نتائج الاستعلام مؤقتا لمدة"
+
+#. ai-translated; needs-native-review
+msgid "Cancel"
+msgstr "إلغاء"
+
+#. ai-translated; needs-native-review
+msgid "Cardinality"
+msgstr "التعددية"
+
+#. ai-translated; needs-native-review
+msgid "Change Type"
+msgstr "تغيير النوع"
+
+#. ai-translated; needs-native-review
+msgid "Channel"
+msgstr "القناة"
+
+#. ai-translated; needs-native-review
+msgid "Chart Type"
+msgstr "نوع المخطط"
+
+#. ai-translated; needs-native-review
+msgid "Chart added to dashboard"
+msgstr "تمت إضافة المخطط إلى لوحة المعلومات"
+
+#. ai-translated; needs-native-review
+msgid "Chart container reference not found"
+msgstr "لم يتم العثور على مرجع حاوية المخطط"
+
+#. ai-translated; needs-native-review
+msgid "Chart type"
+msgstr "نوع المخطط"
+
+#. ai-translated; needs-native-review
+msgid "Check once a day"
+msgstr "التحقق مرة واحدة يوميا"
+
+#. ai-translated; needs-native-review
+msgid "Check once a month"
+msgstr "التحقق مرة واحدة شهريا"
+
+#. ai-translated; needs-native-review
+msgid "Check once a week"
+msgstr "التحقق مرة واحدة أسبوعيا"
+
+#. ai-translated; needs-native-review
+msgid "Check once an hour"
+msgstr "التحقق مرة واحدة كل ساعة"
+
+#. ai-translated; needs-native-review
+msgid "Clear"
+msgstr "مسح"
+
+#. ai-translated; needs-native-review
+msgid "Clear All"
+msgstr "مسح الكل"
+
+#. ai-translated; needs-native-review
+msgid "Clear all filter"
+msgstr "مسح كل التصفية"
+
+#. ai-translated; needs-native-review
+msgid "Close"
+msgstr "إغلاق"
+
+#. ai-translated; needs-native-review
+msgid "Code"
+msgstr "الكود"
+
+#. ai-translated; needs-native-review
+msgid "Color"
+msgstr "اللون"
+
+#. ai-translated; needs-native-review
+msgid "Color Palette"
+msgstr "لوحة الألوان"
+
+#. ai-translated; needs-native-review
+msgid "Color palette"
+msgstr "لوحة الألوان"
+
+#. ai-translated; needs-native-review
+msgid "Column"
+msgstr "عمود"
+
+#. ai-translated; needs-native-review
+msgid "Column Expression"
+msgstr "تعبير العمود"
+
+#. ai-translated; needs-native-review
+msgid "Column Name"
+msgstr "اسم العمود"
+
+#. ai-translated; needs-native-review
+msgid "Column Type"
+msgstr "نوع العمود"
+
+#. ai-translated; needs-native-review
+msgid "Column cannot be same as Row or Value"
+msgstr "لا يمكن أن يكون العمود مطابقا للصف أو القيمة"
+
+#. ai-translated; needs-native-review
+msgid "Column must be an expression"
+msgstr "يجب أن يكون العمود تعبيرا"
+
+#. ai-translated; needs-native-review
+msgid "Columns"
+msgstr "الأعمدة"
+
+#. ai-translated; needs-native-review
+msgid "Coming soon!"
+msgstr "قريبا!"
+
+#. ai-translated; needs-native-review
+msgid "Connect"
+msgstr "اتصال"
+
+#. ai-translated; needs-native-review
+msgid "Connect Data Source"
+msgstr "توصيل مصدر البيانات"
+
+#. ai-translated; needs-native-review
+msgid "Connect Your Data"
+msgstr "توصيل بياناتك"
+
+#. ai-translated; needs-native-review
+msgid "Connect or Upload a spreadsheet"
+msgstr "توصيل أو رفع جدول بيانات"
+
+#. ai-translated; needs-native-review
+msgid "Connect to Data"
+msgstr "الاتصال بالبيانات"
+
+#. ai-translated; needs-native-review
+msgid "Connect to MariaDB database"
+msgstr "الاتصال بقاعدة بيانات MariaDB"
+
+#. ai-translated; needs-native-review
+msgid "Connect to MySQL"
+msgstr "الاتصال بـ MySQL"
+
+#. ai-translated; needs-native-review
+msgid "Connect to PostgreDB"
+msgstr "الاتصال بـ PostgreDB"
+
+#. ai-translated; needs-native-review
+msgid "Connect to PostgreSQL database"
+msgstr "الاتصال بقاعدة بيانات PostgreSQL"
+
+#. ai-translated; needs-native-review
+msgid "Connect to a MariaDB database"
+msgstr "الاتصال بقاعدة بيانات MariaDB"
+
+#. ai-translated; needs-native-review
+msgid "Connect to a PostgreSQL database"
+msgstr "الاتصال بقاعدة بيانات PostgreSQL"
+
+#. ai-translated; needs-native-review
+msgid "Connect to your ERPNext site"
+msgstr "الاتصال بموقع ERPNext الخاص بك"
+
+#. ai-translated; needs-native-review
+msgid "Connected"
+msgstr "متصل"
+
+#. ai-translated; needs-native-review
+msgid "Connecting..."
+msgstr "جاري الاتصال..."
+
+#. ai-translated; needs-native-review
+msgid "Connection String"
+msgstr "سلسلة الاتصال"
+
+#. ai-translated; needs-native-review
+msgid "Contact the Team"
+msgstr "التواصل مع الفريق"
+
+#. ai-translated; needs-native-review
+msgid "Content"
+msgstr "المحتوى"
+
+#. ai-translated; needs-native-review
+msgid "Continue"
+msgstr "متابعة"
+
+#. ai-translated; needs-native-review
+msgid "Copy Link"
+msgstr "نسخ الرابط"
+
+#. ai-translated; needs-native-review
+msgid "Copy iFrame"
+msgstr "نسخ iFrame"
+
+#. ai-translated; needs-native-review
+msgid "Create"
+msgstr "إنشاء"
+
+#. ai-translated; needs-native-review
+msgid "Create Alert"
+msgstr "إنشاء تنبيه"
+
+#. ai-translated; needs-native-review
+msgid "Create Dashboard"
+msgstr "إنشاء لوحة معلومات"
+
+#. ai-translated; needs-native-review
+msgid "Create Data Source"
+msgstr "إنشاء مصدر بيانات"
+
+#. ai-translated; needs-native-review
+msgid "Create New"
+msgstr "إنشاء جديد"
+
+#. ai-translated; needs-native-review
+msgid "Create New Dashboard"
+msgstr "إنشاء لوحة معلومات جديدة"
+
+#. ai-translated; needs-native-review
+msgid "Create Public Link"
+msgstr "إنشاء رابط عام"
+
+#. ai-translated; needs-native-review
+msgid "Create Your First Dashboard"
+msgstr "أنشئ أول لوحة معلومات لك"
+
+#. ai-translated; needs-native-review
+msgid "Create a Dashboard"
+msgstr "إنشاء لوحة معلومات"
+
+#. ai-translated; needs-native-review
+msgid "Create a Link"
+msgstr "إنشاء رابط"
+
+#. ai-translated; needs-native-review
+msgid "Create a Query"
+msgstr "إنشاء استعلام"
+
+#. ai-translated; needs-native-review
+msgid "Create a new dashboard"
+msgstr "إنشاء لوحة معلومات جديدة"
+
+#. ai-translated; needs-native-review
+msgid "Create a new query to get started."
+msgstr "أنشئ استعلاما جديدا للبدء."
+
+#. ai-translated; needs-native-review
+msgid "Create a query by writing a python script"
+msgstr "إنشاء استعلام عن طريق كتابة سكربت python"
+
+#. ai-translated; needs-native-review
+msgid "Create a query by writing native query"
+msgstr "إنشاء استعلام عن طريق كتابة استعلام أصلي"
+
+#. ai-translated; needs-native-review
+msgid "Create a query using the notebook interface"
+msgstr "إنشاء استعلام باستخدام واجهة الدفتر"
+
+#. ai-translated; needs-native-review
+msgid "Create a query using the visual interface"
+msgstr "إنشاء استعلام باستخدام الواجهة المرئية"
+
+#. ai-translated; needs-native-review
+msgid "Created"
+msgstr "تاريخ الإنشاء"
+
+#. ai-translated; needs-native-review
+msgid "Created By"
+msgstr "أنشئ بواسطة"
+
+msgid "Cron"
+msgstr ""
+
+#. ai-translated; needs-native-review
+msgid "Custom"
+msgstr "مخصص"
+
+#. ai-translated; needs-native-review
+msgid "Custom Expression"
+msgstr "تعبير مخصص"
+
+#. ai-translated; needs-native-review
+msgid "Dashboard"
+msgstr "لوحة المعلومات"
+
+#. ai-translated; needs-native-review
+msgid "Dashboard Title"
+msgstr "عنوان لوحة المعلومات"
+
+#. ai-translated; needs-native-review
+msgid "Dashboards"
+msgstr "لوحات المعلومات"
+
+#. ai-translated; needs-native-review
+msgid "Dashboards that are accessible to this team."
+msgstr "لوحات المعلومات المتاحة لهذا الفريق."
+
+#. ai-translated; needs-native-review
+msgid "Data Source"
+msgstr "مصدر البيانات"
+
+#. ai-translated; needs-native-review
+msgid "Data Sources"
+msgstr "مصادر البيانات"
+
+#. ai-translated; needs-native-review
+msgid "Data source updated"
+msgstr "تم تحديث مصدر البيانات"
+
+#. ai-translated; needs-native-review
+msgid "Database Name"
+msgstr "اسم قاعدة البيانات"
+
+#. ai-translated; needs-native-review
+msgid "Database Type"
+msgstr "نوع قاعدة البيانات"
+
+#. ai-translated; needs-native-review
+msgid "Date Column"
+msgstr "عمود التاريخ"
+
+#. ai-translated; needs-native-review
+msgid "Date Format"
+msgstr "تنسيق التاريخ"
+
+#. ai-translated; needs-native-review
+msgid "Decimals"
+msgstr "المنازل العشرية"
+
+#. ai-translated; needs-native-review
+msgid "Default"
+msgstr "افتراضي"
+
+#. ai-translated; needs-native-review
+msgid "Default Operator"
+msgstr "المعامل الافتراضي"
+
+#. ai-translated; needs-native-review
+msgid "Default Value"
+msgstr "القيمة الافتراضية"
+
+#. ai-translated; needs-native-review
+msgid "Delete"
+msgstr "حذف"
+
+#. ai-translated; needs-native-review
+msgid "Delete Dashboard"
+msgstr "حذف لوحة المعلومات"
+
+#. ai-translated; needs-native-review
+msgid "Delete Data Source"
+msgstr "حذف مصدر البيانات"
+
+#. ai-translated; needs-native-review
+msgid "Delete Notebook"
+msgstr "حذف الدفتر"
+
+#. ai-translated; needs-native-review
+msgid "Delete Page"
+msgstr "حذف الصفحة"
+
+#. ai-translated; needs-native-review
+msgid "Delete Query"
+msgstr "حذف الاستعلام"
+
+#. ai-translated; needs-native-review
+msgid "Delete Team"
+msgstr "حذف الفريق"
+
+#. ai-translated; needs-native-review
+msgid "Delete Widget"
+msgstr "حذف الأداة"
+
+#. ai-translated; needs-native-review
+msgid "Descending"
+msgstr "تنازلي"
+
+#. ai-translated; needs-native-review
+msgid "Disable"
+msgstr "تعطيل"
+
+#. ai-translated; needs-native-review
+msgid "Disabled"
+msgstr "معطل"
+
+#. ai-translated; needs-native-review
+msgid "Discard"
+msgstr "تجاهل"
+
+#. ai-translated; needs-native-review
+msgid "Documentation"
+msgstr "التوثيق"
+
+#. ai-translated; needs-native-review
+msgid "Done"
+msgstr "تم"
+
+#. ai-translated; needs-native-review
+msgid "Download CSV"
+msgstr "تنزيل CSV"
+
+#. ai-translated; needs-native-review
+msgid "Drag and drop charts here."
+msgstr "اسحب وأفلت المخططات هنا."
+
+#. ai-translated; needs-native-review
+msgid "Drag and drop tables from the left panel to create relationships."
+msgstr "اسحب وأفلت الجداول من اللوحة اليسرى لإنشاء العلاقات."
+
+#. ai-translated; needs-native-review
+msgid "Duplicate"
+msgstr "تكرار"
+
+#. ai-translated; needs-native-review
+msgid "EDIT"
+msgstr "تعديل"
+
+msgid "ERPNext"
+msgstr ""
+
+#. ai-translated; needs-native-review
+msgid "Edit"
+msgstr "تعديل"
+
+#. ai-translated; needs-native-review
+msgid "Edit Column"
+msgstr "تعديل العمود"
+
+#. ai-translated; needs-native-review
+msgid "Editing a filter with a column expression is not supported yet. Remove this filter and add an expression filter instead."
+msgstr "تعديل تصفية تحتوي على تعبير عمود غير مدعوم بعد. أزل هذه التصفية وأضف تصفية تعبير بدلا منها."
+
+#. ai-translated; needs-native-review
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+#. ai-translated; needs-native-review
+msgid "Empty - Choose a field to filter by"
+msgstr "فارغ - اختر حقلا للتصفية بحسبه"
+
+#. ai-translated; needs-native-review
+msgid "Enable"
+msgstr "تفعيل"
+
+#. ai-translated; needs-native-review
+msgid "Enable Curved Lines"
+msgstr "تفعيل الخطوط المنحنية"
+
+#. ai-translated; needs-native-review
+msgid "Enable Query Reusability"
+msgstr "تفعيل إعادة استخدام الاستعلام"
+
+#. ai-translated; needs-native-review
+msgid "Enabled"
+msgstr "مفعل"
+
+#. ai-translated; needs-native-review
+msgid "Enter a label..."
+msgstr "أدخل تسمية..."
+
+#. ai-translated; needs-native-review
+msgid "Enter a number..."
+msgstr "أدخل رقما..."
+
+#. ai-translated; needs-native-review
+msgid "Enter a prefix..."
+msgstr "أدخل بادئة..."
+
+#. ai-translated; needs-native-review
+msgid "Enter a suffix..."
+msgstr "أدخل لاحقة..."
+
+#. ai-translated; needs-native-review
+msgid "Enter a suitable title..."
+msgstr "أدخل عنوانا مناسبا..."
+
+#. ai-translated; needs-native-review
+msgid "Enter a value"
+msgstr "أدخل قيمة"
+
+#. ai-translated; needs-native-review
+msgid "Enter a value..."
+msgstr "أدخل قيمة..."
+
+#. ai-translated; needs-native-review
+msgid "Enter an expression..."
+msgstr "أدخل تعبيرا..."
+
+#. ai-translated; needs-native-review
+msgid "Enter email"
+msgstr "أدخل البريد الإلكتروني"
+
+#. ai-translated; needs-native-review
+msgid "Enter filter label"
+msgstr "أدخل تسمية التصفية"
+
+#. ai-translated; needs-native-review
+msgid "Enter first name"
+msgstr "أدخل الاسم الأول"
+
+#. ai-translated; needs-native-review
+msgid "Enter last name"
+msgstr "أدخل اسم العائلة"
+
+#. ai-translated; needs-native-review
+msgid "Enter team name"
+msgstr "أدخل اسم الفريق"
+
+#. ai-translated; needs-native-review
+msgid "Enter title"
+msgstr "أدخل العنوان"
+
+#. ai-translated; needs-native-review
+msgid "Enter your script here..."
+msgstr "أدخل سكربتك هنا..."
+
+#. ai-translated; needs-native-review
+msgid "Equals"
+msgstr "يساوي"
+
+#. ai-translated; needs-native-review
+msgid "Error Syncing Tables"
+msgstr "خطأ في مزامنة الجداول"
+
+#. ai-translated; needs-native-review
+msgid "Example script to read data from a CSV file hosted on a URL and create a Pandas DataFrame:"
+msgstr "سكربت مثال لقراءة البيانات من ملف CSV مستضاف على رابط وإنشاء Pandas DataFrame:"
+
+#. ai-translated; needs-native-review
+msgid "Example: results[\"Count of Records\"][0] > 100"
+msgstr "مثال: results[\"Count of Records\"][0] > 100"
+
+#. ai-translated; needs-native-review
+msgid "Execute"
+msgstr "تنفيذ"
+
+#. ai-translated; needs-native-review
+msgid "Execute (⌘+E)"
+msgstr "تنفيذ (⌘+E)"
+
+#. ai-translated; needs-native-review
+msgid "Execute Query"
+msgstr "تنفيذ الاستعلام"
+
+#. ai-translated; needs-native-review
+msgid "Execute the query to see the chart"
+msgstr "نفذ الاستعلام لرؤية المخطط"
+
+#. ai-translated; needs-native-review
+msgid "Execution Status"
+msgstr "حالة التنفيذ"
+
+#. ai-translated; needs-native-review
+msgid "Explore Insights with sample data"
+msgstr "استكشف Insights ببيانات تجريبية"
+
+#. ai-translated; needs-native-review
+msgid "Export as PNG"
+msgstr "تصدير كـ PNG"
+
+#. ai-translated; needs-native-review
+msgid "Expression"
+msgstr "تعبير"
+
+#. ai-translated; needs-native-review
+msgid "FILTER"
+msgstr "تصفية"
+
+#. ai-translated; needs-native-review
+msgid "FILTERS"
+msgstr "عوامل التصفية"
+
+#. ai-translated; needs-native-review
+msgid "Failed to login"
+msgstr "فشل تسجيل الدخول"
+
+#. ai-translated; needs-native-review
+msgid "Failed, Retry?"
+msgstr "فشل، إعادة المحاولة؟"
+
+#. ai-translated; needs-native-review
+msgid "Favorites"
+msgstr "المفضلة"
+
+#. ai-translated; needs-native-review
+msgid "File"
+msgstr "ملف"
+
+#. ai-translated; needs-native-review
+msgid "Filter"
+msgstr "تصفية"
+
+#. ai-translated; needs-native-review
+msgid "Filter by..."
+msgstr "التصفية بحسب..."
+
+#. ai-translated; needs-native-review
+msgid "Filter..."
+msgstr "تصفية..."
+
+#. ai-translated; needs-native-review
+msgid "Filters"
+msgstr "عوامل التصفية"
+
+#. ai-translated; needs-native-review
+msgid "First Name"
+msgstr "الاسم الأول"
+
+#. ai-translated; needs-native-review
+msgid "Fiscal Year Start"
+msgstr "بداية السنة المالية"
+
+#. ai-translated; needs-native-review
+msgid "Follow through a couple of steps to get yourself familiar with Insights."
+msgstr "اتبع بضع خطوات لتتعرف على Insights."
+
+#. ai-translated; needs-native-review
+msgid "For detailed information about these functions and how to use them, please refer to"
+msgstr "للحصول على معلومات مفصلة حول هذه الدوال وكيفية استخدامها، يرجى الرجوع إلى"
+
+#. ai-translated; needs-native-review
+msgid "Frappe Framework's Script API"
+msgstr "واجهة برمجة السكربت في Frappe Framework"
+
+msgid "Frappe Insights"
+msgstr ""
+
+#. ai-translated; needs-native-review
+msgid "Frequency"
+msgstr "التكرار"
+
+#. ai-translated; needs-native-review
+msgid "Full Name"
+msgstr "الاسم الكامل"
+
+#. ai-translated; needs-native-review
+msgid "Full Outer Join"
+msgstr "ربط خارجي كامل"
+
+#. ai-translated; needs-native-review
+msgid "Functions"
+msgstr "الدوال"
+
+#. ai-translated; needs-native-review
+msgid "General"
+msgstr "عام"
+
+#. ai-translated; needs-native-review
+msgid "Generated SQL"
+msgstr "SQL المنشأ"
+
+#. ai-translated; needs-native-review
+msgid "Get Started with Insights"
+msgstr "ابدأ مع Insights"
+
+#. ai-translated; needs-native-review
+msgid "Give access to only specific tables of a data source. Tables from accessible data sources will also be accessible to the team."
+msgstr "امنح الوصول إلى جداول محددة فقط من مصدر البيانات. ستكون الجداول من مصادر البيانات المتاحة متاحة أيضا للفريق."
+
+#. ai-translated; needs-native-review
+msgid "Go Back"
+msgstr "الرجوع"
+
+#. ai-translated; needs-native-review
+msgid "Greens"
+msgstr "درجات الأخضر"
+
+#. ai-translated; needs-native-review
+msgid "Group By"
+msgstr "التجميع حسب"
+
+#. ai-translated; needs-native-review
+msgid "Heading {0}"
+msgstr "عنوان {0}"
+
+#. ai-translated; needs-native-review
+msgid "Hello again! We hope you enjoyed your free trial of our service. You can continue using our service by upgrading to a paid plan. Click"
+msgstr "مرحبا مجددا! نأمل أنك استمتعت بالتجربة المجانية لخدمتنا. يمكنك متابعة استخدام خدمتنا بالترقية إلى خطة مدفوعة. انقر"
+
+#. ai-translated; needs-native-review
+msgid "Hello, {0} 👋"
+msgstr "مرحبا، {0} 👋"
+
+#. ai-translated; needs-native-review
+msgid "Help"
+msgstr "مساعدة"
+
+#. ai-translated; needs-native-review
+msgid "Hide Results"
+msgstr "إخفاء النتائج"
+
+#. ai-translated; needs-native-review
+msgid "Home"
+msgstr "الرئيسية"
+
+#. ai-translated; needs-native-review
+msgid "Home | Frappe Insights"
+msgstr "الرئيسية | Frappe Insights"
+
+#. ai-translated; needs-native-review
+msgid "Hope you enjoyed it!"
+msgstr "نأمل أنك استمتعت به!"
+
+#. ai-translated; needs-native-review
+msgid "Host"
+msgstr "المضيف"
+
+#. ai-translated; needs-native-review
+msgid "How do I..."
+msgstr "كيف يمكنني..."
+
+#. ai-translated; needs-native-review
+msgid "I am not able to use the app because of this bug"
+msgstr "لا يمكنني استخدام التطبيق بسبب هذا الخطأ"
+
+#. ai-translated; needs-native-review
+msgid "I am not sure how to..."
+msgstr "لست متأكدا من كيفية..."
+
+#. ai-translated; needs-native-review
+msgid "I found a bug, when I try to..."
+msgstr "وجدت خطأ، عندما أحاول..."
+
+#. ai-translated; needs-native-review
+msgid "I think it would be great if..."
+msgstr "أعتقد أنه سيكون رائعا لو..."
+
+#. ai-translated; needs-native-review
+msgid "ID"
+msgstr "المعرف"
+
+#. ai-translated; needs-native-review
+msgid "Import"
+msgstr "استيراد"
+
+#. ai-translated; needs-native-review
+msgid "In the Script Query interface, you can write custom Python scripts to query the database and retrieve data as a Pandas DataFrame. You can also fetch data from external sources using Pandas functions"
+msgstr "في واجهة استعلام السكربت، يمكنك كتابة سكربتات Python مخصصة للاستعلام من قاعدة البيانات واسترجاع البيانات كـ Pandas DataFrame. يمكنك أيضا جلب البيانات من مصادر خارجية باستخدام دوال Pandas"
+
+#. ai-translated; needs-native-review
+msgid "Info"
+msgstr "معلومات"
+
+#. ai-translated; needs-native-review
+msgid "Inline Labels"
+msgstr "التسميات المضمنة"
+
+#. ai-translated; needs-native-review
+msgid "Inner Join"
+msgstr "ربط داخلي"
+
+#. ai-translated; needs-native-review
+msgid "Insights is already connected to your ERPNext site. You can optionally give a title to your site to help you identify it as a data source."
+msgstr "Insights متصل بالفعل بموقع ERPNext الخاص بك. يمكنك اختياريا إعطاء عنوان لموقعك لمساعدتك في تمييزه كمصدر بيانات."
+
+#. ai-translated; needs-native-review
+msgid "Insights needs access to your data to start analyzing it. Don't worry, we do not store your data."
+msgstr "يحتاج Insights إلى الوصول إلى بياناتك لبدء تحليلها. لا تقلق، نحن لا نخزن بياناتك."
+
+#. ai-translated; needs-native-review
+msgid "Insufficient options"
+msgstr "خيارات غير كافية"
+
+#. ai-translated; needs-native-review
+msgid "Invalid Widget"
+msgstr "أداة غير صالحة"
+
+#. ai-translated; needs-native-review
+msgid "JOIN"
+msgstr "ربط"
+
+#. ai-translated; needs-native-review
+msgid "Join Type"
+msgstr "نوع الربط"
+
+#. ai-translated; needs-native-review
+msgid "Label"
+msgstr "التسمية"
+
+#. ai-translated; needs-native-review
+msgid "Label Column"
+msgstr "عمود التسمية"
+
+#. ai-translated; needs-native-review
+msgid "Label Position"
+msgstr "موضع التسمية"
+
+#. ai-translated; needs-native-review
+msgid "Last Active"
+msgstr "آخر نشاط"
+
+#. ai-translated; needs-native-review
+msgid "Last Name"
+msgstr "اسم العائلة"
+
+#. ai-translated; needs-native-review
+msgid "Last viewed {0}"
+msgstr "آخر عرض {0}"
+
+#. ai-translated; needs-native-review
+msgid "Left"
+msgstr "يسار"
+
+#. ai-translated; needs-native-review
+msgid "Left Column"
+msgstr "العمود الأيسر"
+
+#. ai-translated; needs-native-review
+msgid "Left Join"
+msgstr "ربط أيسر"
+
+#. ai-translated; needs-native-review
+msgid "Left Table"
+msgstr "الجدول الأيسر"
+
+#. ai-translated; needs-native-review
+msgid "Let's introduce you to the query builder, where you'll be spending most of your time building queries."
+msgstr "دعنا نعرفك على منشئ الاستعلامات، حيث ستقضي معظم وقتك في إنشاء الاستعلامات."
+
+#. ai-translated; needs-native-review
+msgid "Like"
+msgstr "يشبه"
+
+#. ai-translated; needs-native-review
+msgid "Limit the number of rows returned by the query"
+msgstr "تحديد عدد الصفوف التي يرجعها الاستعلام"
+
+#. ai-translated; needs-native-review
+msgid "Limit to"
+msgstr "التحديد إلى"
+
+#. ai-translated; needs-native-review
+msgid "Line"
+msgstr "خطي"
+
+#. ai-translated; needs-native-review
+msgid "Link URL"
+msgstr "عنوان الرابط"
+
+#. ai-translated; needs-native-review
+msgid "Link created successfully"
+msgstr "تم إنشاء الرابط بنجاح"
+
+#. ai-translated; needs-native-review
+msgid "Links"
+msgstr "الروابط"
+
+#. ai-translated; needs-native-review
+msgid "Loading columns..."
+msgstr "جاري تحميل الأعمدة..."
+
+#. ai-translated; needs-native-review
+msgid "Log in to your account"
+msgstr "تسجيل الدخول إلى حسابك"
+
+#. ai-translated; needs-native-review
+msgid "Log in with email"
+msgstr "تسجيل الدخول بالبريد الإلكتروني"
+
+#. ai-translated; needs-native-review
+msgid "Logout"
+msgstr "تسجيل الخروج"
+
+#. ai-translated; needs-native-review
+msgid "Logs"
+msgstr "السجلات"
+
+#. ai-translated; needs-native-review
+msgid "Manage Relationships"
+msgstr "إدارة العلاقات"
+
+#. ai-translated; needs-native-review
+msgid "Manage {0} Access"
+msgstr "إدارة وصول {0}"
+
+#. ai-translated; needs-native-review
+msgid "Manage {0} Team"
+msgstr "إدارة فريق {0}"
+
+#. ai-translated; needs-native-review
+msgid "Many to Many"
+msgstr "متعدد إلى متعدد"
+
+#. ai-translated; needs-native-review
+msgid "Many to One"
+msgstr "متعدد إلى واحد"
+
+msgid "MariaDB"
+msgstr ""
+
+#. ai-translated; needs-native-review
+msgid "Max Query Result Limit"
+msgstr "الحد الأقصى لنتائج الاستعلام"
+
+#. ai-translated; needs-native-review
+msgid "Max Slices"
+msgstr "الحد الأقصى للشرائح"
+
+#. ai-translated; needs-native-review
+msgid "Maximum number of rows to be returned by a query. This is to prevent long running queries and memory issues."
+msgstr "الحد الأقصى لعدد الصفوف التي يرجعها الاستعلام. هذا لمنع الاستعلامات طويلة التشغيل ومشاكل الذاكرة."
+
+#. ai-translated; needs-native-review
+msgid "Members"
+msgstr "الأعضاء"
+
+#. ai-translated; needs-native-review
+msgid "Message"
+msgstr "الرسالة"
+
+#. ai-translated; needs-native-review
+msgid "Message Sent"
+msgstr "تم إرسال الرسالة"
+
+#. ai-translated; needs-native-review
+msgid "Minutes"
+msgstr "دقائق"
+
+#. ai-translated; needs-native-review
+msgid "Modified"
+msgstr "تاريخ التعديل"
+
+#. ai-translated; needs-native-review
+msgid "My Database"
+msgstr "قاعدة بياناتي"
+
+#. ai-translated; needs-native-review
+msgid "Name"
+msgstr "الاسم"
+
+#. ai-translated; needs-native-review
+msgid "Native Query"
+msgstr "استعلام أصلي"
+
+#. ai-translated; needs-native-review
+msgid "Navigation"
+msgstr "التنقل"
+
+#. ai-translated; needs-native-review
+msgid "New Dashboard"
+msgstr "لوحة معلومات جديدة"
+
+#. ai-translated; needs-native-review
+msgid "New Data Source"
+msgstr "مصدر بيانات جديد"
+
+#. ai-translated; needs-native-review
+msgid "New Notebook"
+msgstr "دفتر جديد"
+
+#. ai-translated; needs-native-review
+msgid "New Page"
+msgstr "صفحة جديدة"
+
+#. ai-translated; needs-native-review
+msgid "New Query"
+msgstr "استعلام جديد"
+
+#. ai-translated; needs-native-review
+msgid "New Table Label"
+msgstr "تسمية جدول جديدة"
+
+#. ai-translated; needs-native-review
+msgid "New Table Name"
+msgstr "اسم جدول جديد"
+
+#. ai-translated; needs-native-review
+msgid "No Data"
+msgstr "لا توجد بيانات"
+
+#. ai-translated; needs-native-review
+msgid "No Data Sources."
+msgstr "لا توجد مصادر بيانات."
+
+#. ai-translated; needs-native-review
+msgid "No Query Created."
+msgstr "لم يتم إنشاء أي استعلام."
+
+#. ai-translated; needs-native-review
+msgid "No columns"
+msgstr "لا توجد أعمدة"
+
+#. ai-translated; needs-native-review
+msgid "No columns found in the uploaded file."
+msgstr "لم يتم العثور على أعمدة في الملف المرفوع."
+
+#. ai-translated; needs-native-review
+msgid "No columns selected"
+msgstr "لم يتم تحديد أعمدة"
+
+#. ai-translated; needs-native-review
+msgid "No dashboards found."
+msgstr "لم يتم العثور على لوحات معلومات."
+
+#. ai-translated; needs-native-review
+msgid "No data sources to display."
+msgstr "لا توجد مصادر بيانات لعرضها."
+
+#. ai-translated; needs-native-review
+msgid "No filters added"
+msgstr "لم تتم إضافة عوامل تصفية"
+
+#. ai-translated; needs-native-review
+msgid "No functions found"
+msgstr "لم يتم العثور على دوال"
+
+#. ai-translated; needs-native-review
+msgid "No items"
+msgstr "لا توجد عناصر"
+
+#. ai-translated; needs-native-review
+msgid "No label"
+msgstr "بدون تسمية"
+
+#. ai-translated; needs-native-review
+msgid "No matching columns found"
+msgstr "لم يتم العثور على أعمدة مطابقة"
+
+#. ai-translated; needs-native-review
+msgid "No notebooks to display."
+msgstr "لا توجد دفاتر لعرضها."
+
+#. ai-translated; needs-native-review
+msgid "No notebooks."
+msgstr "لا توجد دفاتر."
+
+#. ai-translated; needs-native-review
+msgid "No number columns"
+msgstr "لا توجد أعمدة رقمية"
+
+#. ai-translated; needs-native-review
+msgid "No pages to display."
+msgstr "لا توجد صفحات لعرضها."
+
+#. ai-translated; needs-native-review
+msgid "No pages."
+msgstr "لا توجد صفحات."
+
+#. ai-translated; needs-native-review
+msgid "No recent records"
+msgstr "لا توجد سجلات حديثة"
+
+#. ai-translated; needs-native-review
+msgid "No result"
+msgstr "لا توجد نتيجة"
+
+#. ai-translated; needs-native-review
+msgid "No results found"
+msgstr "لم يتم العثور على نتائج"
+
+#. ai-translated; needs-native-review
+msgid "No results to display"
+msgstr "لا توجد نتائج لعرضها"
+
+#. ai-translated; needs-native-review
+msgid "No rows selected"
+msgstr "لم يتم تحديد صفوف"
+
+#. ai-translated; needs-native-review
+msgid "No tables selected"
+msgstr "لم يتم تحديد جداول"
+
+#. ai-translated; needs-native-review
+msgid "No tables to display."
+msgstr "لا توجد جداول لعرضها."
+
+#. ai-translated; needs-native-review
+msgid "No tables."
+msgstr "لا توجد جداول."
+
+#. ai-translated; needs-native-review
+msgid "No values selected"
+msgstr "لم يتم تحديد قيم"
+
+#. ai-translated; needs-native-review
+msgid "No variables"
+msgstr "لا توجد متغيرات"
+
+#. ai-translated; needs-native-review
+msgid "No {0} added yet."
+msgstr "لم تتم إضافة أي {0} بعد."
+
+#. ai-translated; needs-native-review
+msgid "No {0} found"
+msgstr "لم يتم العثور على {0}"
+
+#. ai-translated; needs-native-review
+msgid "Not Equals"
+msgstr "لا يساوي"
+
+#. ai-translated; needs-native-review
+msgid "Not Found"
+msgstr "غير موجود"
+
+#. ai-translated; needs-native-review
+msgid "Not Like"
+msgstr "لا يشبه"
+
+#. ai-translated; needs-native-review
+msgid "Not Set"
+msgstr "غير محدد"
+
+#. ai-translated; needs-native-review
+msgid "Notebook"
+msgstr "دفتر"
+
+#. ai-translated; needs-native-review
+msgid "Notebooks"
+msgstr "الدفاتر"
+
+#. ai-translated; needs-native-review
+msgid "Notifications"
+msgstr "الإشعارات"
+
+#. ai-translated; needs-native-review
+msgid "Number Column"
+msgstr "عمود الأرقام"
+
+#. ai-translated; needs-native-review
+msgid "Number of minutes to cache query results. This is to prevent accidental running of the same query multiple times."
+msgstr "عدد الدقائق لتخزين نتائج الاستعلام مؤقتا. هذا لمنع التشغيل العرضي لنفس الاستعلام عدة مرات."
+
+#. ai-translated; needs-native-review
+msgid "OR"
+msgstr "أو"
+
+#. ai-translated; needs-native-review
+msgid "One to Many"
+msgstr "واحد إلى متعدد"
+
+#. ai-translated; needs-native-review
+msgid "One to One"
+msgstr "واحد إلى واحد"
+
+#. ai-translated; needs-native-review
+msgid "Only CSV files upto 10MB"
+msgstr "ملفات CSV فقط حتى 10 ميجابايت"
+
+#. ai-translated; needs-native-review
+msgid "Only you have access to this"
+msgstr "أنت فقط من لديه حق الوصول إلى هذا"
+
+#. ai-translated; needs-native-review
+msgid "Operator"
+msgstr "المعامل"
+
+#. ai-translated; needs-native-review
+msgid "Optional"
+msgstr "اختياري"
+
+#. ai-translated; needs-native-review
+msgid "Options"
+msgstr "الخيارات"
+
+#. ai-translated; needs-native-review
+msgid "Organize your visualizations meaningfully by creating a dashboard for you and your team."
+msgstr "نظم تصوراتك المرئية بشكل مفيد من خلال إنشاء لوحة معلومات لك ولفريقك."
+
+#. ai-translated; needs-native-review
+msgid "Paginate Labels"
+msgstr "تقسيم التسميات إلى صفحات"
+
+#. ai-translated; needs-native-review
+msgid "Password"
+msgstr "كلمة المرور"
+
+#. ai-translated; needs-native-review
+msgid "Permission Denied"
+msgstr "تم رفض الإذن"
+
+#. ai-translated; needs-native-review
+msgid "Pick a chart type to get started"
+msgstr "اختر نوع مخطط للبدء"
+
+#. ai-translated; needs-native-review
+msgid "Pinned Charts"
+msgstr "المخططات المثبتة"
+
+#. ai-translated; needs-native-review
+msgid "Please answer all questions"
+msgstr "يرجى الإجابة على جميع الأسئلة"
+
+#. ai-translated; needs-native-review
+msgid "Please check the options for this chart"
+msgstr "يرجى التحقق من خيارات هذا المخطط"
+
+#. ai-translated; needs-native-review
+msgid "Please enter a title"
+msgstr "يرجى إدخال عنوان"
+
+#. ai-translated; needs-native-review
+msgid "Please enter a title to continue"
+msgstr "يرجى إدخال عنوان للمتابعة"
+
+#. ai-translated; needs-native-review
+msgid "Please select a dataset"
+msgstr "يرجى تحديد مجموعة بيانات"
+
+#. ai-translated; needs-native-review
+msgid "Please select a dataset to continue"
+msgstr "يرجى تحديد مجموعة بيانات للمتابعة"
+
+#. ai-translated; needs-native-review
+msgid "Please select an option"
+msgstr "يرجى تحديد خيار"
+
+#. ai-translated; needs-native-review
+msgid "Please select an option to continue"
+msgstr "يرجى تحديد خيار للمتابعة"
+
+#. ai-translated; needs-native-review
+msgid "Please upload a different file."
+msgstr "يرجى رفع ملف مختلف."
+
+#. ai-translated; needs-native-review
+msgid "Port"
+msgstr "المنفذ"
+
+msgid "PostgreSQL"
+msgstr ""
+
+#. ai-translated; needs-native-review
+msgid "Prefix"
+msgstr "البادئة"
+
+#. ai-translated; needs-native-review
+msgid "Private"
+msgstr "خاص"
+
+#. ai-translated; needs-native-review
+msgid "Progress Column"
+msgstr "عمود التقدم"
+
+#. ai-translated; needs-native-review
+msgid "Queries"
+msgstr "الاستعلامات"
+
+#. ai-translated; needs-native-review
+msgid "Queries that are accessible to this team."
+msgstr "الاستعلامات المتاحة لهذا الفريق."
+
+#. ai-translated; needs-native-review
+msgid "Query"
+msgstr "استعلام"
+
+#. ai-translated; needs-native-review
+msgid "Query Duplicated"
+msgstr "تم تكرار الاستعلام"
+
+#. ai-translated; needs-native-review
+msgid "Query Stored"
+msgstr "تم تخزين الاستعلام"
+
+#. ai-translated; needs-native-review
+msgid "Query Unstored"
+msgstr "تم إلغاء تخزين الاستعلام"
+
+#. ai-translated; needs-native-review
+msgid "Quick Actions"
+msgstr "إجراءات سريعة"
+
+#. ai-translated; needs-native-review
+msgid "Recently Viewed"
+msgstr "المعروضة مؤخرا"
+
+#. ai-translated; needs-native-review
+msgid "Recipients"
+msgstr "المستلمون"
+
+#. ai-translated; needs-native-review
+msgid "Reference Line"
+msgstr "خط مرجعي"
+
+#. ai-translated; needs-native-review
+msgid "Refresh"
+msgstr "تحديث"
+
+#. ai-translated; needs-native-review
+msgid "Relationships"
+msgstr "العلاقات"
+
+#. ai-translated; needs-native-review
+msgid "Remove"
+msgstr "إزالة"
+
+#. ai-translated; needs-native-review
+msgid "Remove Formatting"
+msgstr "إزالة التنسيق"
+
+#. ai-translated; needs-native-review
+msgid "Remove Sort"
+msgstr "إزالة الترتيب"
+
+#. ai-translated; needs-native-review
+msgid "Remove this widget and try adding a new one."
+msgstr "أزل هذه الأداة وحاول إضافة أداة جديدة."
+
+#. ai-translated; needs-native-review
+msgid "Report Bug"
+msgstr "الإبلاغ عن خطأ"
+
+#. ai-translated; needs-native-review
+msgid "Reset Options"
+msgstr "إعادة تعيين الخيارات"
+
+#. ai-translated; needs-native-review
+msgid "Reverse Colors"
+msgstr "عكس الألوان"
+
+#. ai-translated; needs-native-review
+msgid "Right Column"
+msgstr "العمود الأيمن"
+
+#. ai-translated; needs-native-review
+msgid "Right Table"
+msgstr "الجدول الأيمن"
+
+#. ai-translated; needs-native-review
+msgid "Role"
+msgstr "الدور"
+
+#. ai-translated; needs-native-review
+msgid "Rotate Labels"
+msgstr "تدوير التسميات"
+
+#. ai-translated; needs-native-review
+msgid "Rounded Bars"
+msgstr "أشرطة مستديرة"
+
+#. ai-translated; needs-native-review
+msgid "Row"
+msgstr "صف"
+
+#. ai-translated; needs-native-review
+msgid "Row Limit"
+msgstr "حد الصفوف"
+
+#. ai-translated; needs-native-review
+msgid "Row cannot be same as Column or Value"
+msgstr "لا يمكن أن يكون الصف مطابقا للعمود أو القيمة"
+
+#. ai-translated; needs-native-review
+msgid "Rows"
+msgstr "الصفوف"
+
+#. ai-translated; needs-native-review
+msgid "Run"
+msgstr "تشغيل"
+
+msgid "SQL"
+msgstr ""
+
+#. ai-translated; needs-native-review
+msgid "Sample Dataset"
+msgstr "مجموعة بيانات تجريبية"
+
+#. ai-translated; needs-native-review
+msgid "Save"
+msgstr "حفظ"
+
+#. ai-translated; needs-native-review
+msgid "Saving..."
+msgstr "جاري الحفظ..."
+
+#. ai-translated; needs-native-review
+msgid "Script"
+msgstr "سكربت"
+
+#. ai-translated; needs-native-review
+msgid "Script Query"
+msgstr "استعلام سكربت"
+
+#. ai-translated; needs-native-review
+msgid "Search"
+msgstr "بحث"
+
+#. ai-translated; needs-native-review
+msgid "Search by Title"
+msgstr "البحث حسب العنوان"
+
+#. ai-translated; needs-native-review
+msgid "Search functions"
+msgstr "البحث في الدوال"
+
+#. ai-translated; needs-native-review
+msgid "Search..."
+msgstr "بحث..."
+
+#. ai-translated; needs-native-review
+msgid "Select All"
+msgstr "تحديد الكل"
+
+#. ai-translated; needs-native-review
+msgid "Select Color"
+msgstr "تحديد اللون"
+
+#. ai-translated; needs-native-review
+msgid "Select Column"
+msgstr "تحديد العمود"
+
+#. ai-translated; needs-native-review
+msgid "Select Data Source"
+msgstr "تحديد مصدر البيانات"
+
+#. ai-translated; needs-native-review
+msgid "Select Date"
+msgstr "تحديد التاريخ"
+
+#. ai-translated; needs-native-review
+msgid "Select Interface Type"
+msgstr "تحديد نوع الواجهة"
+
+#. ai-translated; needs-native-review
+msgid "Select Sample Dataset"
+msgstr "تحديد مجموعة بيانات تجريبية"
+
+#. ai-translated; needs-native-review
+msgid "Select Source Type"
+msgstr "تحديد نوع المصدر"
+
+#. ai-translated; needs-native-review
+msgid "Select Team"
+msgstr "تحديد الفريق"
+
+#. ai-translated; needs-native-review
+msgid "Select a Column"
+msgstr "تحديد عمود"
+
+#. ai-translated; needs-native-review
+msgid "Select a chart"
+msgstr "تحديد مخطط"
+
+#. ai-translated; needs-native-review
+msgid "Select a chart type"
+msgstr "تحديد نوع مخطط"
+
+#. ai-translated; needs-native-review
+msgid "Select a column"
+msgstr "تحديد عمود"
+
+#. ai-translated; needs-native-review
+msgid "Select a column from {0}"
+msgstr "تحديد عمود من {0}"
+
+#. ai-translated; needs-native-review
+msgid "Select a column..."
+msgstr "تحديد عمود..."
+
+#. ai-translated; needs-native-review
+msgid "Select a date format..."
+msgstr "تحديد تنسيق التاريخ..."
+
+#. ai-translated; needs-native-review
+msgid "Select a date..."
+msgstr "تحديد تاريخ..."
+
+#. ai-translated; needs-native-review
+msgid "Select a file"
+msgstr "تحديد ملف"
+
+#. ai-translated; needs-native-review
+msgid "Select a filter"
+msgstr "تحديد تصفية"
+
+#. ai-translated; needs-native-review
+msgid "Select a filter..."
+msgstr "تحديد تصفية..."
+
+#. ai-translated; needs-native-review
+msgid "Select a query"
+msgstr "تحديد استعلام"
+
+#. ai-translated; needs-native-review
+msgid "Select a table..."
+msgstr "تحديد جدول..."
+
+#. ai-translated; needs-native-review
+msgid "Select a type..."
+msgstr "تحديد نوع..."
+
+#. ai-translated; needs-native-review
+msgid "Select aggregation type"
+msgstr "تحديد نوع التجميع"
+
+#. ai-translated; needs-native-review
+msgid "Select an operator"
+msgstr "تحديد معامل"
+
+#. ai-translated; needs-native-review
+msgid "Select an option"
+msgstr "تحديد خيار"
+
+#. ai-translated; needs-native-review
+msgid "Select charts to link to this filter. The filter will be applied to the selected column in the linked charts."
+msgstr "حدد المخططات لربطها بهذه التصفية. سيتم تطبيق التصفية على العمود المحدد في المخططات المرتبطة."
+
+#. ai-translated; needs-native-review
+msgid "Select data source"
+msgstr "تحديد مصدر البيانات"
+
+#. ai-translated; needs-native-review
+msgid "Select one or more values..."
+msgstr "تحديد قيمة واحدة أو أكثر..."
+
+#. ai-translated; needs-native-review
+msgid "Select operator..."
+msgstr "تحديد معامل..."
+
+#. ai-translated; needs-native-review
+msgid "Select role"
+msgstr "تحديد الدور"
+
+#. ai-translated; needs-native-review
+msgid "Select team"
+msgstr "تحديد الفريق"
+
+#. ai-translated; needs-native-review
+msgid "Select the columns you want to see in the results."
+msgstr "حدد الأعمدة التي تريد رؤيتها في النتائج."
+
+#. ai-translated; needs-native-review
+msgid "Send"
+msgstr "إرسال"
+
+#. ai-translated; needs-native-review
+msgid "Send Alert"
+msgstr "إرسال تنبيه"
+
+#. ai-translated; needs-native-review
+msgid "Send alert when"
+msgstr "إرسال تنبيه عندما"
+
+#. ai-translated; needs-native-review
+msgid "Sending Alert..."
+msgstr "جاري إرسال التنبيه..."
+
+#. ai-translated; needs-native-review
+msgid "Set"
+msgstr "تعيين"
+
+#. ai-translated; needs-native-review
+msgid "Set Alert"
+msgstr "تعيين تنبيه"
+
+#. ai-translated; needs-native-review
+msgid "Settings"
+msgstr "الإعدادات"
+
+#. ai-translated; needs-native-review
+msgid "Settings - Insights"
+msgstr "الإعدادات - Insights"
+
+#. ai-translated; needs-native-review
+msgid "Setup ERPNext"
+msgstr "إعداد ERPNext"
+
+#. ai-translated; needs-native-review
+msgid "Setup MariaDB"
+msgstr "إعداد MariaDB"
+
+#. ai-translated; needs-native-review
+msgid "Setup PostgreSQL"
+msgstr "إعداد PostgreSQL"
+
+#. ai-translated; needs-native-review
+msgid "Setup Spreadsheet"
+msgstr "إعداد جدول البيانات"
+
+#. ai-translated; needs-native-review
+msgid "Share"
+msgstr "مشاركة"
+
+#. ai-translated; needs-native-review
+msgid "Shorten Numbers"
+msgstr "اختصار الأرقام"
+
+#. ai-translated; needs-native-review
+msgid "Show Area"
+msgstr "إظهار المنطقة"
+
+#. ai-translated; needs-native-review
+msgid "Show Data Points"
+msgstr "إظهار نقاط البيانات"
+
+#. ai-translated; needs-native-review
+msgid "Show Filter Row"
+msgstr "إظهار صف التصفية"
+
+#. ai-translated; needs-native-review
+msgid "Show Index Row"
+msgstr "إظهار صف الفهرس"
+
+#. ai-translated; needs-native-review
+msgid "Show Inline Bar Chart"
+msgstr "إظهار مخطط شريطي مضمن"
+
+#. ai-translated; needs-native-review
+msgid "Show Results"
+msgstr "إظهار النتائج"
+
+#. ai-translated; needs-native-review
+msgid "Show Total Row"
+msgstr "إظهار صف الإجمالي"
+
+#. ai-translated; needs-native-review
+msgid "Show Trend Line"
+msgstr "إظهار خط الاتجاه"
+
+#. ai-translated; needs-native-review
+msgid "Showing"
+msgstr "عرض"
+
+#. ai-translated; needs-native-review
+msgid "Simple"
+msgstr "بسيط"
+
+#. ai-translated; needs-native-review
+msgid "Skip"
+msgstr "تخطي"
+
+#. ai-translated; needs-native-review
+msgid "Sort"
+msgstr "ترتيب"
+
+#. ai-translated; needs-native-review
+msgid "Sort Ascending"
+msgstr "ترتيب تصاعدي"
+
+#. ai-translated; needs-native-review
+msgid "Sort Descending"
+msgstr "ترتيب تنازلي"
+
+#. ai-translated; needs-native-review
+msgid "Split Y Axis"
+msgstr "تقسيم محور Y"
+
+#. ai-translated; needs-native-review
+msgid "Spreadsheet"
+msgstr "جدول بيانات"
+
+#. ai-translated; needs-native-review
+msgid "Stack Values"
+msgstr "تكديس القيم"
+
+#. ai-translated; needs-native-review
+msgid "Start of the fiscal year. This is used to calculate fiscal year for date columns."
+msgstr "بداية السنة المالية. يستخدم هذا لحساب السنة المالية لأعمدة التاريخ."
+
+#. ai-translated; needs-native-review
+msgid "Status"
+msgstr "الحالة"
+
+#. ai-translated; needs-native-review
+msgid "Store Query"
+msgstr "تخزين الاستعلام"
+
+#. ai-translated; needs-native-review
+msgid "Strikethrough"
+msgstr "يتوسطه خط"
+
+#. ai-translated; needs-native-review
+msgid "Success"
+msgstr "نجاح"
+
+#. ai-translated; needs-native-review
+msgid "Suffix"
+msgstr "اللاحقة"
+
+#. ai-translated; needs-native-review
+msgid "Switch"
+msgstr "تبديل"
+
+#. ai-translated; needs-native-review
+msgid "Switch to Classic Query Builder"
+msgstr "التبديل إلى منشئ الاستعلامات الكلاسيكي"
+
+#. ai-translated; needs-native-review
+msgid "Switch to Desk"
+msgstr "التبديل إلى Desk"
+
+#. ai-translated; needs-native-review
+msgid "Switch to Visual Query Builder"
+msgstr "التبديل إلى منشئ الاستعلامات المرئي"
+
+#. ai-translated; needs-native-review
+msgid "Sync Table"
+msgstr "مزامنة الجدول"
+
+#. ai-translated; needs-native-review
+msgid "Sync Tables"
+msgstr "مزامنة الجداول"
+
+#. ai-translated; needs-native-review
+msgid "Syncing columns from database..."
+msgstr "جاري مزامنة الأعمدة من قاعدة البيانات..."
+
+#. ai-translated; needs-native-review
+msgid "TABLES"
+msgstr "الجداول"
+
+#. ai-translated; needs-native-review
+msgid "Table"
+msgstr "جدول"
+
+#. ai-translated; needs-native-review
+msgid "Table already added"
+msgstr "الجدول مضاف بالفعل"
+
+#. ai-translated; needs-native-review
+msgid "Tables"
+msgstr "الجداول"
+
+#. ai-translated; needs-native-review
+msgid "Target"
+msgstr "الهدف"
+
+#. ai-translated; needs-native-review
+msgid "Teals"
+msgstr "درجات الأزرق المخضر"
+
+#. ai-translated; needs-native-review
+msgid "Team"
+msgstr "الفريق"
+
+#. ai-translated; needs-native-review
+msgid "Team Name"
+msgstr "اسم الفريق"
+
+#. ai-translated; needs-native-review
+msgid "Teams"
+msgstr "الفرق"
+
+#. ai-translated; needs-native-review
+msgid "Teams with access"
+msgstr "الفرق التي لديها وصول"
+
+msgid "Telegram"
+msgstr ""
+
+#. ai-translated; needs-native-review
+msgid "Telegram Bot Token"
+msgstr "رمز بوت Telegram"
+
+#. ai-translated; needs-native-review
+msgid "Telegram Chat ID"
+msgstr "معرف محادثة Telegram"
+
+#. ai-translated; needs-native-review
+msgid "Telegram Support"
+msgstr "دعم Telegram"
+
+#. ai-translated; needs-native-review
+msgid "Telegram bot token to send notifications to Telegram."
+msgstr "رمز بوت Telegram لإرسال الإشعارات إلى Telegram."
+
+#. ai-translated; needs-native-review
+msgid "Test"
+msgstr "اختبار"
+
+#. ai-translated; needs-native-review
+msgid "The page you are looking for does not exist."
+msgstr "الصفحة التي تبحث عنها غير موجودة."
+
+#. ai-translated; needs-native-review
+msgid "This team has no members"
+msgstr "هذا الفريق ليس لديه أعضاء"
+
+#. ai-translated; needs-native-review
+msgid "Title"
+msgstr "العنوان"
+
+#. ai-translated; needs-native-review
+msgid "To get started, you need to connect some data. You can connect to ERPNext, a SQL database, a spreadsheet, or you can explore our sample datasets to get a feel for how Insights works."
+msgstr "للبدء، تحتاج إلى توصيل بعض البيانات. يمكنك الاتصال بـ ERPNext أو قاعدة بيانات SQL أو جدول بيانات، أو يمكنك استكشاف مجموعات البيانات التجريبية لتتعرف على كيفية عمل Insights."
+
+#. ai-translated; needs-native-review
+msgid "Today"
+msgstr "اليوم"
+
+#. ai-translated; needs-native-review
+msgid "Total"
+msgstr "الإجمالي"
+
+#. ai-translated; needs-native-review
+msgid "Type"
+msgstr "النوع"
+
+#. ai-translated; needs-native-review
+msgid "Type / to insert a block"
+msgstr "اكتب / لإدراج كتلة"
+
+#. ai-translated; needs-native-review
+msgid "Type a value..."
+msgstr "اكتب قيمة..."
+
+#. ai-translated; needs-native-review
+msgid "Type two comma separated values..."
+msgstr "اكتب قيمتين مفصولتين بفاصلة..."
+
+#. ai-translated; needs-native-review
+msgid "Type your query here"
+msgstr "اكتب استعلامك هنا"
+
+#. ai-translated; needs-native-review
+msgid "Unstore Query"
+msgstr "إلغاء تخزين الاستعلام"
+
+#. ai-translated; needs-native-review
+msgid "Untitled Analysis"
+msgstr "تحليل بدون عنوان"
+
+#. ai-translated; needs-native-review
+msgid "Untitled Dashboard"
+msgstr "لوحة معلومات بدون عنوان"
+
+#. ai-translated; needs-native-review
+msgid "Untitled Query"
+msgstr "استعلام بدون عنوان"
+
+#. ai-translated; needs-native-review
+msgid "Update"
+msgstr "تحديث"
+
+#. ai-translated; needs-native-review
+msgid "Updated"
+msgstr "تم التحديث"
+
+#. ai-translated; needs-native-review
+msgid "Upload CSV File"
+msgstr "رفع ملف CSV"
+
+#. ai-translated; needs-native-review
+msgid "Upload a CSV file"
+msgstr "رفع ملف CSV"
+
+#. ai-translated; needs-native-review
+msgid "Upload a file"
+msgstr "رفع ملف"
+
+#. ai-translated; needs-native-review
+msgid "Uploading... ({0}%)"
+msgstr "جاري الرفع... ({0}%)"
+
+#. ai-translated; needs-native-review
+msgid "Use Advanced Condition"
+msgstr "استخدام شرط متقدم"
+
+#. ai-translated; needs-native-review
+msgid "Use secure connection (SSL)?"
+msgstr "استخدام اتصال آمن (SSL)؟"
+
+#. ai-translated; needs-native-review
+msgid "Use {{ value }} to substitute the value of the column"
+msgstr "استخدم {{ value }} لاستبدال قيمة العمود"
+
+#. ai-translated; needs-native-review
+msgid "Username"
+msgstr "اسم المستخدم"
+
+#. ai-translated; needs-native-review
+msgid "Users"
+msgstr "المستخدمون"
+
+#. ai-translated; needs-native-review
+msgid "Value"
+msgstr "القيمة"
+
+#. ai-translated; needs-native-review
+msgid "Value Column"
+msgstr "عمود القيمة"
+
+#. ai-translated; needs-native-review
+msgid "Value cannot be same as Column or Row"
+msgstr "لا يمكن أن تكون القيمة مطابقة للعمود أو الصف"
+
+#. ai-translated; needs-native-review
+msgid "Values"
+msgstr "القيم"
+
+#. ai-translated; needs-native-review
+msgid "Variables"
+msgstr "المتغيرات"
+
+#. ai-translated; needs-native-review
+msgid "Variables are used to store sensitive information such as API keys and credentials. They can be referenced in your script just like any other variable. For eg.:"
+msgstr "تستخدم المتغيرات لتخزين المعلومات الحساسة مثل مفاتيح API وبيانات الاعتماد. يمكن الإشارة إليها في سكربتك تماما مثل أي متغير آخر. على سبيل المثال:"
+
+#. ai-translated; needs-native-review
+msgid "View SQL"
+msgstr "عرض SQL"
+
+#. ai-translated; needs-native-review
+msgid "Visual"
+msgstr "مرئي"
+
+#. ai-translated; needs-native-review
+msgid "Visualize"
+msgstr "تصور مرئي"
+
+#. ai-translated; needs-native-review
+msgid "Welcome to Insights"
+msgstr "مرحبا بك في Insights"
+
+#. ai-translated; needs-native-review
+msgid "What if there was..."
+msgstr "ماذا لو كان هناك..."
+
+#. ai-translated; needs-native-review
+msgid "When I try to..."
+msgstr "عندما أحاول..."
+
+#. ai-translated; needs-native-review
+msgid "Where"
+msgstr "حيث"
+
+#. ai-translated; needs-native-review
+msgid "Widget Type"
+msgstr "نوع الأداة"
+
+#. ai-translated; needs-native-review
+msgid "Widgets"
+msgstr "الأدوات"
+
+#. ai-translated; needs-native-review
+msgid "Wrapping up"
+msgstr "اختتام"
+
+#. ai-translated; needs-native-review
+msgid "Write a python expression..."
+msgstr "اكتب تعبير python..."
+
+#. ai-translated; needs-native-review
+msgid "Write an expression"
+msgstr "اكتب تعبيرا"
+
+#. ai-translated; needs-native-review
+msgid "X Axis"
+msgstr "محور X"
+
+#. ai-translated; needs-native-review
+msgid "Y Axis"
+msgstr "محور Y"
+
+#. ai-translated; needs-native-review
+msgid "Yellows"
+msgstr "درجات الأصفر"
+
+#. ai-translated; needs-native-review
+msgid "Yes"
+msgstr "نعم"
+
+#. ai-translated; needs-native-review
+msgid "You are all set to use Insights. We hope you enjoy using it!"
+msgstr "أنت جاهز الآن لاستخدام Insights. نأمل أن تستمتع باستخدامه!"
+
+#. ai-translated; needs-native-review
+msgid "You can choose from one of the sample datasets to connect to Insights."
+msgstr "يمكنك الاختيار من إحدى مجموعات البيانات التجريبية للاتصال بـ Insights."
+
+#. ai-translated; needs-native-review
+msgid "You can use all the fields from the query like"
+msgstr "يمكنك استخدام جميع الحقول من الاستعلام مثل"
+
+#. ai-translated; needs-native-review
+msgid "You can use markdown syntax to format your message. You can also drag and drop images to upload them."
+msgstr "يمكنك استخدام صياغة markdown لتنسيق رسالتك. يمكنك أيضا سحب وإفلات الصور لرفعها."
+
+#. ai-translated; needs-native-review
+msgid "You can view your recently viewed records here"
+msgstr "يمكنك عرض سجلاتك المعروضة مؤخرا هنا"
+
+#. ai-translated; needs-native-review
+msgid "You don't have permission to access this page. Make sure you have the right roles & permissions."
+msgstr "ليس لديك إذن للوصول إلى هذه الصفحة. تأكد من أن لديك الأدوار والأذونات الصحيحة."
+
+#. ai-translated; needs-native-review
+msgid "You haven't added any charts."
+msgstr "لم تضف أي مخططات."
+
+#. ai-translated; needs-native-review
+msgid "You haven't created any dashboards yet."
+msgstr "لم تنشئ أي لوحات معلومات بعد."
+
+#. ai-translated; needs-native-review
+msgid "You must select at least one answer for each question."
+msgstr "يجب عليك تحديد إجابة واحدة على الأقل لكل سؤال."
+
+#. ai-translated; needs-native-review
+msgid "You need to enter your MariaDB database details to connect to your database. If you are not sure about your database details, please contact your database administrator."
+msgstr "تحتاج إلى إدخال تفاصيل قاعدة بيانات MariaDB للاتصال بقاعدة بياناتك. إذا لم تكن متأكدا من تفاصيل قاعدة بياناتك، يرجى التواصل مع مسؤول قاعدة البيانات."
+
+#. ai-translated; needs-native-review
+msgid "You need to enter your PostgreSQL database details to connect to your database. If you are not sure about your database details, please contact your database administrator."
+msgstr "تحتاج إلى إدخال تفاصيل قاعدة بيانات PostgreSQL للاتصال بقاعدة بياناتك. إذا لم تكن متأكدا من تفاصيل قاعدة بياناتك، يرجى التواصل مع مسؤول قاعدة البيانات."
+
+#. ai-translated; needs-native-review
+msgid "You need to upload a spreadsheet to connect to your data. Insights supports only .csv files."
+msgstr "تحتاج إلى رفع جدول بيانات للاتصال ببياناتك. يدعم Insights ملفات .csv فقط."
+
+#. ai-translated; needs-native-review
+msgid "Your browser does not support the video tag."
+msgstr "متصفحك لا يدعم وسم الفيديو."
+
+#. ai-translated; needs-native-review
+msgid "Your free trial has ended"
+msgstr "انتهت تجربتك المجانية"
+
+#. ai-translated; needs-native-review
+msgid "Your message has been sent to the team."
+msgstr "تم إرسال رسالتك إلى الفريق."
+
+#. ai-translated; needs-native-review
+msgid "and"
+msgstr "و"
+
+#. ai-translated; needs-native-review
+msgid "condition"
+msgstr "شرط"
+
+#. ai-translated; needs-native-review
+msgid "e.g. 100"
+msgstr "مثال: 100"
+
+#. ai-translated; needs-native-review
+msgid "e.g. Low Inventory"
+msgstr "مثال: مخزون منخفض"
+
+#. ai-translated; needs-native-review
+msgid "e.g. john@example.com, henry@example.com"
+msgstr "مثال: john@example.com, henry@example.com"
+
+#. ai-translated; needs-native-review
+msgid "eCommerce"
+msgstr "التجارة الإلكترونية"
+
+#. ai-translated; needs-native-review
+msgid "eg. Sales Data"
+msgstr "مثال: بيانات المبيعات"
+
+#. ai-translated; needs-native-review
+msgid "eg. api_key"
+msgstr "مثال: api_key"
+
+msgid "eg. https://github.com/{{ value }}"
+msgstr ""
+
+#. ai-translated; needs-native-review
+msgid "eg. sales_data"
+msgstr "مثال: sales_data"
+
+#. ai-translated; needs-native-review
+msgid "etc. like this"
+msgstr "إلخ. مثل هذا"
+
+#. ai-translated; needs-native-review
+msgid "from"
+msgstr "من"
+
+#. ai-translated; needs-native-review
+msgid "here"
+msgstr "هنا"
+
+#. ai-translated; needs-native-review
+msgid "is not set"
+msgstr "غير محدد"
+
+#. ai-translated; needs-native-review
+msgid "is set"
+msgstr "محدد"
+
+#. ai-translated; needs-native-review
+msgid "members"
+msgstr "أعضاء"
+
+#. ai-translated; needs-native-review
+msgid "of"
+msgstr "من"
+
+#. ai-translated; needs-native-review
+msgid "or"
+msgstr "أو"
+
+#. ai-translated; needs-native-review
+msgid "out of"
+msgstr "من أصل"
+
+#. ai-translated; needs-native-review
+msgid "rows"
+msgstr "صفوف"
+
+#. ai-translated; needs-native-review
+msgid "rows in"
+msgstr "صفوف في"
+
+#. ai-translated; needs-native-review
+msgid "seconds"
+msgstr "ثواني"
+
+#. ai-translated; needs-native-review
+msgid "to"
+msgstr "إلى"
+
+#. ai-translated; needs-native-review
+msgid "to learn more about our pricing plans."
+msgstr "لمعرفة المزيد عن خطط أسعارنا."
+
+#. ai-translated; needs-native-review
+msgid "{0} Team"
+msgstr "فريق {0}"
+
+#. ai-translated; needs-native-review
+msgid "{0} step(s) left"
+msgstr "{0} خطوة متبقية"
+
+#. ai-translated; needs-native-review
+msgid "{0} values"
+msgstr "{0} قيمة"
+
+#. ai-translated; needs-native-review
+msgid "{0}% complete..."
+msgstr "{0}% مكتمل..."
+
+#. ai-translated; needs-native-review
+msgid "Aggregation"
+msgstr "تجميع"
+
+#. ai-translated; needs-native-review
+msgid "Apply transforms to the results."
+msgstr "طبّق التحويلات على النتائج."
+
+#. ai-translated; needs-native-review
+msgid "Condition"
+msgstr "شرط"
+
+#. ai-translated; needs-native-review
+msgid "Convert Column to Row"
+msgstr "تحويل عمود إلى صف"
+
+#. ai-translated; needs-native-review
+msgid "Convert Row to Column"
+msgstr "تحويل صف إلى عمود"
+
+#. ai-translated; needs-native-review
+msgid "Cumulative Sum"
+msgstr "المجموع التراكمي"
+
+#. ai-translated; needs-native-review
+msgid "Join"
+msgstr "ربط"
+
+#. ai-translated; needs-native-review
+msgid "Pivot"
+msgstr "محورة"
+
+#. ai-translated; needs-native-review
+msgid "Select Transform Type"
+msgstr "اختر نوع التحويل"
+
+#. ai-translated; needs-native-review
+msgid "Select a transform"
+msgstr "اختر تحويلا"
+
+#. ai-translated; needs-native-review
+msgid "Select the data source you want to query."
+msgstr "اختر مصدر البيانات الذي تريد الاستعلام عنه."
+
+#. ai-translated; needs-native-review
+msgid "Select the tables you want to extract data from."
+msgstr "اختر الجداول التي تريد استخراج البيانات منها."
+
+#. ai-translated; needs-native-review
+msgid "Transform"
+msgstr "تحويل"
+
+#. ai-translated; needs-native-review
+msgid "Transpose"
+msgstr "تبديل"
