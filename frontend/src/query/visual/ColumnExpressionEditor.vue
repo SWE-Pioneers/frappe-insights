@@ -59,24 +59,24 @@ function onSave() {
 		<div class="grid grid-cols-2 gap-4">
 			<FormControl
 				type="text"
-				label="Label"
+				:label="__('Label')"
 				class="col-span-1"
 				v-model="column.label"
-				placeholder="Label"
+				:placeholder="__('Label')"
 				autocomplete="off"
 			/>
 			<FormControl
-				label="Type"
+				:label="__('Type')"
 				type="select"
 				class="col-span-1"
 				v-model="column.type"
 				:options="COLUMN_TYPES"
 			/>
 			<div v-if="FIELDTYPES.DATE.includes(column.type)" class="col-span-1 space-y-1">
-				<span class="mb-2 block text-sm leading-4 text-gray-700">Date Format</span>
+				<span class="mb-2 block text-sm leading-4 text-gray-700">{{ __('Date Format') }}</span>
 				<Autocomplete
 					:modelValue="column.granularity"
-					placeholder="Date Format"
+					:placeholder="__('Date Format')"
 					:options="GRANULARITIES"
 					@update:modelValue="(op) => (column.granularity = op.value)"
 				/>
@@ -84,8 +84,8 @@ function onSave() {
 		</div>
 
 		<div class="flex flex-col justify-end gap-2 lg:flex-row">
-			<Button variant="outline" theme="red" @click="emit('remove')">Remove</Button>
-			<Button variant="solid" :disabled="!isValid" @click="onSave"> Save </Button>
+			<Button variant="outline" theme="red" @click="emit('remove')">{{ __('Remove') }}</Button>
+			<Button variant="solid" :disabled="!isValid" @click="onSave"> {{ __('Save') }} </Button>
 		</div>
 	</div>
 </template>

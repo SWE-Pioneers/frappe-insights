@@ -1,8 +1,8 @@
 <template>
-	<LoginBox class="bg-gray-50" title="Log in to your account">
+	<LoginBox class="bg-gray-50" :title="__('Log in to your account')">
 		<form class="flex flex-col" @submit.prevent="makeLoginRequest">
 			<FormControl
-				label="Email"
+				:label="__('Email')"
 				placeholder="johndoe@mail.com"
 				v-model="email"
 				name="email"
@@ -12,7 +12,7 @@
 			/>
 			<FormControl
 				class="mt-4"
-				label="Password"
+				:label="__('Password')"
 				type="password"
 				placeholder="•••••"
 				v-model="password"
@@ -28,7 +28,7 @@
 				:loading="loggingIn"
 				@click="makeLoginRequest"
 			>
-				Log in with email
+				{{ __('Log in with email') }}
 			</Button>
 		</form>
 	</LoginBox>

@@ -44,12 +44,12 @@ async function selectQuery() {
 
 <template>
 	<div class="space-y-2">
-		<span class="mb-2 block text-sm leading-4 text-gray-700">Query</span>
+		<span class="mb-2 block text-sm leading-4 text-gray-700">{{ __('Query') }}</span>
 		<div class="relative">
 			<Autocomplete
 				v-model="queryName"
 				:returnValue="true"
-				placeholder="Select a query"
+				:placeholder="__('Select a query')"
 				:allowCreate="true"
 				:options="queryOptions"
 				@createOption="createQuery"
@@ -78,9 +78,9 @@ async function selectQuery() {
 						@click="deleteQuery"
 						:loading="queryStore.deleting"
 					>
-						Discard
+						{{ __('Discard') }}
 					</Button>
-					<Button variant="solid" @click="selectQuery"> Done </Button>
+					<Button variant="solid" @click="selectQuery"> {{ __('Done') }} </Button>
 				</div>
 			</div>
 		</template>

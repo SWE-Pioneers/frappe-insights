@@ -40,7 +40,7 @@ const columnTypeOptions = computed(() => {
 <template>
 	<div class="flex flex-col gap-3">
 		<FormControl
-			label="Column Type"
+			:label="__('Column Type')"
 			type="select"
 			:options="columnTypeOptions"
 			v-model="options.column_type"
@@ -48,48 +48,48 @@ const columnTypeOptions = computed(() => {
 		<FormControl
 			v-if="options.column_type === 'Link'"
 			type="text"
-			label="Link URL"
+			:label="__('Link URL')"
 			autocomplete="off"
-			placeholder="eg. https://github.com/{{ value }}"
-			description="Use {{ value }} to substitute the value of the column"
+			:placeholder="__('eg. https://github.com/{{ value }}')"
+			:description="__('Use {{ value }} to substitute the value of the column')"
 			v-model="options.link_url"
 		/>
 		<FormControl
 			v-if="options.column_type === 'Number'"
 			type="text"
-			label="Prefix"
+			:label="__('Prefix')"
 			autocomplete="off"
 			v-model="options.prefix"
-			placeholder="Enter a prefix..."
+			:placeholder="__('Enter a prefix...')"
 		/>
 		<FormControl
 			v-if="options.column_type === 'Number'"
 			type="text"
-			label="Suffix"
+			:label="__('Suffix')"
 			autocomplete="off"
 			v-model="options.suffix"
-			placeholder="Enter a suffix..."
+			:placeholder="__('Enter a suffix...')"
 		/>
 		<FormControl
 			v-if="options.column_type === 'Number'"
 			type="number"
-			label="Decimals"
+			:label="__('Decimals')"
 			autocomplete="off"
 			v-model="options.decimals"
-			placeholder="Enter a number..."
+			:placeholder="__('Enter a number...')"
 		/>
 		<Checkbox
 			v-if="options.column_type === 'Number'"
 			v-model="options.show_inline_bar_chart"
-			label="Show Inline Bar Chart"
+			:label="__('Show Inline Bar Chart')"
 		/>
 		<FormControl
 			v-if="options.column_type === 'Date'"
 			type="select"
-			label="Date Format"
+			:label="__('Date Format')"
 			autocomplete="off"
 			v-model="options.date_format"
-			placeholder="Select a date format..."
+			:placeholder="__('Select a date format...')"
 			:options="dateFormats"
 		/>
 	</div>

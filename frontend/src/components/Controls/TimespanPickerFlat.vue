@@ -18,7 +18,7 @@
 			</Input>
 		</div>
 		<div class="flex justify-end">
-			<Button variant="solid" @click="apply()"> Done </Button>
+			<Button variant="solid" @click="apply()"> {{ __('Done') }} </Button>
 		</div>
 	</div>
 </template>

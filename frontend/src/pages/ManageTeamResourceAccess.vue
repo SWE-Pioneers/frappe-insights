@@ -11,12 +11,14 @@ const props = defineProps({
 const resourceTitle = computed(() => props.resourceType.replace('Insights ', ''))
 const resourceDescription = computed(() => {
 	const description_map = {
-		'Insights Data Source':
-			'All the tables from these data source will be accessible to the team.',
-		'Insights Table':
-			'Give access to only specific tables of a data source. Tables from accessible data sources will also be accessible to the team.',
-		'Insights Query': 'Queries that are accessible to this team.',
-		'Insights Dashboard': 'Dashboards that are accessible to this team.',
+		'Insights Data Source': __(
+			'All the tables from these data source will be accessible to the team.'
+		),
+		'Insights Table': __(
+			'Give access to only specific tables of a data source. Tables from accessible data sources will also be accessible to the team.'
+		),
+		'Insights Query': __('Queries that are accessible to this team.'),
+		'Insights Dashboard': __('Dashboards that are accessible to this team.'),
 	}
 	return description_map[props.resourceType]
 })
@@ -54,12 +56,14 @@ function addResources(resources) {
 <template>
 	<div class="flex w-full flex-col space-y-3 text-base">
 		<div class="flex flex-shrink-0 flex-col">
-			<div class="text-lg font-medium leading-6">Manage {{ resourceTitle }} Access</div>
+			<div class="text-lg font-medium leading-6">
+				{{ __('Manage {0} Access', [resourceTitle]) }}
+			</div>
 			<div class="mb-4 text-sm text-gray-600">
 				{{ resourceDescription }}
 			</div>
 			<ListPicker
-				:placeholder="`Add a ${resourceTitle}`"
+				:placeholder="__('Add a {0}', [resourceTitle])"
 				v-model="selectedResources"
 				:options="resourceOptions"
 				:loading="team.search_team_resources.loading"
@@ -91,7 +95,7 @@ function addResources(resources) {
 				v-else
 				class="flex h-full items-center justify-center rounded border border-dashed p-4 text-sm font-light text-gray-600"
 			>
-				No {{ resourceTitle }} added yet.
+				{{ __('No {0} added yet.', [resourceTitle]) }}
 			</div>
 		</div>
 	</div>

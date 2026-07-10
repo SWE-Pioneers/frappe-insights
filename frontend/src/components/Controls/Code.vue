@@ -38,7 +38,7 @@ const props = defineProps({
 	},
 	placeholder: {
 		type: String,
-		default: 'Enter an expression...',
+		default: () => __('Enter an expression...'),
 	},
 	completions: {
 		type: Function,

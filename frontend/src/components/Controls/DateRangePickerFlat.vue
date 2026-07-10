@@ -52,9 +52,9 @@
 		</div>
 
 		<div class="mt-1 flex w-full justify-end space-x-2">
-			<Button @click="() => clearDates()" :disabled="!value"> Clear </Button>
+			<Button @click="() => clearDates()" :disabled="!value"> {{ __('Clear') }} </Button>
 			<Button @click="selectDates()" :disabled="!fromDate || !toDate" variant="solid">
-				Apply
+				{{ __('Apply') }}
 			</Button>
 		</div>
 	</div>

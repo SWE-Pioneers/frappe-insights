@@ -17,7 +17,7 @@
 		</div>
 		<div class="flex space-x-2">
 			<Input type="text" :value="value" @change="selectDate(getDate($event))"></Input>
-			<Button class="h-7" @click="selectDate(getDate())"> Today </Button>
+			<Button class="h-7" @click="selectDate(getDate())"> {{ __('Today') }} </Button>
 		</div>
 		<div class="mt-2 flex flex-col items-center justify-center text-base">
 			<div class="flex w-full items-center space-x-1 text-gray-600">
@@ -50,7 +50,7 @@
 
 		<div class="mt-1 flex w-full justify-end">
 			<div class="cursor-pointer rounded px-2 py-1 hover:bg-gray-100" @click="selectDate('')">
-				Clear
+				{{ __('Clear') }}
 			</div>
 		</div>
 	</div>

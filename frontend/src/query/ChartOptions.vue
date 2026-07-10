@@ -12,7 +12,7 @@ function resetOptions() {
 <template>
 	<div class="flex h-full flex-col space-y-4 overflow-y-auto p-0.5">
 		<div>
-			<label class="mb-1.5 block text-xs text-gray-600">Chart type</label>
+			<label class="mb-1.5 block text-xs text-gray-600">{{ __('Chart type') }}</label>
 			<Autocomplete
 				:modelValue="query.chart.doc.chart_type"
 				:options="widgets.getChartOptions()"
@@ -48,6 +48,6 @@ function resetOptions() {
 			:columns="query.results.columns"
 		/>
 
-		<Button variant="subtle" @click="resetOptions"> Reset Options </Button>
+		<Button variant="subtle" @click="resetOptions"> {{ __('Reset Options') }} </Button>
 	</div>
 </template>

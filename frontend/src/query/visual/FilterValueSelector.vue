@@ -7,7 +7,7 @@ import { FormControl, call, debounce } from 'frappe-ui'
 import { computed, defineProps, ref, watch } from 'vue'
 
 const props = defineProps({
-	label: { type: String, required: false, default: 'Value' },
+	label: { type: String, required: false, default: () => __('Value') },
 	column: { type: Object, required: true },
 	operator: { type: Object, required: true },
 	dataSource: { type: String, required: true },
@@ -110,7 +110,7 @@ function onOptionSelect(value) {
 		<Autocomplete
 			v-if="selectorType === 'combobox'"
 			:key="isMultiValue"
-			placeholder="Value"
+			:placeholder="__('Value')"
 			:multiple="isMultiValue"
 			:modelValue="filterValue?.value"
 			:options="columnValues"
@@ -120,7 +120,7 @@ function onOptionSelect(value) {
 		<TimespanPicker
 			v-if="selectorType === 'timespanpicker'"
 			v-model="filterValue"
-			placeholder="Value"
+			:placeholder="__('Value')"
 		/>
 		<DateRangePicker
 			v-if="selectorType === 'datepickerrange'"
@@ -138,7 +138,7 @@ function onOptionSelect(value) {
 			v-if="selectorType === 'text'"
 			type="text"
 			autocomplete="off"
-			placeholder="Value"
+			:placeholder="__('Value')"
 			:modelValue="filterValue?.value"
 			@update:modelValue="
 				filterValue = {

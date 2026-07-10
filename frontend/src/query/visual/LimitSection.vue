@@ -17,8 +17,8 @@ watch(
 	<div>
 		<SectionHeader
 			:icon="Infinity"
-			title="Row Limit"
-			info="Limit the number of rows returned by the query"
+			:title="__('Row Limit')"
+			:info="__('Limit the number of rows returned by the query')"
 		>
 			<input
 				type="text"

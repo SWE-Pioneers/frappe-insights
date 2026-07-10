@@ -1,45 +1,45 @@
 <template>
 	<div class="relative flex flex-col space-y-3">
 		<div class="space-y-1 text-sm">
-			<div class="text-gray-700">Aggregation Type</div>
+			<div class="text-gray-700">{{ __('Aggregation Type') }}</div>
 			<Autocomplete
 				v-model="simpleColumn.aggType"
 				:options="aggregations"
-				placeholder="Select aggregation type"
+				:placeholder="__('Select aggregation type')"
 				@update:modelValue="onTypeSelect"
 			/>
 		</div>
 		<div v-if="columnNeeded" class="space-y-1 text-sm">
-			<div class="text-gray-700">Column</div>
+			<div class="text-gray-700">{{ __('Column') }}</div>
 			<Autocomplete
 				v-model="simpleColumn.column"
 				:options="filteredColumns"
-				placeholder="Select a column..."
-				:emptyText="requiresNumberColumn ? 'No number columns' : 'No columns'"
+				:placeholder="__('Select a column...')"
+				:emptyText="requiresNumberColumn ? __('No number columns') : __('No columns')"
 				@update:modelValue="onColumnSelect"
 			/>
 		</div>
 		<div class="space-y-1 text-sm">
-			<div class="text-gray-700">Label</div>
+			<div class="text-gray-700">{{ __('Label') }}</div>
 			<Input
 				type="text"
 				v-model="simpleColumn.label"
 				class="placeholder:text-sm"
-				placeholder="Enter a label..."
+				:placeholder="__('Enter a label...')"
 			/>
 		</div>
 
 		<div v-if="showDateFormatOptions" class="space-y-1 text-sm">
-			<div class="text-gray-700">Date Format</div>
+			<div class="text-gray-700">{{ __('Date Format') }}</div>
 			<Autocomplete
 				v-model="simpleColumn.dateFormat"
 				:options="dateFormats.map((f) => ({ ...f, description: f.value }))"
-				placeholder="Select a date format..."
+				:placeholder="__('Select a date format...')"
 				@update:modelValue="selectDateFormat"
 			/>
 		</div>
 		<div class="space-y-1 text-sm">
-			<div class="text-gray-700">Sort</div>
+			<div class="text-gray-700">{{ __('Sort') }}</div>
 			<Input
 				type="select"
 				v-model="simpleColumn.order_by"
@@ -49,16 +49,16 @@
 						value: '',
 					},
 					{
-						label: 'Ascending',
+						label: __('Ascending'),
 						value: 'asc',
 					},
 					{
-						label: 'Descending',
+						label: __('Descending'),
 						value: 'desc',
 					},
 				]"
 				class="placeholder:text-sm"
-				placeholder="Enter a label..."
+				:placeholder="__('Enter a label...')"
 			/>
 		</div>
 		<div class="sticky bottom-0 mt-3 flex justify-end space-x-2 bg-white pt-1">
@@ -68,10 +68,10 @@
 				variant="outline"
 				@click="removeMetric"
 			>
-				Remove
+				{{ __('Remove') }}
 			</Button>
 			<Button @click="addOrEditColumn" variant="solid" :disabled="applyDisabled">
-				{{ props.column.name ? 'Update' : 'Add ' }}
+				{{ props.column.name ? __('Update') : __('Add ') }}
 			</Button>
 		</div>
 	</div>

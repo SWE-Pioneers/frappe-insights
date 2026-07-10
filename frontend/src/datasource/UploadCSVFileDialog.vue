@@ -11,7 +11,7 @@ const show = computed({
 </script>
 
 <template>
-	<Dialog :options="{ title: 'CSV Import' }" v-model="show">
+	<Dialog :options="{ title: __('CSV Import') }" v-model="show">
 		<template #body-content>
 			<FileSourceForm @submit="show = false" />
 		</template>

@@ -120,7 +120,7 @@ async function onTableDrop(event) {
 	const table = JSON.parse(event.dataTransfer?.getData('dragging-table'))
 	if (!table) return
 	if (canvas.findNode(table.table)) {
-		$notify({ title: 'Table already added', variant: 'warning' })
+		$notify({ title: __('Table already added'), variant: 'warning' })
 		return
 	}
 
@@ -238,15 +238,15 @@ function onEdgeChange(args) {
 			v-if="!nodes.length"
 			class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform text-center text-gray-700"
 		>
-			Drag and drop tables from the left panel to create relationships.
+			{{ __('Drag and drop tables from the left panel to create relationships.') }}
 		</div>
 	</div>
 
 	<div class="flex w-[21rem] flex-shrink-0 flex-col gap-3 overflow-hidden bg-white p-4 shadow">
 		<div class="flex items-center justify-between">
-			<div class="text-xl font-medium">Tables</div>
+			<div class="text-xl font-medium">{{ __('Tables') }}</div>
 		</div>
-		<Input placeholder="Search" icon-left="search" v-model="searchQuery" />
+		<Input :placeholder="__('Search')" icon-left="search" v-model="searchQuery" />
 		<div class="flex-1 overflow-hidden">
 			<div
 				v-if="filteredList.length"
@@ -267,8 +267,8 @@ function onEdgeChange(args) {
 			</div>
 			<div v-if="!filteredList.length" class="flex h-full items-center justify-center">
 				<div class="text-center text-gray-600">
-					No tables.
-					<div class="mt-1 text-base text-gray-700">No tables to display.</div>
+					{{ __('No tables.') }}
+					<div class="mt-1 text-base text-gray-700">{{ __('No tables to display.') }}</div>
 				</div>
 			</div>
 		</div>

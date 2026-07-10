@@ -2,7 +2,7 @@
 	<div class="relative flex flex-col">
 		<!-- Expression Code Field -->
 		<div class="flex justify-between">
-			<div class="mb-1 text-sm">Expression</div>
+			<div class="mb-1 text-sm">{{ __('Expression') }}</div>
 			<Tooltip v-if="expression.error" :text="expression.error">
 				<div class="!mt-1 flex cursor-pointer items-center text-xs text-red-500">
 					<FeatherIcon name="alert-circle" class="h-4 w-4" />
@@ -41,35 +41,35 @@
 
 		<!-- Label Field -->
 		<div class="mt-2 text-sm text-gray-700">
-			<div class="mb-1">Label</div>
+			<div class="mb-1">{{ __('Label') }}</div>
 			<Input
 				type="text"
 				v-model="expression.label"
 				class="placeholder:text-sm"
-				placeholder="Enter a label..."
+				:placeholder="__('Enter a label...')"
 			/>
 		</div>
 		<!-- Type Field -->
 		<div class="mt-2 text-sm text-gray-700">
-			<div class="mb-1">Type</div>
+			<div class="mb-1">{{ __('Type') }}</div>
 			<Input
 				type="select"
 				v-model="expression.valueType"
 				class="placeholder:text-sm"
-				placeholder="Select a type..."
+				:placeholder="__('Select a type...')"
 				:options="columnTypes"
 			/>
 		</div>
 		<div v-if="showDateFormatOptions" class="mt-2 text-sm text-gray-700">
-			<div class="mb-1">Date Format</div>
+			<div class="mb-1">{{ __('Date Format') }}</div>
 			<Autocomplete
 				v-model="expression.dateFormat"
 				:options="dateFormats"
-				placeholder="Select a date format..."
+				:placeholder="__('Select a date format...')"
 			/>
 		</div>
 		<div class="mt-2 space-y-1 text-sm text-gray-700">
-			<div class="">Sort</div>
+			<div class="">{{ __('Sort') }}</div>
 			<Input
 				type="select"
 				v-model="expression.order_by"
@@ -79,23 +79,23 @@
 						value: '',
 					},
 					{
-						label: 'Ascending',
+						label: __('Ascending'),
 						value: 'asc',
 					},
 					{
-						label: 'Descending',
+						label: __('Descending'),
 						value: 'desc',
 					},
 				]"
 				class="placeholder:text-sm"
-				placeholder="Enter a label..."
+				:placeholder="__('Enter a label...')"
 			/>
 		</div>
 		<div class="mt-4 text-sm text-gray-700">
 			<Input
 				v-if="expression.valueType == 'String'"
 				type="checkbox"
-				label="Group By"
+				:label="__('Group By')"
 				v-model="expression.groupBy"
 			/>
 		</div>
@@ -107,10 +107,10 @@
 				variant="outline"
 				@click="removeExpressionColumn"
 			>
-				Remove
+				{{ __('Remove') }}
 			</Button>
 			<Button variant="solid" @click="addOrEditColumn" :disabled="addDisabled">
-				{{ editing ? 'Update' : 'Add ' }}
+				{{ editing ? __('Update') : __('Add ') }}
 			</Button>
 		</div>
 	</div>
@@ -136,7 +136,7 @@ const props = defineProps({
 		default: {},
 		validate: (value) => {
 			if (value.is_expression != 1) {
-				return 'Column must be an expression'
+				return __('Column must be an expression')
 			}
 		},
 	},

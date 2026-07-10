@@ -39,7 +39,7 @@
 						@change="selectDate(getDate($event)) || togglePopover()"
 					></Input>
 					<Button class="h-7" @click="selectDate(getDate()) || togglePopover()">
-						Today
+						{{ __('Today') }}
 					</Button>
 				</div>
 				<div class="mt-2 flex flex-col items-center justify-center text-base">
@@ -87,7 +87,7 @@
 							}
 						"
 					>
-						Clear
+						{{ __('Clear') }}
 					</div>
 				</div>
 			</div>

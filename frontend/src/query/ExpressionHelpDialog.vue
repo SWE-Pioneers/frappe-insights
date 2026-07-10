@@ -1,11 +1,11 @@
 <template>
 	<Button variant="ghost" @click="show = true" icon="help-circle"> </Button>
 
-	<Dialog :options="{ title: 'Functions' }" v-model="show" :dismissable="true">
+	<Dialog :options="{ title: __('Functions') }" v-model="show" :dismissable="true">
 		<template #body-content>
 			<input
 				v-model="search"
-				placeholder="Search functions"
+				:placeholder="__('Search functions')"
 				class="form-input block w-full border-gray-400 placeholder-gray-500"
 			/>
 			<div
@@ -18,19 +18,19 @@
 					</div>
 					<div class="mt-2 flex-1 rounded bg-gray-50 p-2 text-sm leading-5">
 						<code>
-							<span class="text-gray-600"># Syntax</span>
+							<span class="text-gray-600">{{ __('# Syntax') }}</span>
 							<br />
 							{{ func.syntax }}
 							<br />
 							<br />
-							<span class="text-gray-600"># Example</span>
+							<span class="text-gray-600">{{ __('# Example') }}</span>
 							<br />
 							{{ func.example }}
 						</code>
 					</div>
 				</div>
 				<div v-if="!filteredList.length" class="py-2 text-center text-gray-700">
-					No functions found
+					{{ __('No functions found') }}
 				</div>
 			</div>
 		</template>

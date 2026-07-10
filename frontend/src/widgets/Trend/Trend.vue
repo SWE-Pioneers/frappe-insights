@@ -111,7 +111,7 @@ const trendLineOptions = computed(() => {
 				<div
 					class="tnum flex-shrink-0 overflow-hidden text-ellipsis whitespace-nowrap text-[14px] text-sm leading-5 text-gray-600"
 				>
-					from {{ options.prefix }}{{ formatNumber(previousValue, 2)
+					{{ __('from') }} {{ options.prefix }}{{ formatNumber(previousValue, 2)
 					}}{{ options.suffix }}
 				</div>
 			</div>

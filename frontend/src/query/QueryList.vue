@@ -31,7 +31,7 @@ if (route.hash == '#new') {
 	new_dialog.value = true
 }
 
-const pageMeta = ref({ title: 'Queries' })
+const pageMeta = ref({ title: __('Queries') })
 updateDocumentTitle(pageMeta)
 
 const notebooks = useNotebooks()
@@ -61,28 +61,28 @@ async function openQueryEditor(type) {
 
 const queryBuilderTypes = ref([
 	{
-		label: 'Visual',
-		description: 'Create a query using the visual interface',
+		label: __('Visual'),
+		description: __('Create a query using the visual interface'),
 		icon: 'bar-chart-2',
 		onClick: () => openQueryEditor('visual'),
 	},
 
 	{
-		label: 'SQL',
-		description: 'Create a query by writing native query',
+		label: __('SQL'),
+		description: __('Create a query by writing native query'),
 		icon: 'code',
 		onClick: () => openQueryEditor('sql'),
 	},
 	{
-		label: 'Notebook',
-		description: 'Create a query using the notebook interface',
+		label: __('Notebook'),
+		description: __('Create a query using the notebook interface'),
 		icon: 'book',
 		tag: 'beta',
 		onClick: () => openQueryEditor('notebook'),
 	},
 	{
-		label: 'Script',
-		description: 'Create a query by writing a python script',
+		label: __('Script'),
+		description: __('Create a query by writing a python script'),
 		icon: 'code',
 		tag: 'beta',
 		onClick: () => openQueryEditor('script'),
@@ -124,7 +124,7 @@ function getQueryTypeIcon(query) {
 
 const queryListColumns = [
 	{
-		label: 'Title',
+		label: __('Title'),
 		key: 'title',
 		width: 2,
 		prefix: ({ row }) => {
@@ -133,7 +133,7 @@ const queryListColumns = [
 		},
 	},
 	{
-		label: 'Execution Status',
+		label: __('Execution Status'),
 		key: 'status',
 		width: 1,
 		getLabel: ({ row }) => row.status.replace('Execution', ''),
@@ -146,7 +146,7 @@ const queryListColumns = [
 		},
 	},
 	{
-		label: 'Chart Type',
+		label: __('Chart Type'),
 		key: 'chart_type',
 		width: 1,
 		prefix: ({ row }) => {
@@ -156,18 +156,18 @@ const queryListColumns = [
 		},
 	},
 	{
-		label: 'Data Source',
+		label: __('Data Source'),
 		key: 'data_source',
 		width: 1,
 		getLabel: ({ row }) => row.data_source_title || row.data_source,
 	},
 	{
-		label: 'ID',
+		label: __('ID'),
 		key: 'name',
 		width: 1,
 	},
 	{
-		label: 'Created By',
+		label: __('Created By'),
 		key: 'owner_name',
 		width: 1,
 		prefix: ({ row }) => {
@@ -175,7 +175,7 @@ const queryListColumns = [
 		},
 	},
 	{
-		label: 'Created',
+		label: __('Created'),
 		key: 'created_from_now',
 		width: 1,
 		align: 'right',
@@ -185,9 +185,9 @@ const queryListColumns = [
 
 <template>
 	<header class="sticky top-0 z-10 flex items-center justify-between bg-white px-5 py-2.5">
-		<PageBreadcrumbs class="h-7" :items="[{ label: 'Queries' }]" />
+		<PageBreadcrumbs class="h-7" :items="[{ label: __('Queries') }]" />
 		<div>
-			<Button label="New Query" variant="solid" @click="new_dialog = true">
+			<Button :label="__('New Query')" variant="solid" @click="new_dialog = true">
 				<template #prefix>
 					<PlusIcon class="w-4" />
 				</template>
@@ -198,7 +198,7 @@ const queryListColumns = [
 	<div class="mb-4 flex h-full flex-col gap-2 overflow-auto px-4">
 		<div class="flex gap-2 overflow-visible py-1">
 			<FormControl
-				placeholder="Search by Title"
+				:placeholder="__('Search by Title')"
 				:modelValue="filters.title?.[1]"
 				@update:modelValue="filters.title = ['like', $event]"
 				:debounce="300"
@@ -217,10 +217,10 @@ const queryListColumns = [
 				showTooltip: false,
 				getRowRoute: (query) => ({ name: 'Query', params: { name: query.name } }),
 				emptyState: {
-					title: 'No Query Created.',
-					description: 'Create a new query to get started.',
+					title: __('No Query Created.'),
+					description: __('Create a new query to get started.'),
 					button: {
-						label: 'New Query',
+						label: __('New Query'),
 						variant: 'solid',
 						onClick: () => (new_dialog = true),
 					},
@@ -232,7 +232,7 @@ const queryListColumns = [
 
 	<NewDialogWithTypes
 		v-model:show="new_dialog"
-		title="Select Interface Type"
+		:title="__('Select Interface Type')"
 		:types="queryBuilderTypes"
 	/>
 </template>

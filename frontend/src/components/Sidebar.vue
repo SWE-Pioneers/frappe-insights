@@ -63,24 +63,24 @@
 					placement="left"
 					:options="[
 						{
-							label: 'Documentation',
+							label: __('Documentation'),
 							icon: 'help-circle',
 							onClick: () => open('https://docs.frappeinsights.com'),
 						},
 						{
-							label: 'Telegram Support',
+							label: __('Telegram Support'),
 							icon: 'message-circle',
 							onClick: () => open('https://t.me/frappeinsights'),
 						},
 						session.user.is_admin
 							? {
-									label: 'Switch to Desk',
+									label: __('Switch to Desk'),
 									icon: 'grid',
 									onClick: () => open('/app'),
 							  }
 							: null,
 						{
-							label: 'Logout',
+							label: __('Logout'),
 							icon: 'log-out',
 							onClick: () => session.logout(),
 						},
@@ -140,41 +140,41 @@ const showHelpDialog = ref(false)
 const sidebarItems = ref([
 	{
 		path: '/',
-		label: 'Home',
+		label: __('Home'),
 		icon: HomeIcon,
 		name: 'Home',
 		current: false,
 	},
 	{
 		path: '/dashboard',
-		label: 'Dashboards',
+		label: __('Dashboards'),
 		icon: LayoutPanelTop,
 		name: 'Dashboard',
 		current: false,
 	},
 	{
 		path: '/query',
-		label: 'Query',
+		label: __('Query'),
 		icon: GanttChartSquare,
 		name: 'QueryList',
 		current: false,
 	},
 	{
 		path: '/data-source',
-		label: 'Data Sources',
+		label: __('Data Sources'),
 		icon: Database,
 		name: 'Data Source',
 	},
 	{
 		path: '/notebook',
-		label: 'Notebook',
+		label: __('Notebook'),
 		icon: Book,
 		name: 'Notebook',
 		current: false,
 	},
 	{
 		path: '/settings',
-		label: 'Settings',
+		label: __('Settings'),
 		icon: Settings,
 		name: 'Settings',
 		current: false,

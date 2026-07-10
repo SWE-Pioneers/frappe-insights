@@ -19,12 +19,12 @@ const showChart = computed(() => {
 
 const emptyMessage = computed(() => {
 	if (query.doc.status == 'Pending Execution') {
-		return 'Execute the query to see the chart'
+		return __('Execute the query to see the chart')
 	}
 	if (!query.results.formattedResults?.length) {
-		return 'No results found'
+		return __('No results found')
 	}
-	return 'Pick a chart type to get started'
+	return __('Pick a chart type to get started')
 })
 
 const chart = computed(() => {
@@ -49,7 +49,7 @@ function downloadChartImage() {
 	if (!chartRef.value) {
 		$notify({
 			variant: 'error',
-			title: 'Chart container reference not found',
+			title: __('Chart container reference not found'),
 		})
 		return
 	}

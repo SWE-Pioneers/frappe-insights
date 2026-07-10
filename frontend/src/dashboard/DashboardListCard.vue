@@ -52,7 +52,7 @@ function toggleFavourite() {
 				</div>
 
 				<div class="flex h-6 items-center text-sm text-gray-600">
-					Updated {{ dashboard.modified_from_now }}
+					{{ __('Updated') }} {{ dashboard.modified_from_now }}
 				</div>
 			</div>
 		</div>

@@ -2,10 +2,10 @@
 const props = defineProps({
 	icon: { type: String, default: 'alert-triangle' },
 	iconClass: { type: String, default: 'text-yellow-400' },
-	title: { type: String, required: true, default: 'Invalid Widget' },
+	title: { type: String, required: true, default: () => __('Invalid Widget') },
 	message: {
 		type: String,
-		default: 'Remove this widget and try adding a new one.',
+		default: () => __('Remove this widget and try adding a new one.'),
 	},
 })
 </script>

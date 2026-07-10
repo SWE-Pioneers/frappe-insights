@@ -33,7 +33,7 @@ async function handleDelete() {
 	router.push({ name: 'NotebookList' })
 }
 
-const pageMeta = ref({ title: 'Notebook' })
+const pageMeta = ref({ title: __('Notebook') })
 updateDocumentTitle(pageMeta)
 </script>
 
@@ -42,12 +42,12 @@ updateDocumentTitle(pageMeta)
 		<PageBreadcrumbs
 			class="h-7"
 			:items="[
-				{ label: 'Notebooks', route: { path: '/notebook' } },
+				{ label: __('Notebooks'), route: { path: '/notebook' } },
 				{ label: notebook.doc.title || notebook.doc.name },
 			]"
 		/>
 		<div class="space-x-2.5">
-			<Button label="New Page" variant="solid" @click="() => createNotebookPage()">
+			<Button :label="__('New Page')" variant="solid" @click="() => createNotebookPage()">
 				<template #prefix>
 					<PlusIcon class="w-4" />
 				</template>
@@ -57,7 +57,7 @@ updateDocumentTitle(pageMeta)
 
 	<div class="mb-4 flex h-full flex-col gap-2 overflow-auto px-4">
 		<div class="flex gap-2 overflow-visible py-1">
-			<FormControl placeholder="Search by Title" v-model="searchQuery" :debounce="300">
+			<FormControl :placeholder="__('Search by Title')" v-model="searchQuery" :debounce="300">
 				<template #prefix>
 					<SearchIcon class="h-4 w-4 text-gray-500" />
 				</template>
@@ -67,7 +67,7 @@ updateDocumentTitle(pageMeta)
 				:button="{ icon: 'more-horizontal', variant: 'ghost' }"
 				:options="[
 					{
-						label: 'Delete',
+						label: __('Delete'),
 						icon: 'trash-2',
 						onClick: () => (showDeleteDialog = true),
 					},
@@ -76,9 +76,9 @@ updateDocumentTitle(pageMeta)
 		</div>
 		<ListView
 			:columns="[
-				{ label: 'Title', key: 'title' },
-				{ label: 'Created', key: 'created_from_now' },
-				{ label: 'Modified', key: 'modified_from_now' },
+				{ label: __('Title'), key: 'title' },
+				{ label: __('Created'), key: 'created_from_now' },
+				{ label: __('Modified'), key: 'modified_from_now' },
 			]"
 			:rows="notebook.pages"
 			:row-key="'name'"
@@ -89,10 +89,10 @@ updateDocumentTitle(pageMeta)
 					params: { notebook: notebook.doc.name, name: page.name },
 				}),
 				emptyState: {
-					title: 'No pages.',
-					description: 'No pages to display.',
+					title: __('No pages.'),
+					description: __('No pages to display.'),
 					button: {
-						label: 'New Page',
+						label: __('New Page'),
 						variant: 'solid',
 						onClick: () => createNotebookPage(),
 					},
@@ -104,19 +104,19 @@ updateDocumentTitle(pageMeta)
 
 	<Dialog
 		:options="{
-			title: 'Delete Notebook',
+			title: __('Delete Notebook'),
 			icon: { name: 'trash', variant: 'solid', theme: 'red' },
 		}"
 		v-model="showDeleteDialog"
 		:dismissable="true"
 	>
 		<template #body-content>
-			<p class="text-base text-gray-600">Are you sure you want to delete this notebook?</p>
+			<p class="text-base text-gray-600">{{ __('Are you sure you want to delete this notebook?') }}</p>
 		</template>
 		<template #actions>
-			<Button variant="outline" @click="showDeleteDialog = false">Cancel</Button>
+			<Button variant="outline" @click="showDeleteDialog = false">{{ __('Cancel') }}</Button>
 			<Button variant="solid" theme="red" @click="handleDelete" :loading="notebook.deleting">
-				Yes
+				{{ __('Yes') }}
 			</Button>
 		</template>
 	</Dialog>

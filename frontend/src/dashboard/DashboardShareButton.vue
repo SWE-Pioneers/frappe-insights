@@ -7,9 +7,9 @@ const showShareDialog = ref(false)
 </script>
 
 <template>
-	<Badge v-if="dashboard.isPrivate" theme="yellow"> Private </Badge>
+	<Badge v-if="dashboard.isPrivate" theme="yellow"> {{ __('Private') }} </Badge>
 
-	<Button variant="outline" @click="showShareDialog = true"> Share </Button>
+	<Button variant="outline" @click="showShareDialog = true"> {{ __('Share') }} </Button>
 
 	<ShareDialog
 		v-if="dashboard.doc"

@@ -8,7 +8,7 @@ const props = defineProps({
 	items: { type: Array, required: true },
 	group: { type: String, required: true },
 	itemKey: { type: String, default: 'value' },
-	emptyText: { type: String, default: 'No items' },
+	emptyText: { type: String, default: () => __('No items') },
 	showEmptyState: { type: Boolean, default: true },
 	showHandle: { type: Boolean, default: true },
 })

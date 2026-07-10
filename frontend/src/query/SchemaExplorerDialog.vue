@@ -91,7 +91,7 @@ function toggleTable(table) {
 }
 </script>
 <template>
-	<Dialog v-model="show" :options="{ title: 'Browse Data Sources' }">
+	<Dialog v-model="show" :options="{ title: __('Browse Data Sources') }">
 		<template #body-content>
 			<div
 				class="-ml-2 h-[32rem] w-full overflow-y-auto overflow-x-hidden overflow-y-hidden pl-2"

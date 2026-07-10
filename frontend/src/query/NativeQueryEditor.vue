@@ -56,7 +56,7 @@ watch(
 			v-model="nativeQuery"
 			:schema="completions.schema"
 			:tables="completions.tables"
-			placeholder="Type your query here"
+			:placeholder="__('Type your query here')"
 		></Code>
 		<div v-if="props.showToolbar" class="sticky bottom-0 flex gap-1 border-t bg-white p-1">
 			<div>
@@ -64,7 +64,7 @@ watch(
 					variant="outline"
 					iconLeft="book-open"
 					@click="showDataExplorer = !showDataExplorer"
-					label="Tables"
+					:label="__('Tables')"
 				>
 				</Button>
 			</div>
@@ -74,7 +74,7 @@ watch(
 					iconLeft="play"
 					@click="query.executeSQL(nativeQuery)"
 					:loading="query.loading"
-					label="Run"
+					:label="__('Run')"
 				>
 				</Button>
 			</div>

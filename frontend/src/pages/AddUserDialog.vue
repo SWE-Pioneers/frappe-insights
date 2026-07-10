@@ -1,5 +1,5 @@
 <template>
-	<Dialog :options="{ title: 'Add User' }" v-model="show">
+	<Dialog :options="{ title: __('Add User') }" v-model="show">
 		<template #body-content>
 			<Form
 				v-model="newUser"
@@ -7,34 +7,34 @@
 					fields: [
 						{
 							name: 'first_name',
-							label: 'First Name',
+							label: __('First Name'),
 							type: 'text',
-							placeholder: 'Enter first name',
+							placeholder: __('Enter first name'),
 						},
 						{
 							name: 'last_name',
-							label: 'Last Name',
+							label: __('Last Name'),
 							type: 'text',
-							placeholder: 'Enter last name',
+							placeholder: __('Enter last name'),
 						},
 						{
 							name: 'email',
-							label: 'Email',
+							label: __('Email'),
 							type: 'email',
-							placeholder: 'Enter email',
+							placeholder: __('Enter email'),
 						},
 						{
 							name: 'role',
-							label: 'Role',
+							label: __('Role'),
 							type: 'select',
-							placeholder: 'Select role',
+							placeholder: __('Select role'),
 							options: ['Admin', 'User'],
 						},
 						{
 							name: 'team',
-							label: 'Team',
+							label: __('Team'),
 							type: 'select',
-							placeholder: 'Select team',
+							placeholder: __('Select team'),
 							options: teamOptions,
 						},
 					],
@@ -47,9 +47,9 @@
 				:disabled="!newUser.first_name || !newUser.last_name || !newUser.email"
 				@click="addUser"
 			>
-				Add
+				{{ __('Add') }}
 			</Button>
-			<Button @click="show = false">Cancel</Button>
+			<Button @click="show = false">{{ __('Cancel') }}</Button>
 		</template>
 	</Dialog>
 </template>
@@ -79,7 +79,7 @@ const newUser = reactive({
 
 const teams = useTeams()
 const teamOptions = computed(() =>
-	[{ label: 'Select Team', value: '' }].concat(
+	[{ label: __('Select Team'), value: '' }].concat(
 		teams.list.map((team) => {
 			return {
 				label: team.team_name,

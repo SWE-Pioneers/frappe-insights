@@ -48,8 +48,8 @@ const operatorOptions = computed(() => {
 	return options
 		.filter((option) => option.value !== 'is')
 		.concat([
-			{ label: 'is set', value: 'is_set' },
-			{ label: 'is not set', value: 'is_not_set' },
+			{ label: __('is set'), value: 'is_set' },
+			{ label: __('is not set'), value: 'is_not_set' },
 		])
 })
 if (!filter.operator?.value) {
@@ -95,11 +95,11 @@ const expressionColumnOptions = computed(() => {
 		</template>
 		<template v-if="activeTab == 'Simple'">
 			<div class="space-y-1">
-				<span class="text-sm font-medium text-gray-700">Column</span>
+				<span class="text-sm font-medium text-gray-700">{{ __('Column') }}</span>
 				<Autocomplete
 					v-if="!isValidExpression(filter.column)"
 					:modelValue="filter.column"
-					placeholder="Column"
+					:placeholder="__('Column')"
 					:options="filterColumnOptions"
 					@update:modelValue="filter.column = $event || {}"
 					@update:query="assistedQuery.fetchColumnOptions"
@@ -112,15 +112,14 @@ const expressionColumnOptions = computed(() => {
 					disabled
 				/>
 				<span v-if="isValidExpression(filter.column)" class="text-xs text-orange-500">
-					Editing a filter with a <i>column expression</i> is not supported yet. Remove
-					this filter and add an expression filter instead.
+					{{ __('Editing a filter with a column expression is not supported yet. Remove this filter and add an expression filter instead.') }}
 				</span>
 			</div>
 			<div class="space-y-1">
-				<span class="text-sm font-medium text-gray-700">Operator</span>
+				<span class="text-sm font-medium text-gray-700">{{ __('Operator') }}</span>
 				<Autocomplete
 					:modelValue="filter.operator"
-					placeholder="Operator"
+					:placeholder="__('Operator')"
 					:options="operatorOptions"
 					@update:modelValue="filter.operator = $event"
 				/>
@@ -137,12 +136,12 @@ const expressionColumnOptions = computed(() => {
 		</template>
 		<div class="flex justify-between">
 			<Button variant="outline" @click="emit(isValidFilter ? 'discard' : 'remove')">
-				Discard
+				{{ __('Discard') }}
 			</Button>
 			<div class="flex gap-2">
-				<Button variant="outline" theme="red" @click="emit('remove')">Remove</Button>
+				<Button variant="outline" theme="red" @click="emit('remove')">{{ __('Remove') }}</Button>
 				<Button variant="solid" :disabled="!isValidFilter" @click="emit('save', filter)">
-					Save
+					{{ __('Save') }}
 				</Button>
 			</div>
 		</div>

@@ -53,30 +53,30 @@ watch(
 
 function placeholderByNode({ node }) {
 	if (node.type.name === 'heading') {
-		return `Heading ${node.attrs.level}`
+		return __('Heading {0}', [node.attrs.level])
 	}
-	return 'Type / to insert a block'
+	return __('Type / to insert a block')
 }
 
 const bubbleMenu = [
 	'Bold',
 	'Italic',
 	{
-		label: 'Strikethrough',
+		label: __('Strikethrough'),
 		icon: Strikethrough,
 		action: (editor) => editor.chain().focus().toggleStrike().run(),
 		isActive: (editor) => editor.isActive('strike'),
 	},
 	'Blockquote',
 	{
-		label: 'Code',
+		label: __('Code'),
 		icon: Code,
 		action: (editor) => editor.chain().focus().toggleCode().run(),
 		isActive: (editor) => editor.isActive('code'),
 	},
 	'Link',
 	{
-		label: 'Remove Formatting',
+		label: __('Remove Formatting'),
 		icon: RemoveFormatting,
 		action: (editor) => editor.chain().focus().unsetAllMarks().run(),
 		isActive: () => false,

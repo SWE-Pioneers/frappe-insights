@@ -1,23 +1,23 @@
 <template>
 	<div class="flex flex-col space-y-3">
 		<div class="space-y-1 text-sm text-gray-700">
-			<div class="">Column</div>
+			<div class="">{{ __('Column') }}</div>
 			<Autocomplete
 				v-model="filter.column"
 				:options="columnOptions"
-				placeholder="Select a column..."
+				:placeholder="__('Select a column...')"
 			/>
 		</div>
 		<div class="space-y-1 text-sm text-gray-700">
-			<div class="">Operator</div>
+			<div class="">{{ __('Operator') }}</div>
 			<Autocomplete
 				v-model="filter.operator"
 				:options="operatorOptions"
-				placeholder="Select operator..."
+				:placeholder="__('Select operator...')"
 			/>
 		</div>
 		<div class="space-y-1 text-sm text-gray-700">
-			<div class="">Value</div>
+			<div class="">{{ __('Value') }}</div>
 			<Autocomplete
 				v-if="showValueOptions"
 				v-model="filter.value"
@@ -89,7 +89,7 @@
 			/>
 		</div>
 		<div class="flex justify-end">
-			<Button @click="apply" variant="solid" :disabled="applyDisabled"> Apply </Button>
+			<Button @click="apply" variant="solid" :disabled="applyDisabled"> {{ __('Apply') }} </Button>
 		</div>
 	</div>
 </template>
@@ -154,8 +154,8 @@ const showValueOptions = computed(
 const valueOptions = computed(() => {
 	if (filter.operator?.value == 'is') {
 		return [
-			{ label: 'Set', value: 'set' },
-			{ label: 'Not Set', value: 'not set' },
+			{ label: __('Set'), value: 'set' },
+			{ label: __('Not Set'), value: 'not set' },
 		]
 	}
 	return query.fetchColumnValues.data?.message
@@ -163,18 +163,18 @@ const valueOptions = computed(() => {
 
 const valuePlaceholder = computed(() => {
 	if (showDatePicker.value) {
-		return 'Select a date...'
+		return __('Select a date...')
 	}
 	if (isEmptyObj(filter.operator)) {
-		return 'Type a value...'
+		return __('Type a value...')
 	}
 	if (filter.operator?.value == 'between') {
-		return 'Type two comma separated values...'
+		return __('Type two comma separated values...')
 	}
 	if (filter.operator?.value == 'in' || filter.operator?.value == 'not_in') {
-		return 'Select one or more values...'
+		return __('Select one or more values...')
 	}
-	return 'Type a value...'
+	return __('Type a value...')
 })
 
 const applyDisabled = computed(() => isEmptyObj(filter.column, filter.operator, filter.value))

@@ -61,7 +61,7 @@ const dataSourceOptions = computed(() => {
 function changeDataSource(sourceName) {
 	state.query.changeDataSource(sourceName).then(() => {
 		$notify({
-			title: 'Data source updated',
+			title: __('Data source updated'),
 			variant: 'success',
 		})
 		state.query.doc.data_source = sourceName
@@ -91,24 +91,24 @@ function changeDataSource(sourceName) {
 				}"
 				:options="[
 					{
-						label: state.minimizeResult ? 'Show Results' : 'Hide Results',
+						label: state.minimizeResult ? __('Show Results') : __('Hide Results'),
 						icon: state.minimizeResult ? 'maximize-2' : 'minimize-2',
 						onClick: () => (state.minimizeResult = !state.minimizeResult),
 					},
 					{
-						label: 'Duplicate',
+						label: __('Duplicate'),
 						icon: 'copy',
 						onClick: duplicateQuery,
 						loading: state.query.duplicating,
 					},
 					{
-						label: 'View SQL',
+						label: __('View SQL'),
 						icon: 'code',
 						onClick: () => (show_sql_dialog = true),
 						loading: state.query.duplicating,
 					},
 					{
-						label: 'Delete',
+						label: __('Delete'),
 						icon: 'trash',
 						onClick: state.removeQuery,
 						loading: state.query.deleting,
@@ -119,7 +119,7 @@ function changeDataSource(sourceName) {
 	</div>
 
 	<Dialog
-		:options="{ title: 'Generated SQL', size: '3xl' }"
+		:options="{ title: __('Generated SQL'), size: '3xl' }"
 		v-model="show_sql_dialog"
 		:dismissable="true"
 	>

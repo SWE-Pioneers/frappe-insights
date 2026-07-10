@@ -9,15 +9,15 @@ function getOrder(columnLabel) {
 }
 const sortOptions = [
 	{
-		label: 'Sort Ascending',
+		label: __('Sort Ascending'),
 		onClick: () => assistedQuery.setOrderBy(props.column.label, 'asc'),
 	},
 	{
-		label: 'Sort Descending',
+		label: __('Sort Descending'),
 		onClick: () => assistedQuery.setOrderBy(props.column.label, 'desc'),
 	},
 	{
-		label: 'Remove Sort',
+		label: __('Remove Sort'),
 		onClick: () => assistedQuery.setOrderBy(props.column.label, ''),
 	},
 ]

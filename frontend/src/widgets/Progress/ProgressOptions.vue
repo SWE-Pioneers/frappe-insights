@@ -33,17 +33,17 @@ if (!options.value.targetType) {
 	<div class="space-y-4">
 		<FormControl
 			type="text"
-			label="Title"
+			:label="__('Title')"
 			class="w-full"
 			v-model="options.title"
-			placeholder="Title"
+			:placeholder="__('Title')"
 		/>
 		<div>
-			<label class="mb-1.5 block text-xs text-gray-600">Progress Column</label>
+			<label class="mb-1.5 block text-xs text-gray-600">{{ __('Progress Column') }}</label>
 			<Autocomplete v-model="options.progress" :returnValue="true" :options="valueOptions" />
 		</div>
 		<div>
-			<label class="mb-1.5 block text-xs text-gray-600">Target</label>
+			<label class="mb-1.5 block text-xs text-gray-600">{{ __('Target') }}</label>
 			<InputWithTabs
 				:value="options.targetType"
 				:tabs="{
@@ -58,13 +58,13 @@ if (!options.value.targetType) {
 							v-if="options.targetType === 'Column'"
 							v-model="options.target"
 							:returnValue="true"
-							placeholder="Select a column..."
+							:placeholder="__('Select a column...')"
 							:options="valueOptions"
 						/>
 						<FormControl
 							v-if="options.targetType === 'Value'"
 							v-model="options.target"
-							placeholder="Enter a value..."
+							:placeholder="__('Enter a value...')"
 							type="number"
 						/>
 					</div>
@@ -72,23 +72,23 @@ if (!options.value.targetType) {
 			</InputWithTabs>
 		</div>
 		<FormControl
-			label="Prefix"
+			:label="__('Prefix')"
 			type="text"
 			v-model="options.prefix"
-			placeholder="Enter a prefix..."
+			:placeholder="__('Enter a prefix...')"
 		/>
 		<FormControl
-			label="Suffix"
+			:label="__('Suffix')"
 			type="text"
 			v-model="options.suffix"
-			placeholder="Enter a suffix..."
+			:placeholder="__('Enter a suffix...')"
 		/>
 		<FormControl
-			label="Decimals"
+			:label="__('Decimals')"
 			type="number"
 			v-model="options.decimals"
-			placeholder="Enter a number..."
+			:placeholder="__('Enter a number...')"
 		/>
-		<Checkbox v-model="options.shorten" label="Shorten Numbers" />
+		<Checkbox v-model="options.shorten" :label="__('Shorten Numbers')" />
 	</div>
 </template>

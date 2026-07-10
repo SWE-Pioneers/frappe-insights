@@ -203,7 +203,7 @@ const showPagination = computed(
 
 		<div v-if="showPagination" class="flex flex-shrink-0 items-center justify-end gap-3 p-1">
 			<p class="tnum text-sm text-gray-600">
-				{{ pageStart }} - {{ pageEnd }} of {{ totalRows }} rows
+				{{ pageStart }} - {{ pageEnd }} {{ __('of') }} {{ totalRows }} {{ __('rows') }}
 			</p>
 			<div class="flex gap-2">
 				<Button

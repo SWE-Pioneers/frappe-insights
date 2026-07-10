@@ -28,8 +28,8 @@ const addChartToDashboard = async () => {
 	showDashboardDialog.value = false
 	$notify({
 		variant: 'success',
-		title: 'Success',
-		message: 'Chart added to dashboard',
+		title: __('Success'),
+		message: __('Chart added to dashboard'),
 	})
 }
 
@@ -57,8 +57,8 @@ async function createNewDashboard() {
 		<Button variant="outline" @click="emit('fullscreen')">
 			<template #icon> <Maximize class="h-4 w-4" /> </template>
 		</Button>
-		<Button variant="outline" @click="onAddToDashboard()"> Add to Dashboard </Button>
-		<Button variant="outline" @click="showShareDialog = true"> Share </Button>
+		<Button variant="outline" @click="onAddToDashboard()"> {{ __('Add to Dashboard') }} </Button>
+		<Button variant="outline" @click="showShareDialog = true"> {{ __('Share') }} </Button>
 	</div>
 
 	<PublicShareDialog
@@ -73,10 +73,10 @@ async function createNewDashboard() {
 
 	<Dialog
 		:options="{
-			title: 'Add to Dashboard',
+			title: __('Add to Dashboard'),
 			actions: [
 				{
-					label: 'Add',
+					label: __('Add'),
 					variant: 'solid',
 					disabled: !toDashboard,
 					onClick: addChartToDashboard,
@@ -88,7 +88,7 @@ async function createNewDashboard() {
 	>
 		<template #body-content>
 			<div class="text-base">
-				<span class="mb-2 block text-sm leading-4 text-gray-700">Dashboard</span>
+				<span class="mb-2 block text-sm leading-4 text-gray-700">{{ __('Dashboard') }}</span>
 				<Autocomplete :options="dashboardOptions" v-model="toDashboard">
 					<template #footer="{ togglePopover }">
 						<Button
@@ -97,7 +97,7 @@ async function createNewDashboard() {
 							iconLeft="plus"
 							@click="onCreateDashboard() || togglePopover()"
 						>
-							Create New
+							{{ __('Create New') }}
 						</Button>
 					</template>
 				</Autocomplete>
@@ -106,10 +106,10 @@ async function createNewDashboard() {
 	</Dialog>
 	<Dialog
 		:options="{
-			title: 'Create New Dashboard',
+			title: __('Create New Dashboard'),
 			actions: [
 				{
-					label: 'Create',
+					label: __('Create'),
 					variant: 'solid',
 					onClick: createNewDashboard,
 					loading: creatingDashboard,
@@ -120,10 +120,10 @@ async function createNewDashboard() {
 	>
 		<template #body-content>
 			<div class="text-base">
-				<span class="mb-2 block text-sm leading-4 text-gray-700">Dashboard Title</span>
+				<span class="mb-2 block text-sm leading-4 text-gray-700">{{ __('Dashboard Title') }}</span>
 				<FormControl
 					v-model="newDashboardTitle"
-					placeholder="Enter title"
+					:placeholder="__('Enter title')"
 					class="w-full"
 					autocomplete="off"
 				/>

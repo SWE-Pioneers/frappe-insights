@@ -21,12 +21,12 @@ dataSource.fetchTables()
 		<PageBreadcrumbs
 			class="h-7"
 			:items="[
-				{ label: 'Data Sources', route: { path: '/data-source' } },
+				{ label: __('Data Sources'), route: { path: '/data-source' } },
 				{
 					label: dataSource.doc?.title || dataSource.doc?.name,
 					route: { path: `/data-source/${dataSource.doc?.name}` },
 				},
-				{ label: 'Relationships' },
+				{ label: __('Relationships') },
 			]"
 		/>
 	</header>

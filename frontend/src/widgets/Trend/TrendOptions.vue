@@ -38,17 +38,17 @@ const valueOptions = computed(() => {
 	<div class="space-y-4">
 		<FormControl
 			type="text"
-			label="Title"
+			:label="__('Title')"
 			class="w-full"
 			v-model="options.title"
-			placeholder="Title"
+			:placeholder="__('Title')"
 		/>
 		<div>
-			<label class="mb-1.5 block text-xs text-gray-600">Date Column</label>
+			<label class="mb-1.5 block text-xs text-gray-600">{{ __('Date Column') }}</label>
 			<Autocomplete v-model="options.dateColumn" :returnValue="true" :options="dateOptions" />
 		</div>
 		<div>
-			<label class="mb-1.5 block text-xs text-gray-600">Value Column</label>
+			<label class="mb-1.5 block text-xs text-gray-600">{{ __('Value Column') }}</label>
 			<Autocomplete
 				v-model="options.valueColumn"
 				:returnValue="true"
@@ -56,19 +56,19 @@ const valueOptions = computed(() => {
 			/>
 		</div>
 		<FormControl
-			label="Prefix"
+			:label="__('Prefix')"
 			type="text"
 			v-model="options.prefix"
-			placeholder="Enter a prefix..."
+			:placeholder="__('Enter a prefix...')"
 		/>
 		<FormControl
-			label="Suffix"
+			:label="__('Suffix')"
 			type="text"
 			v-model="options.suffix"
-			placeholder="Enter a suffix..."
+			:placeholder="__('Enter a suffix...')"
 		/>
-		<Checkbox v-model="options.showTrendLine" label="Show Trend Line" />
-		<Checkbox v-model="options.shorten" label="Shorten Numbers" />
-		<Checkbox v-model="options.reverseDelta" label="Reverse Colors" />
+		<Checkbox v-model="options.showTrendLine" :label="__('Show Trend Line')" />
+		<Checkbox v-model="options.shorten" :label="__('Shorten Numbers')" />
+		<Checkbox v-model="options.reverseDelta" :label="__('Reverse Colors')" />
 	</div>
 </template>

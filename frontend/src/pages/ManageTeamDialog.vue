@@ -1,5 +1,5 @@
 <template>
-	<Dialog :options="{ title: `Manage ${team.doc?.team_name} Team`, size: '3xl' }" v-model="show">
+	<Dialog :options="{ title: __('Manage {0} Team', [team.doc?.team_name]), size: '3xl' }" v-model="show">
 		<template #body>
 			<div class="flex h-[70vh] text-base">
 				<ManageTeamSidebar

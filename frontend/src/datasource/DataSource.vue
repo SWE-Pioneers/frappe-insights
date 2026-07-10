@@ -3,7 +3,7 @@
 		<PageBreadcrumbs
 			class="h-7"
 			:items="[
-				{ label: 'Data Sources', route: { path: '/data-source' } },
+				{ label: __('Data Sources'), route: { path: '/data-source' } },
 				{ label: dataSource.doc.title },
 			]"
 		/>
@@ -11,7 +11,7 @@
 
 	<div class="mb-4 flex h-full flex-col gap-2 overflow-auto px-4">
 		<div class="flex gap-2 overflow-visible py-1">
-			<FormControl placeholder="Search by Title" v-model="searchQuery" :debounce="300">
+			<FormControl :placeholder="__('Search by Title')" v-model="searchQuery" :debounce="300">
 				<template #prefix>
 					<SearchIcon class="h-4 w-4 text-gray-500" />
 				</template>
@@ -21,7 +21,7 @@
 				iconLeft="link-2"
 				@click="router.push(`/data-source/${dataSource.doc.name}/relationships`)"
 			>
-				Manage Relationships
+				{{ __('Manage Relationships') }}
 			</Button>
 			<Dropdown
 				placement="left"
@@ -40,10 +40,10 @@
 					params: { name: dataSource.doc.name, table: table.name },
 				}),
 				emptyState: {
-					title: 'No tables.',
-					description: 'No tables to display.',
+					title: __('No tables.'),
+					description: __('No tables to display.'),
 					button: {
-						label: 'Sync Tables',
+						label: __('Sync Tables'),
 						variant: 'solid',
 						onClick: syncTables,
 					},
@@ -57,12 +57,12 @@
 		v-model="showDeleteDialog"
 		:dismissable="true"
 		:options="{
-			title: 'Delete Data Source',
-			message: 'Are you sure you want to delete this data source?',
+			title: __('Delete Data Source'),
+			message: __('Are you sure you want to delete this data source?'),
 			icon: { name: 'trash', appearance: 'danger' },
 			actions: [
 				{
-					label: 'Delete',
+					label: __('Delete'),
 					variant: 'solid',
 					theme: 'red',
 					onClick: async () => {
@@ -111,12 +111,12 @@ const showDeleteDialog = ref(false)
 const dropdownActions = computed(() => {
 	return [
 		{
-			label: 'Sync Tables',
+			label: __('Sync Tables'),
 			icon: 'refresh-cw',
 			onClick: syncTables,
 		},
 		{
-			label: 'Delete',
+			label: __('Delete'),
 			icon: 'trash',
 			onClick: () => (showDeleteDialog.value = true),
 		},
@@ -127,7 +127,7 @@ const $notify = inject('$notify')
 function syncTables() {
 	dataSource
 		.syncTables()
-		.catch((err) => $notify({ title: 'Error Syncing Tables', variant: 'error' }))
+		.catch((err) => $notify({ title: __('Error Syncing Tables'), variant: 'error' }))
 }
 
 watchEffect(() => {
@@ -138,11 +138,11 @@ watchEffect(() => {
 })
 
 const tableListColumns = [
-	{ label: 'Table', key: 'label' },
+	{ label: __('Table'), key: 'label' },
 	{
-		label: 'Status',
+		label: __('Status'),
 		key: 'status',
-		getLabel: ({ row }) => (row.hidden ? 'Disabled' : 'Enabled'),
+		getLabel: ({ row }) => (row.hidden ? __('Disabled') : __('Enabled')),
 		prefix: ({ row }) => {
 			const color = row.hidden ? 'text-gray-500' : 'text-green-500'
 			return <IndicatorIcon class={color} />

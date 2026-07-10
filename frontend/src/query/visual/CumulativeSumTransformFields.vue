@@ -21,11 +21,11 @@ const valueOptions = computed(() => {
 
 <template>
 	<div class="space-y-1">
-		<span class="text-sm font-medium text-gray-700">Number Column</span>
+		<span class="text-sm font-medium text-gray-700">{{ __('Number Column') }}</span>
 		<Autocomplete
 			v-model="options.column"
 			:return-value="true"
-			placeholder="Number Column"
+			:placeholder="__('Number Column')"
 			:options="valueOptions"
 		/>
 	</div>

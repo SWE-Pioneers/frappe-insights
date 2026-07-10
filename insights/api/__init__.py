@@ -4,8 +4,19 @@
 import frappe
 from frappe.integrations.utils import make_post_request
 from frappe.rate_limiter import rate_limit
+from frappe.translate import get_all_translations
 
 from insights.decorators import check_role
+
+
+@frappe.whitelist(allow_guest=True)
+def get_translations():
+    if frappe.session.user != "Guest":
+        language = frappe.db.get_value("User", frappe.session.user, "language")
+    else:
+        language = frappe.db.get_single_value("System Settings", "language")
+
+    return get_all_translations(language)
 
 
 @frappe.whitelist()

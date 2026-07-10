@@ -3,7 +3,7 @@
 		v-if="columns.length == 0"
 		class="flex h-full w-full items-center justify-center rounded border-2 border-dashed border-gray-200 text-sm text-gray-500"
 	>
-		<p>No columns selected</p>
+		<p>{{ __('No columns selected') }}</p>
 	</div>
 	<div v-else-if="columns.length > 0" class="flex h-full w-full flex-col overflow-y-scroll">
 		<Draggable
@@ -36,7 +36,7 @@
 					<span
 						class="ml-auto mr-1 overflow-hidden text-ellipsis whitespace-nowrap text-gray-700"
 					>
-						{{ column.is_expression ? 'Expression' : ellipsis(column.table_label, 12) }}
+						{{ column.is_expression ? __('Expression') : ellipsis(column.table_label, 12) }}
 					</span>
 					<div
 						class="flex items-center px-1 py-0.5 text-gray-700 hover:text-gray-700"

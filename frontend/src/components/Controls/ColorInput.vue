@@ -16,7 +16,7 @@
 				<Input
 					type="text"
 					class="dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 dark:focus:bg-zinc-700 w-full rounded-md text-sm text-gray-700"
-					placeholder="Select Color"
+					:placeholder="__('Select Color')"
 					inputClass="pl-8 pr-6"
 					:modelValue="value"
 					@update:modelValue="handleColorChange"

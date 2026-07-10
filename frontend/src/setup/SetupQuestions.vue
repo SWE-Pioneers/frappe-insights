@@ -61,8 +61,8 @@ const sendingResponses = ref(false)
 async function validateAndContinue() {
 	if (questions.some((question) => question.selectedAnswerIndexes.length === 0)) {
 		$notify({
-			title: 'Please answer all questions',
-			message: 'You must select at least one answer for each question.',
+			title: __('Please answer all questions'),
+			message: __('You must select at least one answer for each question.'),
 			variant: 'error',
 		})
 	} else {
@@ -124,7 +124,7 @@ function skipAndContinue() {
 		</div>
 
 		<div class="mt-6 flex justify-end space-x-3">
-			<Button variant="outline" @click="skipAndContinue"> Skip </Button>
+			<Button variant="outline" @click="skipAndContinue"> {{ __('Skip') }} </Button>
 			<Button
 				variant="solid"
 				@click="validateAndContinue"
@@ -134,7 +134,7 @@ function skipAndContinue() {
 					questions.some((question) => question.selectedAnswerIndexes.length === 0)
 				"
 			>
-				Continue
+				{{ __('Continue') }}
 			</Button>
 		</div>
 	</div>

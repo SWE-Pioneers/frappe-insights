@@ -28,7 +28,7 @@ function onSaveTransform(transform) {
 
 <template>
 	<div class="space-y-2">
-		<SectionHeader title="Transform" :icon="Option" info="Apply transforms to the results.">
+		<SectionHeader :title="__('Transform')" :icon="Option" :info="__('Apply transforms to the results.')">
 			<Button variant="outline" icon="plus" @click.prevent.stop="onAddTransform"></Button>
 		</SectionHeader>
 		<div class="space-y-2" v-if="assistedQuery.transforms.length">

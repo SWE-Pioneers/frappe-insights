@@ -81,14 +81,14 @@ function updateXAxis(columnOptions) {
 <template>
 	<FormControl
 		type="text"
-		label="Title"
+		:label="__('Title')"
 		class="w-full"
 		v-model="options.title"
-		placeholder="Title"
+		:placeholder="__('Title')"
 	/>
 	<div>
 		<div class="mb-1 flex items-center justify-between">
-			<label class="block text-xs text-gray-600">X Axis</label>
+			<label class="block text-xs text-gray-600">{{ __('X Axis') }}</label>
 			<Autocomplete
 				:multiple="true"
 				:options="indexOptions"
@@ -103,14 +103,14 @@ function updateXAxis(columnOptions) {
 		<DraggableList
 			group="xAxis"
 			item-key="column"
-			empty-text="No columns selected"
+			:empty-text="__('No columns selected')"
 			v-model:items="options.xAxis"
 		/>
 	</div>
 
 	<div>
 		<div class="mb-1 flex items-center justify-between">
-			<label class="block text-xs text-gray-600">Y Axis</label>
+			<label class="block text-xs text-gray-600">{{ __('Y Axis') }}</label>
 			<Autocomplete
 				:multiple="true"
 				:options="valueOptions"
@@ -125,7 +125,7 @@ function updateXAxis(columnOptions) {
 		<DraggableList
 			group="yAxis"
 			item-key="column"
-			empty-text="No columns selected"
+			:empty-text="__('No columns selected')"
 			v-model:items="options.yAxis"
 		>
 			<template #item-suffix="{ item, index }">
@@ -141,11 +141,11 @@ function updateXAxis(columnOptions) {
 	</div>
 
 	<div v-if="options.yAxis?.length == 2" class="space-y-2 text-gray-600">
-		<Checkbox v-model="options.splitYAxis" label="Split Y Axis" />
+		<Checkbox v-model="options.splitYAxis" :label="__('Split Y Axis')" />
 	</div>
 
 	<div>
-		<label class="mb-1.5 block text-xs text-gray-600">Reference Line</label>
+		<label class="mb-1.5 block text-xs text-gray-600">{{ __('Reference Line') }}</label>
 		<Autocomplete
 			:modelValue="options.referenceLine"
 			:options="['Average', 'Median', 'Min', 'Max']"

@@ -75,9 +75,9 @@ function onColumnSort(e) {
 <template>
 	<div class="space-y-2">
 		<SectionHeader
-			title="Columns"
+			:title="__('Columns')"
 			:icon="Combine"
-			info="Select the columns you want to see in the results."
+			:info="__('Select the columns you want to see in the results.')"
 		>
 			<Autocomplete
 				:modelValue="columns"
@@ -96,7 +96,7 @@ function onColumnSort(e) {
 						iconLeft="plus"
 						@click="onAddColumnExpression() || togglePopover()"
 					>
-						Custom Expression
+						{{ __('Custom Expression') }}
 					</Button>
 				</template>
 			</Autocomplete>
@@ -155,7 +155,7 @@ function onColumnSort(e) {
 			<div class="bg-white px-4 pb-6 pt-5 sm:px-6">
 				<div class="flex items-center justify-between pb-4">
 					<h3 class="text-2xl font-semibold leading-6 text-gray-900">
-						Column Expression
+						{{ __('Column Expression') }}
 					</h3>
 					<Button variant="ghost" @click="activeColumnIdx = null" icon="x"> </Button>
 				</div>

@@ -28,27 +28,27 @@ const columnOptions = computed(() => {
 	<div class="space-y-4">
 		<FormControl
 			type="text"
-			label="Title"
+			:label="__('Title')"
 			class="w-full"
 			v-model="options.title"
-			placeholder="Title"
+			:placeholder="__('Title')"
 		/>
 		<div>
-			<span class="mb-2 block text-sm leading-4 text-gray-700">Number Column</span>
+			<span class="mb-2 block text-sm leading-4 text-gray-700">{{ __('Number Column') }}</span>
 			<Autocomplete v-model="options.column" :returnValue="true" :options="columnOptions" />
 		</div>
 		<div>
-			<span class="mb-2 block text-sm leading-4 text-gray-700">Prefix</span>
-			<Input type="text" v-model="options.prefix" placeholder="Enter a prefix..." />
+			<span class="mb-2 block text-sm leading-4 text-gray-700">{{ __('Prefix') }}</span>
+			<Input type="text" v-model="options.prefix" :placeholder="__('Enter a prefix...')" />
 		</div>
 		<div>
-			<span class="mb-2 block text-sm leading-4 text-gray-700">Suffix</span>
-			<Input type="text" v-model="options.suffix" placeholder="Enter a suffix..." />
+			<span class="mb-2 block text-sm leading-4 text-gray-700">{{ __('Suffix') }}</span>
+			<Input type="text" v-model="options.suffix" :placeholder="__('Enter a suffix...')" />
 		</div>
 		<div>
-			<span class="mb-2 block text-sm leading-4 text-gray-700">Decimals</span>
-			<Input type="number" v-model="options.decimals" placeholder="Enter a number..." />
+			<span class="mb-2 block text-sm leading-4 text-gray-700">{{ __('Decimals') }}</span>
+			<Input type="number" v-model="options.decimals" :placeholder="__('Enter a number...')" />
 		</div>
-		<Checkbox v-model="options.shorten" label="Shorten Numbers" />
+		<Checkbox v-model="options.shorten" :label="__('Shorten Numbers')" />
 	</div>
 </template>

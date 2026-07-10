@@ -137,11 +137,11 @@ const filteredOptions = computed(() => {
 const filteredGroupedOptions = computed(() => {
 	return [
 		{
-			groupLabel: 'Columns',
+			groupLabel: __('Columns'),
 			items: filteredOptions.value.filter((o) => o.suggestionType === 'column'),
 		},
 		{
-			groupLabel: 'Functions',
+			groupLabel: __('Functions'),
 			items: filteredOptions.value.filter((o) => o.suggestionType === 'function'),
 		},
 	]
@@ -158,7 +158,7 @@ const onGetCodeCompletion = (context) => {
 
 <template>
 	<div class="min-w-[32rem]">
-		<span class="mb-2 block text-sm leading-4 text-gray-700">Expression</span>
+		<span class="mb-2 block text-sm leading-4 text-gray-700">{{ __('Expression') }}</span>
 		<div
 			class="h-fit min-h-[2.5rem] rounded rounded-b-none border border-transparent bg-gray-100 p-0 px-1 transition-all"
 			:class="
@@ -169,7 +169,7 @@ const onGetCodeCompletion = (context) => {
 				ref="codeEditor"
 				v-model="rawExpression"
 				:completions="onGetCodeCompletion"
-				placeholder="Write an expression"
+				:placeholder="__('Write an expression')"
 				@focus="focused = true"
 				@blur="focused = false"
 				@viewUpdate="codeViewUpdate"
@@ -214,7 +214,7 @@ const onGetCodeCompletion = (context) => {
 						v-if="group.items.length == 0"
 						class="flex h-10 items-center justify-center text-sm text-gray-500"
 					>
-						No {{ group.groupLabel.toLowerCase() }} found
+						{{ __('No {0} found', [group.groupLabel.toLowerCase()]) }}
 					</div>
 				</template>
 			</div>
@@ -222,18 +222,18 @@ const onGetCodeCompletion = (context) => {
 				<div
 					class="flex-shrink-0 truncate bg-gray-50 px-2.5 py-1.5 text-sm font-medium text-gray-600"
 				>
-					Info
+					{{ __('Info') }}
 				</div>
 				<div v-if="functionHelp" class="flex flex-col px-3 py-2 text-sm">
 					<p>{{ functionHelp.description }}</p>
 					<div class="mt-2 rounded bg-gray-50 p-2 text-xs leading-5">
 						<code>
-							<span class="text-gray-600"># Syntax</span>
+							<span class="text-gray-600">{{ __('# Syntax') }}</span>
 							<br />
 							{{ functionHelp.syntax }}
 							<br />
 							<br />
-							<span class="text-gray-600"># Example</span>
+							<span class="text-gray-600">{{ __('# Example') }}</span>
 							<br />
 							{{ functionHelp.example }}
 						</code>

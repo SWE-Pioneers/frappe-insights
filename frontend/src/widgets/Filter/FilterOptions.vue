@@ -91,8 +91,8 @@ const operatorOptions = computed(() => {
 	return _options
 		.filter((option) => option.value !== 'is')
 		.concat([
-			{ label: 'is set', value: 'is_set' },
-			{ label: 'is not set', value: 'is_not_set' },
+			{ label: __('is set'), value: 'is_set' },
+			{ label: __('is not set'), value: 'is_not_set' },
 		])
 })
 // prettier-ignore
@@ -126,32 +126,32 @@ watch(() => options.value.defaultOperator?.value, (newVal, oldVal) => {
 	<div class="space-y-4">
 		<Input
 			type="text"
-			label="Label"
+			:label="__('Label')"
 			v-model="options.label"
-			placeholder="Enter filter label"
+			:placeholder="__('Enter filter label')"
 		></Input>
 
 		<div>
-			<span class="mb-2 block text-sm leading-4 text-gray-700">Column</span>
+			<span class="mb-2 block text-sm leading-4 text-gray-700">{{ __('Column') }}</span>
 			<Autocomplete
 				v-model="options.column"
 				:options="filterColumnOptions"
-				placeholder="Select a column"
+				:placeholder="__('Select a column')"
 			></Autocomplete>
 		</div>
 
 		<div>
-			<span class="mb-2 block text-sm leading-4 text-gray-700">Default Operator</span>
+			<span class="mb-2 block text-sm leading-4 text-gray-700">{{ __('Default Operator') }}</span>
 			<Autocomplete
 				v-model="options.defaultOperator"
-				placeholder="Default Operator"
+				:placeholder="__('Default Operator')"
 				:options="operatorOptions"
 			></Autocomplete>
 		</div>
 
 		<div v-if="options.column?.value">
 			<FilterValueSelector
-				label="Default Value"
+				:label="__('Default Value')"
 				:column="options.column"
 				:operator="options.defaultOperator"
 				:modelValue="options.defaultValue"
@@ -162,10 +162,9 @@ watch(() => options.value.defaultOperator?.value, (newVal, oldVal) => {
 
 		<div v-if="options.column?.column">
 			<div class="mb-2 space-y-1">
-				<span class="block text-sm leading-4 text-gray-700">Links</span>
+				<span class="block text-sm leading-4 text-gray-700">{{ __('Links') }}</span>
 				<span class="block text-xs leading-4 text-gray-600">
-					Select charts to link to this filter. The filter will be applied to the selected
-					column in the linked charts.
+					{{ __('Select charts to link to this filter. The filter will be applied to the selected column in the linked charts.') }}
 				</span>
 			</div>
 			<div class="max-h-[20rem] space-y-2 overflow-y-auto">
@@ -193,10 +192,10 @@ watch(() => options.value.defaultOperator?.value, (newVal, oldVal) => {
 					<Autocomplete
 						v-if="options.links[chartItem.item_id] && chartItem.options.query"
 						class="w-28 flex-shrink-0"
-						placeholder="Select Column"
+						:placeholder="__('Select Column')"
 						:options="chartColumnOptions[chartItem.options.query]"
 						v-model="options.links[chartItem.item_id]"
-						empty-text="No matching columns found"
+						:empty-text="__('No matching columns found')"
 					></Autocomplete>
 				</div>
 			</div>

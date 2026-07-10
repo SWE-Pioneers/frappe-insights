@@ -26,8 +26,8 @@ setOptionValue(activeJoin.right_table, activeJoin.right_table.table)
 setOptionValue(activeJoin.right_column, activeJoin.right_column.column)
 
 const joinTypeOptions = computed(() => [
-	{ label: 'Inner Join', value: 'inner' },
-	{ label: 'Left Join', value: 'left' },
+	{ label: __('Inner Join'), value: 'inner' },
+	{ label: __('Left Join'), value: 'left' },
 ])
 
 const leftTableOptions = computed(() => {
@@ -91,14 +91,14 @@ watch(
 
 <template>
 	<div class="flex flex-col gap-1 p-4">
-		<span class="text-sm font-medium text-gray-700">Join</span>
+		<span class="text-sm font-medium text-gray-700">{{ __('Join') }}</span>
 		<div class="mb-2 flex gap-2">
 			<div class="flex-1">
 				<Autocomplete
 					v-model="activeJoin.left_table"
 					:hideSearch="true"
 					:options="leftTableOptions"
-					placeholder="Left Table"
+					:placeholder="__('Left Table')"
 				/>
 			</div>
 			<div class="flex-shrink-0">
@@ -106,24 +106,24 @@ watch(
 					v-model="activeJoin.join_type"
 					:hide-search="true"
 					:options="joinTypeOptions"
-					placeholder="Join Type"
+					:placeholder="__('Join Type')"
 				/>
 			</div>
 			<div class="flex-1">
 				<Autocomplete
 					v-model="activeJoin.right_table"
 					:options="rightTableOptions"
-					placeholder="Right Table"
+					:placeholder="__('Right Table')"
 				/>
 			</div>
 		</div>
-		<span class="text-sm font-medium text-gray-700">Condition</span>
+		<span class="text-sm font-medium text-gray-700">{{ __('Condition') }}</span>
 		<div class="mb-2 flex gap-2">
 			<div class="flex-1">
 				<Autocomplete
 					v-model="activeJoin.left_column"
 					:options="leftColumnOptions"
-					placeholder="Left Column"
+					:placeholder="__('Left Column')"
 				/>
 			</div>
 			<div class="flex flex-shrink-0 items-center font-mono">=</div>
@@ -131,15 +131,15 @@ watch(
 				<Autocomplete
 					v-model="activeJoin.right_column"
 					:options="rightColumnOptions"
-					placeholder="Right Column"
+					:placeholder="__('Right Column')"
 				/>
 			</div>
 		</div>
 		<div class="flex justify-between">
-			<Button variant="outline" @click="emit('discard')">Discard</Button>
+			<Button variant="outline" @click="emit('discard')">{{ __('Discard') }}</Button>
 			<div class="flex gap-2">
-				<Button variant="outline" theme="red" @click="emit('remove')">Remove</Button>
-				<Button variant="solid" @click="emit('save', activeJoin)">Save</Button>
+				<Button variant="outline" theme="red" @click="emit('remove')">{{ __('Remove') }}</Button>
+				<Button variant="solid" @click="emit('save', activeJoin)">{{ __('Save') }}</Button>
 			</div>
 		</div>
 	</div>

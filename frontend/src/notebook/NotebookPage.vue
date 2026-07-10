@@ -25,7 +25,7 @@ updateDocumentTitle(pageMeta)
 		<PageBreadcrumbs
 			class="h-7"
 			:items="[
-				{ label: 'Notebooks', route: { path: '/notebook' } },
+				{ label: __('Notebooks'), route: { path: '/notebook' } },
 				{
 					label: notebook.doc.title || notebook.doc.name,
 					route: { path: `/notebook/${notebook.doc.name}` },
@@ -44,7 +44,7 @@ updateDocumentTitle(pageMeta)
 					<ContentEditable
 						class="flex-1 text-[36px] font-bold"
 						v-model="page.doc.title"
-						placeholder="Untitled Analysis"
+						:placeholder="__('Untitled Analysis')"
 					></ContentEditable>
 					<NotebookPageDropdown />
 				</div>

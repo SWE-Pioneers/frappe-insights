@@ -1,10 +1,10 @@
 <template>
 	<div>
-		<label class="mb-1.5 block text-xs text-gray-600">Color Palette</label>
+		<label class="mb-1.5 block text-xs text-gray-600">{{ __('Color Palette') }}</label>
 		<Autocomplete
 			v-model="selectedPalette"
 			:options="colorPaletteOptions"
-			placeholder="Color palette"
+			:placeholder="__('Color palette')"
 		>
 		</Autocomplete>
 		<div class="mt-1.5 flex flex-wrap gap-1 px-1">
@@ -57,12 +57,12 @@ import { computed, ref, watch } from 'vue'
 import ColorPicker from './ColorPicker.vue'
 
 const colorPaletteOptions = [
-	{ label: 'Default', value: 'default' },
-	{ label: 'Blues', value: 'blue' },
-	{ label: 'Greens', value: 'green' },
-	{ label: 'Yellows', value: 'yellow' },
-	{ label: 'Teals', value: 'teal' },
-	{ label: 'Custom', value: 'custom' },
+	{ label: __('Default'), value: 'default' },
+	{ label: __('Blues'), value: 'blue' },
+	{ label: __('Greens'), value: 'green' },
+	{ label: __('Yellows'), value: 'yellow' },
+	{ label: __('Teals'), value: 'teal' },
+	{ label: __('Custom'), value: 'custom' },
 ]
 const paletteColors = colorPaletteOptions.reduce((acc, option) => {
 	if (option.value !== 'custom') {

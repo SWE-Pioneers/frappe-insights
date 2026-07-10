@@ -21,7 +21,7 @@ const dataSourceOptions = computed(() => {
 function changeDataSource(sourceName) {
 	query.changeDataSource(sourceName).then(() => {
 		$notify({
-			title: 'Data source updated',
+			title: __('Data source updated'),
 			variant: 'success',
 		})
 	})
@@ -39,7 +39,7 @@ function changeDataSource(sourceName) {
 				<div class="flex items-center gap-2">
 					<Database class="h-4 w-4 text-gray-600" />
 					<span class="truncate">
-						{{ currentSource?.title || 'Select data source' }}
+						{{ currentSource?.title || __('Select data source') }}
 					</span>
 					<ChevronDown class="h-4 w-4 text-gray-600" />
 				</div>

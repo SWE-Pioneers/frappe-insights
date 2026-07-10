@@ -6,7 +6,7 @@ const props = defineProps({ onClose: Function })
 const chart = inject('chart')
 const chartOptions = [
 	{
-		label: 'Select a chart type',
+		label: __('Select a chart type'),
 		value: undefined,
 	},
 ].concat(widgets.getChartOptions())
@@ -15,7 +15,7 @@ const chartOptions = [
 <template>
 	<div class="flex h-full w-full flex-col p-3">
 		<div class="relative flex flex-shrink-0 justify-between pb-3 text-base">
-			<span class="font-code text-sm uppercase text-gray-600"> Options </span>
+			<span class="font-code text-sm uppercase text-gray-600"> {{ __('Options') }} </span>
 			<FeatherIcon
 				name="x"
 				class="h-4 w-4 cursor-pointer text-gray-500 transition-all hover:text-gray-800"
@@ -29,7 +29,7 @@ const chartOptions = [
 			<!-- Widget Options -->
 			<Input
 				type="select"
-				label="Chart Type"
+				:label="__('Chart Type')"
 				class="w-full"
 				v-model="chart.doc.chart_type"
 				:options="chartOptions"

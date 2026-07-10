@@ -41,7 +41,7 @@ const tanstackColumns = computed(() => {
 		accessorKey: 'index',
 		enableColumnFilter: false,
 		cell: (props) => props.row.index + 1,
-		footer: 'Total',
+		footer: __('Total'),
 	}
 	const cols = columns.value.map((column) => {
 		return {

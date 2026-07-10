@@ -1,5 +1,5 @@
 <template>
-	<Dialog :options="{ title: 'Add Team' }" v-model="show">
+	<Dialog :options="{ title: __('Add Team') }" v-model="show">
 		<template #body-content>
 			<Form
 				v-model="newTeam"
@@ -7,17 +7,17 @@
 					fields: [
 						{
 							name: 'team_name',
-							label: 'Team Name',
+							label: __('Team Name'),
 							type: 'text',
-							placeholder: 'Enter team name',
+							placeholder: __('Enter team name'),
 						},
 					],
 				}"
 			/>
 		</template>
 		<template #actions>
-			<Button variant="solid" :disabled="!newTeam.team_name" @click="addTeam"> Add </Button>
-			<Button @click="show = false">Cancel</Button>
+			<Button variant="solid" :disabled="!newTeam.team_name" @click="addTeam"> {{ __('Add') }} </Button>
+			<Button @click="show = false">{{ __('Cancel') }}</Button>
 		</template>
 	</Dialog>
 </template>

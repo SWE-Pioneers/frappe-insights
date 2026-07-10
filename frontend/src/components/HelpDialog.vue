@@ -11,26 +11,26 @@ const show = computed({
 const content = ref('')
 const isCritical = ref(false)
 
-const dialogOptions = { title: 'Contact the Team', size: '2xl' }
+const dialogOptions = { title: __('Contact the Team'), size: '2xl' }
 const selectedTabIndex = ref(0)
 const tabs = [
 	{
 		label: 'Question',
-		description: 'How do I...',
+		description: __('How do I...'),
 		iconName: 'help-circle',
-		placeholder: 'I am not sure how to...',
+		placeholder: __('I am not sure how to...'),
 	},
 	{
 		label: 'Feedback',
-		description: 'What if there was...',
+		description: __('What if there was...'),
 		iconName: 'rss',
-		placeholder: 'I think it would be great if...',
+		placeholder: __('I think it would be great if...'),
 	},
 	{
 		label: 'Bug Report',
-		description: 'When I try to...',
+		description: __('When I try to...'),
 		iconName: 'alert-triangle',
-		placeholder: 'I found a bug, when I try to...',
+		placeholder: __('I found a bug, when I try to...'),
 	},
 ]
 
@@ -52,8 +52,8 @@ async function submit() {
 	sending.value = false
 	close()
 	$notify({
-		title: 'Message Sent',
-		message: 'Your message has been sent to the team.',
+		title: __('Message Sent'),
+		message: __('Your message has been sent to the team.'),
 		variant: 'success',
 	})
 }
@@ -91,20 +91,19 @@ async function submit() {
 					/>
 				</div>
 				<span class="!mt-2 text-sm text-gray-600">
-					You can use markdown syntax to format your message. You can also drag and drop
-					images to upload them.
+					{{ __('You can use markdown syntax to format your message. You can also drag and drop images to upload them.') }}
 				</span>
 				<div class="mt-2 flex items-center justify-between">
 					<Input
 						v-show="selectedTabIndex == 2"
-						label="I am not able to use the app because of this bug"
+						:label="__('I am not able to use the app because of this bug')"
 						type="checkbox"
 						v-model="isCritical"
 					/>
 					<Button
 						variant="solid"
 						:loading="sending"
-						:label="selectedTabIndex === 2 ? 'Report Bug' : 'Send'"
+						:label="selectedTabIndex === 2 ? __('Report Bug') : __('Send')"
 						@click="submit"
 					/>
 				</div>

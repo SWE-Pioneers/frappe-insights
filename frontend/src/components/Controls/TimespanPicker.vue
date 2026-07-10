@@ -41,7 +41,7 @@
 							}
 						"
 					>
-						Done
+						{{ __('Done') }}
 					</Button>
 				</div>
 			</div>

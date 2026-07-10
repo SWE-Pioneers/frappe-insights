@@ -7,7 +7,7 @@ const dashboard = inject('dashboard')
 	<div class="flex flex-1 flex-col items-center justify-center space-y-1">
 		<div class="text-base font-light text-gray-600">
 			{{
-				!dashboard.editing ? "You haven't added any charts." : 'Drag and drop charts here.'
+				!dashboard.editing ? __("You haven't added any charts.") : __('Drag and drop charts here.')
 			}}
 		</div>
 		<div
@@ -15,7 +15,7 @@ const dashboard = inject('dashboard')
 			class="cursor-pointer text-sm font-light text-blue-500 hover:underline"
 			@click="dashboard.edit"
 		>
-			Add a chart
+			{{ __('Add a chart') }}
 		</div>
 	</div>
 </template>

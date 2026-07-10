@@ -11,12 +11,12 @@
 						ref="searchInput"
 						v-model="searchTerm"
 						class="ml-2 flex h-12 w-full items-center rounded-t-md px-4 focus:outline-none"
-						placeholder="Search..."
+						:placeholder="__('Search...')"
 					/>
 				</div>
 				<div class="mt-2 flex flex-col px-2">
 					<div v-if="commands.length > 0">
-						<div class="text-sm text-gray-600">Navigation</div>
+						<div class="text-sm text-gray-600">{{ __('Navigation') }}</div>
 						<div
 							v-for="(command, idx) in commands"
 							class="-mx-2 flex h-10 cursor-pointer items-center space-x-2 px-2"
@@ -41,7 +41,7 @@
 							</div>
 						</div>
 					</div>
-					<div v-else class="text-sm text-gray-600">No results found</div>
+					<div v-else class="text-sm text-gray-600">{{ __('No results found') }}</div>
 				</div>
 			</div>
 		</div>

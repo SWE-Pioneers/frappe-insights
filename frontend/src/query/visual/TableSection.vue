@@ -53,8 +53,8 @@ function onTableLinkClick(table) {
 	<div :key="assistedQuery.data_source" class="space-y-2">
 		<SectionHeader
 			:icon="Sheet"
-			title="Tables"
-			info="Select the tables you want to extract data from."
+			:title="__('Tables')"
+			:info="__('Select the tables you want to extract data from.')"
 		>
 			<Autocomplete
 				bodyClasses="w-[18rem]"

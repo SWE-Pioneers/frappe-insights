@@ -31,17 +31,17 @@ const errors = computed(() => {
 		column:
 			options.value.column &&
 			[options.value.index, options.value.value].includes(options.value.column)
-				? 'Column cannot be same as Row or Value'
+				? __('Column cannot be same as Row or Value')
 				: '',
 		index:
 			options.value.index &&
 			[options.value.column, options.value.value].includes(options.value.index)
-				? 'Row cannot be same as Column or Value'
+				? __('Row cannot be same as Column or Value')
 				: '',
 		value:
 			options.value.value &&
 			[options.value.column, options.value.index].includes(options.value.value)
-				? 'Value cannot be same as Column or Row'
+				? __('Value cannot be same as Column or Row')
 				: '',
 	}
 })
@@ -49,31 +49,31 @@ const errors = computed(() => {
 
 <template>
 	<div class="space-y-1">
-		<span class="text-sm font-medium text-gray-700">Column</span>
+		<span class="text-sm font-medium text-gray-700">{{ __('Column') }}</span>
 		<Autocomplete
 			v-model="options.column"
 			:return-value="true"
-			placeholder="Column"
+			:placeholder="__('Column')"
 			:options="allOptions"
 		/>
 		<span v-if="errors.column" class="text-xs text-red-500"> {{ errors.column }} </span>
 	</div>
 	<div class="space-y-1">
-		<span class="text-sm font-medium text-gray-700">Row</span>
+		<span class="text-sm font-medium text-gray-700">{{ __('Row') }}</span>
 		<Autocomplete
 			v-model="options.index"
 			:return-value="true"
-			placeholder="Row"
+			:placeholder="__('Row')"
 			:options="allOptions"
 		/>
 		<span v-if="errors.index" class="text-xs text-red-500"> {{ errors.index }} </span>
 	</div>
 	<div class="space-y-1">
-		<span class="text-sm font-medium text-gray-700">Value</span>
+		<span class="text-sm font-medium text-gray-700">{{ __('Value') }}</span>
 		<Autocomplete
 			v-model="options.value"
 			:return-value="true"
-			placeholder="Value"
+			:placeholder="__('Value')"
 			:options="valueOptions"
 		/>
 		<span v-if="errors.value" class="text-xs text-red-500"> {{ errors.value }} </span>

@@ -6,7 +6,7 @@
 				class="z-[5] mr-2 flex h-6 w-6 flex-shrink-0 cursor-pointer items-center justify-center rounded-full border border-gray-300 bg-white hover:border-blue-300 hover:font-normal hover:text-blue-500"
 				@click.prevent.stop="$emit('toggle-operator', { level, position })"
 			>
-				{{ operator == '&&' ? '&' : 'or' }}
+				{{ operator == '&&' ? '&' : __('or') }}
 			</div>
 			<div class="flex flex-1 flex-col space-y-2">
 				<div :key="idx" ref="conditionRefs" v-for="(condition, idx) in conditions">
@@ -37,7 +37,7 @@
 					class="!-mt-0.5 !-mb-2 flex h-9 cursor-pointer items-center text-sm text-gray-600 hover:text-gray-700"
 					@click.prevent.stop="$emit('add-filter', { level, position })"
 				>
-					+ {{ operator == '&&' ? 'and' : 'or' }} condition
+					+ {{ operator == '&&' ? __('and') : __('or') }} {{ __('condition') }}
 				</div>
 			</div>
 		</div>

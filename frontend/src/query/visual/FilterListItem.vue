@@ -52,7 +52,7 @@ function isValidFilter(filter) {
 					</span>
 				</template>
 			</div>
-			<div v-else class="text-gray-600">Select a filter</div>
+			<div v-else class="text-gray-600">{{ __('Select a filter') }}</div>
 		</div>
 		<div class="flex items-center">
 			<X

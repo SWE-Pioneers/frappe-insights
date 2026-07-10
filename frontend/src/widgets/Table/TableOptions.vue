@@ -55,7 +55,7 @@ function updateColumns(columnOptions) {
 <template>
 	<div>
 		<div class="mb-1 flex items-center justify-between">
-			<label class="block text-xs text-gray-600">Columns</label>
+			<label class="block text-xs text-gray-600">{{ __('Columns') }}</label>
 			<Autocomplete
 				:multiple="true"
 				:options="columnOptions"
@@ -71,7 +71,7 @@ function updateColumns(columnOptions) {
 		<DraggableList
 			group="columns"
 			item-key="column"
-			empty-text="No columns selected"
+			:empty-text="__('No columns selected')"
 			v-model:items="options.columns"
 		>
 			<template #item-suffix="{ item, index }">
@@ -89,12 +89,12 @@ function updateColumns(columnOptions) {
 
 	<FormControl
 		type="text"
-		label="Title"
+		:label="__('Title')"
 		class="w-full"
 		v-model="options.title"
-		placeholder="Title"
+		:placeholder="__('Title')"
 	/>
-	<Checkbox v-model="options.index" label="Show Index Row" />
-	<Checkbox v-model="options.showTotal" label="Show Total Row" />
-	<Checkbox v-model="options.filtersEnabled" label="Show Filter Row" />
+	<Checkbox v-model="options.index" :label="__('Show Index Row')" />
+	<Checkbox v-model="options.showTotal" :label="__('Show Total Row')" />
+	<Checkbox v-model="options.filtersEnabled" :label="__('Show Filter Row')" />
 </template>

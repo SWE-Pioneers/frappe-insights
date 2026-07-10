@@ -56,7 +56,7 @@ if (isChart) {
 					<template #placeholder>
 						<InvalidWidget
 							class="absolute"
-							title="Insufficient options"
+							:title="__('Insufficient options')"
 							icon="settings"
 							:message="null"
 							icon-class="text-gray-500"

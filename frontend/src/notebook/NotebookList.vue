@@ -39,15 +39,15 @@ async function createNotebookPage() {
 	})
 }
 
-const pageMeta = ref({ title: 'Notebooks' })
+const pageMeta = ref({ title: __('Notebooks') })
 updateDocumentTitle(pageMeta)
 </script>
 
 <template>
 	<header class="sticky top-0 z-10 flex items-center justify-between bg-white px-5 py-2.5">
-		<PageBreadcrumbs class="h-7" :items="[{ label: 'Notebooks' }]" />
+		<PageBreadcrumbs class="h-7" :items="[{ label: __('Notebooks') }]" />
 		<div class="space-x-2.5">
-			<Button label="New Notebook" variant="solid" @click="new_notebook_dialog = true">
+			<Button :label="__('New Notebook')" variant="solid" @click="new_notebook_dialog = true">
 				<template #prefix>
 					<PlusIcon class="w-4" />
 				</template>
@@ -57,7 +57,7 @@ updateDocumentTitle(pageMeta)
 
 	<div class="mb-4 flex h-full flex-col gap-2 overflow-auto px-4">
 		<div class="flex gap-2 overflow-visible py-1">
-			<FormControl placeholder="Search by Title" v-model="searchQuery" :debounce="300">
+			<FormControl :placeholder="__('Search by Title')" v-model="searchQuery" :debounce="300">
 				<template #prefix>
 					<SearchIcon class="h-4 w-4 text-gray-500" />
 				</template>
@@ -65,9 +65,9 @@ updateDocumentTitle(pageMeta)
 		</div>
 		<ListView
 			:columns="[
-				{ label: 'Title', key: 'title' },
-				{ label: 'Created', key: 'created_from_now' },
-				{ label: 'Modified', key: 'modified_from_now' },
+				{ label: __('Title'), key: 'title' },
+				{ label: __('Created'), key: 'created_from_now' },
+				{ label: __('Modified'), key: 'modified_from_now' },
 			]"
 			:rows="notebooks.list"
 			:row-key="'name'"
@@ -78,10 +78,10 @@ updateDocumentTitle(pageMeta)
 					params: { notebook: notebook.name },
 				}),
 				emptyState: {
-					title: 'No notebooks.',
-					description: 'No notebooks to display.',
+					title: __('No notebooks.'),
+					description: __('No notebooks to display.'),
 					button: {
-						label: 'New Notebook',
+						label: __('New Notebook'),
 						variant: 'solid',
 						onClick: () => (new_notebook_dialog = true),
 					},
@@ -91,20 +91,20 @@ updateDocumentTitle(pageMeta)
 		</ListView>
 	</div>
 
-	<Dialog :options="{ title: 'New Notebook' }" v-model="new_notebook_dialog">
+	<Dialog :options="{ title: __('New Notebook') }" v-model="new_notebook_dialog">
 		<template #body-content>
 			<div class="space-y-4">
 				<Input
 					type="text"
-					label="Title"
-					placeholder="Enter a suitable title..."
+					:label="__('Title')"
+					:placeholder="__('Enter a suitable title...')"
 					v-model="new_notebook_title"
 				/>
 			</div>
 		</template>
 		<template #actions>
 			<Button variant="solid" @click="createNotebook" :loading="notebooks.creating">
-				Create
+				{{ __('Create') }}
 			</Button>
 		</template>
 	</Dialog>

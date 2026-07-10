@@ -1,9 +1,9 @@
 <template>
 	<header class="sticky top-0 z-10 flex items-center justify-between bg-white px-5 py-2.5">
-		<PageBreadcrumbs class="h-7" :items="[{ label: 'Settings' }]" />
+		<PageBreadcrumbs class="h-7" :items="[{ label: __('Settings') }]" />
 		<div class="space-x-2.5">
 			<Button
-				label="Update"
+				:label="__('Update')"
 				:disabled="updateDisabled"
 				variant="solid"
 				@click="store.update(configurables)"
@@ -18,55 +18,55 @@
 		<div class="-m-1 flex flex-1 flex-col space-y-6 overflow-y-auto p-1">
 			<div class="rounded bg-white p-6 shadow">
 				<div class="flex items-baseline">
-					<div class="text-xl font-medium text-gray-700">General</div>
+					<div class="text-xl font-medium text-gray-700">{{ __('General') }}</div>
 				</div>
 				<div class="mt-4 flex flex-col space-y-8">
 					<Setting
-						label="Max Query Result Limit"
-						description="Maximum number of rows to be returned by a query. This is to prevent long running queries and memory issues."
+						:label="__('Max Query Result Limit')"
+						:description="__('Maximum number of rows to be returned by a query. This is to prevent long running queries and memory issues.')"
 					>
 						<Input type="number" min="0" v-model="configurables.query_result_limit" />
-						<div class="ml-2 text-gray-600">Rows</div>
+						<div class="ml-2 text-gray-600">{{ __('Rows') }}</div>
 					</Setting>
 
 					<Setting
-						label="Cache Query Results For"
-						description="Number of minutes to cache query results. This is to prevent accidental running of the same query multiple times."
+						:label="__('Cache Query Results For')"
+						:description="__('Number of minutes to cache query results. This is to prevent accidental running of the same query multiple times.')"
 					>
 						<Input type="number" min="0" v-model="configurables.query_result_expiry" />
-						<div class="ml-2 text-gray-600">Minutes</div>
+						<div class="ml-2 text-gray-600">{{ __('Minutes') }}</div>
 					</Setting>
 
 					<Setting
-						label="Fiscal Year Start"
-						description="Start of the fiscal year. This is used to calculate fiscal year for date columns."
+						:label="__('Fiscal Year Start')"
+						:description="__('Start of the fiscal year. This is used to calculate fiscal year for date columns.')"
 					>
 						<DatePicker
-							placeholder="Select Date"
+							:placeholder="__('Select Date')"
 							:value="configurables.fiscal_year_start"
 							@change="configurables.fiscal_year_start = $event"
 						/>
 					</Setting>
 
 					<Setting
-						label="Auto Execute Query"
-						description="Automatically execute when tables, columns, or filters are changed."
+						:label="__('Auto Execute Query')"
+						:description="__('Automatically execute when tables, columns, or filters are changed.')"
 					>
 						<Input
 							type="checkbox"
 							v-model="configurables.auto_execute_query"
-							:label="configurables.auto_execute_query ? 'Enabled' : 'Disabled'"
+							:label="configurables.auto_execute_query ? __('Enabled') : __('Disabled')"
 						/>
 					</Setting>
 
 					<Setting
-						label="Enable Query Reusability"
-						description="Allow selecting query as a table in another query. Any query selected as a table will be appended as a sub query using CTE (Common Table Expression)."
+						:label="__('Enable Query Reusability')"
+						:description="__('Allow selecting query as a table in another query. Any query selected as a table will be appended as a sub query using CTE (Common Table Expression).')"
 					>
 						<Input
 							type="checkbox"
 							v-model="configurables.allow_subquery"
-							:label="configurables.allow_subquery ? 'Enabled' : 'Disabled'"
+							:label="configurables.allow_subquery ? __('Enabled') : __('Disabled')"
 						/>
 					</Setting>
 				</div>
@@ -74,17 +74,17 @@
 
 			<div class="rounded bg-white p-6 shadow">
 				<div class="flex items-baseline">
-					<div class="text-xl font-medium text-gray-700">Notifications</div>
+					<div class="text-xl font-medium text-gray-700">{{ __('Notifications') }}</div>
 				</div>
 				<div class="mt-4 flex flex-col space-y-8">
 					<Setting
-						label="Telegram Bot Token"
-						description="Telegram bot token to send notifications to Telegram."
+						:label="__('Telegram Bot Token')"
+						:description="__('Telegram bot token to send notifications to Telegram.')"
 					>
 						<Input
 							type="password"
 							v-model="configurables.telegram_api_token"
-							placeholder="Telegram Bot Token"
+							:placeholder="__('Telegram Bot Token')"
 						/>
 					</Setting>
 				</div>
@@ -132,5 +132,5 @@ const updateDisabled = computed(() => {
 	)
 })
 
-document.title = 'Settings - Insights'
+document.title = __('Settings - Insights')
 </script>

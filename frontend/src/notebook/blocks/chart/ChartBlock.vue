@@ -44,7 +44,7 @@ const QuerySelector = (props) => {
 	return (
 		<div class="relative flex w-full items-center text-gray-800 [&>div]:w-full">
 			<Autocomplete
-				placeholder="Query"
+				placeholder={__('Query')}
 				options={queryOptions}
 				modelValue={selectedQuery.value}
 				placement="bottom"
@@ -77,8 +77,8 @@ const addToDashboard = async () => {
 	showDashboardDialog.value = false
 	$notify({
 		variant: 'success',
-		title: 'Success',
-		message: 'Chart added to dashboard',
+		title: __('Success'),
+		message: __('Chart added to dashboard'),
 	})
 }
 
@@ -115,8 +115,8 @@ watch(
 				<div class="relative h-full w-full">
 					<InvalidWidget
 						class="absolute"
-						title="Insufficient options"
-						message="Please check the options for this chart"
+						:title="__('Insufficient options')"
+						:message="__('Please check the options for this chart')"
 						icon="settings"
 						icon-class="text-gray-500"
 					/>
@@ -128,7 +128,7 @@ watch(
 			v-else
 			class="absolute right-0 top-0 flex h-full w-full flex-col items-center justify-center"
 		>
-			<div class="mb-1 w-[10rem] text-gray-500">Select a query</div>
+			<div class="mb-1 w-[10rem] text-gray-500">{{ __('Select a query') }}</div>
 			<div class="w-[10rem] rounded border border-dashed border-gray-300">
 				<QuerySelector />
 			</div>
@@ -145,17 +145,17 @@ watch(
 		</BlockAction>
 
 		<BlockAction
-			label="Add to dashboard"
+			:label="__('Add to dashboard')"
 			icon="plus"
 			:action="() => (showDashboardDialog = true)"
 		/>
-		<BlockAction icon="trash" label="Delete" :action="removeChart" :loading="chart.deleting" />
+		<BlockAction icon="trash" :label="__('Delete')" :action="removeChart" :loading="chart.deleting" />
 	</BlockActions>
 
-	<Dialog :options="{ title: 'Add to Dashboard' }" v-model="showDashboardDialog">
+	<Dialog :options="{ title: __('Add to Dashboard') }" v-model="showDashboardDialog">
 		<template #body-content>
 			<div class="text-base">
-				<span class="mb-2 block text-sm leading-4 text-gray-700">Dashboard</span>
+				<span class="mb-2 block text-sm leading-4 text-gray-700">{{ __('Dashboard') }}</span>
 				<Autocomplete
 					ref="dashboardInput"
 					:options="dashboardOptions"
@@ -165,7 +165,7 @@ watch(
 		</template>
 		<template #actions>
 			<Button variant="solid" @click="addToDashboard" :loading="addingToDashboard">
-				Add
+				{{ __('Add') }}
 			</Button>
 		</template>
 	</Dialog>
