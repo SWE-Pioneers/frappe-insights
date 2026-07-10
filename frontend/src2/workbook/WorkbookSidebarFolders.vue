@@ -100,9 +100,10 @@ function finishRenameFolder(folder: WorkbookFolder) {
 // vuedraggable emits `change` with one of moved/added/removed. We rebuild the
 // affected list's order from that event, write sort_order + folder onto the
 // (shared) item objects so the computeds re-derive without a snap-back, and
-// persist. Cross-list moves fire `removed` on the source list and `added` on
-// the target list — each list is renumbered independently and the moved item's
-// folder is set by the target's handler.
+// persist. A cross-list move fires `removed` on the source and `added` on the
+// target; we persist only from the `added` (and same-list `moved`) side, which
+// already carries the moved item with its new folder. The `removed` side is
+// ignored so we don't issue a second, racing write for the source list.
 function onListChange(
 	currentList: (WorkbookQuery | WorkbookChart)[],
 	event: any,
@@ -114,8 +115,6 @@ function onListChange(
 		list.splice(event.moved.newIndex, 0, moved)
 	} else if (event.added) {
 		list.splice(event.added.newIndex, 0, event.added.element)
-	} else if (event.removed) {
-		list.splice(event.removed.oldIndex, 1)
 	} else {
 		return
 	}
