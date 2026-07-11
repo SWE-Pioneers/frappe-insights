@@ -15,7 +15,7 @@ const displayedRowCount = computed(() => Math.min(query.MAX_ROWS, queriedRowCoun
 <template>
 	<div class="flex h-full w-full flex-col pt-2">
 		<div class="flex-shrink-0 uppercase leading-7 tracking-wide text-gray-600">
-			Native Query
+			{{ __('Native Query') }}
 		</div>
 		<div class="flex flex-1 flex-shrink-0 overflow-hidden rounded border">
 			<NativeQueryEditor />
@@ -25,13 +25,13 @@ const displayedRowCount = computed(() => Math.min(query.MAX_ROWS, queriedRowCoun
 				<template #footer>
 					<div class="flex justify-between">
 						<div v-if="queriedRowCount >= 0" class="flex items-center space-x-1">
-							<span class="text-gray-600">Showing</span>
+							<span class="text-gray-600">{{ __('Showing') }}</span>
 							<span class="font-mono"> {{ displayedRowCount }}</span>
-							<span class="text-gray-600">out of</span>
+							<span class="text-gray-600">{{ __('out of') }}</span>
 							<span class="font-mono">{{ queriedRowCount }}</span>
-							<span class="text-gray-600">rows in</span>
+							<span class="text-gray-600">{{ __('rows in') }}</span>
 							<span class="font-mono">{{ executionTime }}</span>
-							<span class="text-gray-600">seconds</span>
+							<span class="text-gray-600">{{ __('seconds') }}</span>
 						</div>
 						<Button
 							variant="ghost"

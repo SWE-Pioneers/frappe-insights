@@ -18,14 +18,14 @@ whenever(cmdD, dashboard.discardChanges)
 	<div class="flex flex-shrink-0 justify-end space-x-2">
 		<DashboardShareButton v-if="!dashboard.editing && dashboard.canShare" />
 		<Button variant="outline" v-if="!dashboard.editing" @click="dashboard.refresh">
-			Refresh
+			{{ __('Refresh') }}
 		</Button>
 		<Button v-if="dashboard.editing" variant="outline" @click="dashboard.discardChanges">
-			Cancel
+			{{ __('Cancel') }}
 		</Button>
-		<Button v-if="!dashboard.editing" variant="outline" @click="dashboard.edit"> Edit </Button>
+		<Button v-if="!dashboard.editing" variant="outline" @click="dashboard.edit"> {{ __('Edit') }} </Button>
 		<Button v-else variant="solid" @click="dashboard.save" :loading="dashboard.loading">
-			Save
+			{{ __('Save') }}
 		</Button>
 		<DashboardMenuButton />
 	</div>

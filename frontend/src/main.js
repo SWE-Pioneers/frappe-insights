@@ -10,10 +10,12 @@ import { initSocket } from './socket'
 import { createToast } from './utils/toasts'
 
 import { registerControllers, registerGlobalComponents } from './globals'
+import translationPlugin from './translation'
 
 const app = createApp(App)
 const pinia = createPinia()
 app.use(pinia)
+app.use(translationPlugin)
 setConfig('resourceFetcher', (options) => {
 	return frappeRequest({
 		...options,

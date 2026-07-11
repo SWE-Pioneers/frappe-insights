@@ -16,11 +16,10 @@ const variables = computed({
 </script>
 
 <template>
-	<Dialog v-model="show" :options="{ title: 'Variables' }">
+	<Dialog v-model="show" :options="{ title: __('Variables') }">
 		<template #body-content>
 			<p class="-mt-4 mb-5 text-base text-gray-600">
-				Variables are used to store sensitive information such as API keys and credentials.
-				They can be referenced in your script just like any other variable. For eg.:
+				{{ __('Variables are used to store sensitive information such as API keys and credentials. They can be referenced in your script just like any other variable. For eg.:') }}
 				<code class="text-sm text-gray-800">print(api_key)</code>
 			</p>
 			<div class="flex flex-col overflow-hidden">
@@ -28,8 +27,8 @@ const variables = computed({
 					<div
 						class="sticky top-0 flex gap-x-2 border-b py-2 text-sm uppercase text-gray-600"
 					>
-						<div class="flex flex-1 flex-shrink-0 px-2">Name</div>
-						<div class="flex flex-1 flex-shrink-0 px-2">Value</div>
+						<div class="flex flex-1 flex-shrink-0 px-2">{{ __('Name') }}</div>
+						<div class="flex flex-1 flex-shrink-0 px-2">{{ __('Value') }}</div>
 						<div class="flex w-10"></div>
 					</div>
 					<div class="flex gap-x-2" v-for="(variable, index) in variables" :key="index">
@@ -38,7 +37,7 @@ const variables = computed({
 								class="w-full rounded-sm border-none bg-transparent px-2 py-2 text-base focus:bg-gray-100 focus:outline-none focus:ring-0"
 								type="text"
 								v-model="variable.variable_name"
-								placeholder="eg. api_key"
+								:placeholder="__('eg. api_key')"
 							/>
 						</div>
 						<div class="flex flex-1 flex-shrink-0">
@@ -54,7 +53,7 @@ const variables = computed({
 						</div>
 					</div>
 					<div v-if="variables?.length === 0" class="flex justify-center py-4">
-						<span class="text-sm text-gray-400">No variables</span>
+						<span class="text-sm text-gray-400">{{ __('No variables') }}</span>
 					</div>
 				</div>
 				<div class="mt-4 flex justify-between">
@@ -68,9 +67,9 @@ const variables = computed({
 							})
 						"
 					>
-						<span class="text-sm">Add Variable</span>
+						<span class="text-sm">{{ __('Add Variable') }}</span>
 					</Button>
-					<Button variant="solid" label="Save" @click="$emit('save', variables)" />
+					<Button variant="solid" :label="__('Save')" @click="$emit('save', variables)" />
 				</div>
 			</div>
 		</template>

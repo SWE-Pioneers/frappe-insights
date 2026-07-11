@@ -10,9 +10,9 @@
 						<div class="flex items-center space-x-4 rounded border px-4 py-2">
 							<FeatherIcon name="globe" class="h-5 w-5 text-blue-500" />
 							<div class="flex flex-1 flex-col">
-								<div class="font-medium text-gray-800">Create Public Link</div>
+								<div class="font-medium text-gray-800">{{ __('Create Public Link') }}</div>
 								<div class="text-sm text-gray-700">
-									Anyone with the link can view this
+									{{ __('Anyone with the link can view this') }}
 									{{ resourceType.replace('Insights ', '').toLowerCase() }}
 								</div>
 							</div>
@@ -24,7 +24,7 @@
 							>
 								{{ publicLink }}
 							</div>
-							<Tooltip text="Copy Link" :hoverDelay="0.1">
+							<Tooltip :text="__('Copy Link')" :hoverDelay="0.1">
 								<Button
 									class="w-8 rounded-none bg-gray-200 hover:bg-gray-300"
 									icon="link-2"
@@ -32,7 +32,7 @@
 								>
 								</Button>
 							</Tooltip>
-							<Tooltip text="Copy iFrame" :hoverDelay="0.1">
+							<Tooltip :text="__('Copy iFrame')" :hoverDelay="0.1">
 								<Button
 									class="w-8 rounded-l-none bg-gray-200 hover:bg-gray-300"
 									icon="code"
@@ -81,7 +81,7 @@ const show = computed({
 })
 
 const title = computed(() => {
-	return `Share ${props.resourceType.replace('Insights ', '')}`
+	return `${__('Share')} ${props.resourceType.replace('Insights ', '')}`
 })
 
 const isPublic = computed({

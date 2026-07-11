@@ -25,13 +25,13 @@ async function downloadDashboardImage() {
 		:button="{ icon: 'more-vertical', variant: 'outline' }"
 		:options="[
 			{
-				label: 'Export as PNG',
+				label: __('Export as PNG'),
 				variant: 'outline',
 				icon: 'download',
 				onClick: () => downloadDashboardImage(),
 			},
 			{
-				label: 'Delete',
+				label: __('Delete'),
 				variant: 'outline',
 				icon: 'trash-2',
 				onClick: () => (showDeleteDialog = true),
@@ -43,12 +43,12 @@ async function downloadDashboardImage() {
 		v-model="showDeleteDialog"
 		:dismissable="true"
 		:options="{
-			title: 'Delete Dashboard',
-			message: 'Are you sure you want to delete this dashboard?',
+			title: __('Delete Dashboard'),
+			message: __('Are you sure you want to delete this dashboard?'),
 			icon: { name: 'trash', variant: 'solid', theme: 'red' },
 			actions: [
-				{ label: 'Cancel', variant: 'outline', onClick: () => (showDeleteDialog = false) },
-				{ label: 'Yes', variant: 'solid', theme: 'red', onClick: handleDelete },
+				{ label: __('Cancel'), variant: 'outline', onClick: () => (showDeleteDialog = false) },
+				{ label: __('Yes'), variant: 'solid', theme: 'red', onClick: handleDelete },
 			],
 		}"
 	>

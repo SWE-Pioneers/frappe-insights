@@ -25,7 +25,7 @@ const filteredDashboards = computed(() => {
 					ref="searchInput"
 					v-model="searchTerm"
 					iconLeft="search"
-					placeholder="Search..."
+					:placeholder="__('Search...')"
 				/>
 			</div>
 		</div>
@@ -37,7 +37,7 @@ const filteredDashboards = computed(() => {
 				v-if="searchTerm && filteredDashboards.length === 0"
 				class="w-full text-center text-gray-600"
 			>
-				No dashboards found.
+				{{ __('No dashboards found.') }}
 			</div>
 		</div>
 	</div>

@@ -16,7 +16,7 @@ call('insights.api.home.get_last_viewed_records').then((data) => {
 			name: d.reference_name,
 			notebook: d.notebook,
 			last_viewed: $dayjs(d.creation).format('MMM DD, YYYY hh:mm A'),
-			last_viewed_from_now: `Last viewed ${$dayjs(d.creation).fromNow()}`,
+			last_viewed_from_now: __('Last viewed {0}', [$dayjs(d.creation).fromNow()]),
 		}
 	})
 })
@@ -43,7 +43,7 @@ function openRecord(row) {
 			<div class="rounded bg-gray-100 p-1">
 				<FeatherIcon name="clock" class="h-4 w-4" />
 			</div>
-			<div class="text-lg">Recently Viewed</div>
+			<div class="text-lg">{{ __('Recently Viewed') }}</div>
 		</div>
 		<div class="mt-3 flex-1 overflow-hidden p-1">
 			<!-- list of recent records -->
@@ -76,9 +76,9 @@ function openRecord(row) {
 			<!-- empty state -->
 			<div v-else class="flex h-full w-full items-center justify-center">
 				<div class="flex flex-col items-center space-y-2">
-					<div class="text-lg text-gray-600">No recent records</div>
+					<div class="text-lg text-gray-600">{{ __('No recent records') }}</div>
 					<div class="text-sm text-gray-600">
-						You can view your recently viewed records here
+						{{ __('You can view your recently viewed records here') }}
 					</div>
 				</div>
 			</div>

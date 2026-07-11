@@ -38,36 +38,36 @@ const valueOptions = computed(() => {
 	<div class="space-y-4">
 		<FormControl
 			type="text"
-			label="Title"
+			:label="__('Title')"
 			class="w-full"
 			v-model="options.title"
-			placeholder="Title"
+			:placeholder="__('Title')"
 		/>
 		<div>
-			<label class="mb-1.5 block text-xs text-gray-600">Label Column</label>
+			<label class="mb-1.5 block text-xs text-gray-600">{{ __('Label Column') }}</label>
 			<Autocomplete v-model="options.xAxis" :returnValue="true" :options="indexOptions" />
 		</div>
 		<div>
-			<label class="mb-1.5 block text-xs text-gray-600">Value Column</label>
+			<label class="mb-1.5 block text-xs text-gray-600">{{ __('Value Column') }}</label>
 			<Autocomplete v-model="options.yAxis" :returnValue="true" :options="valueOptions" />
 		</div>
 
 		<div>
-			<label class="mb-1.5 block text-xs text-gray-600">Max Slices</label>
+			<label class="mb-1.5 block text-xs text-gray-600">{{ __('Max Slices') }}</label>
 			<FormControl v-model="options.maxSlices" type="number" min="1" />
 		</div>
 
 		<ColorPalette v-model="options.colors" />
 
 		<div v-show="!options.inlineLabels">
-			<label class="mb-1.5 block text-xs text-gray-600">Label Position</label>
+			<label class="mb-1.5 block text-xs text-gray-600">{{ __('Label Position') }}</label>
 			<Autocomplete
 				v-model="options.labelPosition"
 				:options="['Top', 'Left', 'Bottom', 'Right']"
 			/>
 		</div>
 
-		<Checkbox v-model="options.inlineLabels" label="Inline Labels" />
-		<Checkbox v-model="options.scrollLabels" label="Paginate Labels" />
+		<Checkbox v-model="options.inlineLabels" :label="__('Inline Labels')" />
+		<Checkbox v-model="options.scrollLabels" :label="__('Paginate Labels')" />
 	</div>
 </template>

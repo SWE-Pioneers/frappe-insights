@@ -5,7 +5,7 @@
 				v-if="!addingTable"
 				class="flex flex-shrink-0 items-center justify-between bg-white pb-2"
 			>
-				<div class="text-sm tracking-wide text-gray-700">TABLES</div>
+				<div class="text-sm tracking-wide text-gray-700">{{ __('TABLES') }}</div>
 				<Button icon="plus" @click="addingTable = true"></Button>
 			</div>
 			<div v-if="addingTable" class="flex w-full flex-shrink-0 space-x-2 pb-3 pt-1">
@@ -14,7 +14,7 @@
 						ref="tableSearch"
 						v-model="newTable"
 						:options="query.tables.newTableOptions"
-						placeholder="Select a table..."
+						:placeholder="__('Select a table...')"
 						@update:modelValue="addNewTable"
 					/>
 				</div>
@@ -24,7 +24,7 @@
 				v-if="query.tables.data?.length == 0"
 				class="flex flex-1 items-center justify-center rounded border-2 border-dashed border-gray-200 text-sm text-gray-700"
 			>
-				<p>No tables selected</p>
+				<p>{{ __('No tables selected') }}</p>
 			</div>
 
 			<div v-else class="flex w-full flex-1 select-none flex-col divide-y overflow-y-scroll">

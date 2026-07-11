@@ -52,7 +52,7 @@ function calcInitialXY({ x, y }) {
 const pageMeta = computed(() => {
 	return {
 		title: dashboard.doc.title || props.name,
-		subtitle: 'Dashboard',
+		subtitle: __('Dashboard'),
 	}
 })
 updateDocumentTitle(pageMeta)
@@ -70,7 +70,7 @@ const debouncedUpdateTitle = debounce((value) => dashboard.updateTitle(value), 5
 					:value="dashboard.doc.title"
 					:disabled="!dashboard.editing"
 					@change="dashboard.updateTitle($event)"
-					placeholder="Untitled Dashboard"
+					:placeholder="__('Untitled Dashboard')"
 				></ContentEditable>
 			</div>
 			<DashboardNavbarButtons />
@@ -116,7 +116,7 @@ const debouncedUpdateTitle = debounce((value) => dashboard.updateTitle(value), 5
 		<template #sidebar v-if="dashboard.editing && dashboard.sidebar.open">
 			<div class="w-[21rem] overflow-y-auto border-l bg-white p-3 px-4 shadow-sm">
 				<div v-if="!dashboard.currentItem">
-					<div class="mb-3 font-semibold text-gray-800">Widgets</div>
+					<div class="mb-3 font-semibold text-gray-800">{{ __('Widgets') }}</div>
 					<DashboardSidebarWidgets @dragChange="draggingWidget = $event" />
 				</div>
 
@@ -128,12 +128,12 @@ const debouncedUpdateTitle = debounce((value) => dashboard.updateTitle(value), 5
 							icon="arrow-left"
 							@click="dashboard.currentItem = undefined"
 						></Button>
-						<div class="ml-2 text-gray-800">Back</div>
+						<div class="ml-2 text-gray-800">{{ __('Back') }}</div>
 					</div>
 
 					<Input
 						type="select"
-						label="Widget Type"
+						:label="__('Widget Type')"
 						class="w-full"
 						:options="widgets.list.map((widget) => widget.type)"
 						v-model="dashboard.currentItem.item_type"
@@ -163,7 +163,7 @@ const debouncedUpdateTitle = debounce((value) => dashboard.updateTitle(value), 5
 							variant="outline"
 							@click="dashboard.resetOptions(dashboard.currentItem)"
 						>
-							Reset Options
+							{{ __('Reset Options') }}
 						</Button>
 						<Button
 							iconLeft="trash"
@@ -171,7 +171,7 @@ const debouncedUpdateTitle = debounce((value) => dashboard.updateTitle(value), 5
 							class="ml-auto text-red-500"
 							@click="dashboard.removeItem(dashboard.currentItem)"
 						>
-							Delete Widget
+							{{ __('Delete Widget') }}
 						</Button>
 					</div>
 				</div>

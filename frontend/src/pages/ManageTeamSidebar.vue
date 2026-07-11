@@ -54,11 +54,11 @@ function handleSidebarItemClick(item) {
 
 function showDeletePrompt() {
 	showPrompt({
-		title: 'Delete Team',
-		message: `Are you sure you want to delete this team?`,
+		title: __('Delete Team'),
+		message: __('Are you sure you want to delete this team?'),
 		icon: { name: 'trash', variant: 'solid', theme: 'red' },
 		primaryAction: {
-			label: 'Delete',
+			label: __('Delete'),
 			variant: 'solid',
 			theme: 'red',
 			action: ({ close }) => {
@@ -73,7 +73,7 @@ function showDeletePrompt() {
 </script>
 <template>
 	<div class="w-1/4 bg-gray-50 p-3 text-gray-600">
-		<div class="mb-2 text-lg font-medium text-gray-800">{{ team.doc.team_name }} Team</div>
+		<div class="mb-2 text-lg font-medium text-gray-800">{{ __('{0} Team', [team.doc.team_name]) }}</div>
 		<nav class="flex-1 space-y-1 pb-4 text-base">
 			<div
 				v-for="item in sidebarItems"

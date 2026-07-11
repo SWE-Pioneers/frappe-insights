@@ -4,7 +4,7 @@
 			class="h-7"
 			:items="[
 				{
-					label: 'Data Sources',
+					label: __('Data Sources'),
 					href: '/data-source',
 					route: { path: '/data-source' },
 				},
@@ -19,7 +19,7 @@
 		/>
 		<div v-if="dataSourceTable.doc" class="ml-2 flex items-center space-x-2.5">
 			<Badge variant="subtle" :theme="hidden ? 'gray' : 'green'" size="md">
-				{{ hidden ? 'Disabled' : 'Enabled' }}
+				{{ hidden ? __('Disabled') : __('Enabled') }}
 			</Badge>
 			<Dropdown
 				placement="left"
@@ -29,17 +29,17 @@
 				}"
 				:options="[
 					{
-						label: hidden ? 'Enable' : 'Disable',
+						label: hidden ? __('Enable') : __('Disable'),
 						icon: hidden ? 'eye' : 'eye-off',
 						onClick: () => (hidden = !hidden),
 					},
 					{
-						label: 'Sync Table',
+						label: __('Sync Table'),
 						icon: 'refresh-cw',
 						onClick: () => dataSourceTable.sync(),
 					},
 					{
-						label: 'Add Link',
+						label: __('Add Link'),
 						icon: 'link',
 						onClick: () => (addLinkDialog = true),
 					},
@@ -77,25 +77,25 @@
 			class="mt-2 flex h-full w-full flex-col items-center justify-center rounded bg-gray-50"
 		>
 			<LoadingIndicator class="mb-2 w-8 text-gray-500" />
-			<div class="text-lg text-gray-600">Syncing columns from database...</div>
+			<div class="text-lg text-gray-600">{{ __('Syncing columns from database...') }}</div>
 		</div>
 	</div>
 
-	<Dialog :options="{ title: 'Create a Link' }" v-model="addLinkDialog">
+	<Dialog :options="{ title: __('Create a Link') }" v-model="addLinkDialog">
 		<template #body-content>
 			<div class="space-y-4">
 				<div>
-					<div class="mb-2 block text-sm leading-4 text-gray-700">Table</div>
+					<div class="mb-2 block text-sm leading-4 text-gray-700">{{ __('Table') }}</div>
 					<Autocomplete
 						ref="$autocomplete"
 						v-model="newLink.table"
 						:options="tableOptions"
-						placeholder="Select a table..."
+						:placeholder="__('Select a table...')"
 					/>
 				</div>
 				<div>
 					<div class="mb-2 block text-sm leading-4 text-gray-700">
-						Select a column from {{ dataSourceTable.doc.label }}
+						{{ __('Select a column from {0}', [dataSourceTable.doc.label]) }}
 					</div>
 					<Autocomplete
 						v-model="newLink.primaryKey"
@@ -109,7 +109,7 @@
 				</div>
 				<div v-if="newLink.table?.value">
 					<div class="mb-2 block text-sm leading-4 text-gray-700">
-						Select a column from {{ newLink.table.label }}
+						{{ __('Select a column from {0}', [newLink.table.label]) }}
 					</div>
 					<Autocomplete v-model="newLink.foreignKey" :options="foreignKeyOptions" />
 				</div>
@@ -122,7 +122,7 @@
 				:loading="creatingLink"
 				:disabled="createLinkDisabled"
 			>
-				Create
+				{{ __('Create') }}
 			</Button>
 		</template>
 	</Dialog>
@@ -235,8 +235,8 @@ const createLinkResource = createResource({
 		addLinkDialog.value = false
 		$notify({
 			variant: 'success',
-			title: 'Success',
-			message: 'Link created successfully',
+			title: __('Success'),
+			message: __('Link created successfully'),
 		})
 	},
 })

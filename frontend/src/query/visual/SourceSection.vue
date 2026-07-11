@@ -7,8 +7,8 @@ import SectionHeader from './SectionHeader.vue'
 <template>
 	<SectionHeader
 		:icon="DatabaseIcon"
-		title="Data Source"
-		info="Select the data source you want to query."
+		:title="__('Data Source')"
+		:info="__('Select the data source you want to query.')"
 	>
 		<QueryDataSourceSelector></QueryDataSourceSelector>
 	</SectionHeader>

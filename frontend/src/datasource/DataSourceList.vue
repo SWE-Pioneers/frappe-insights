@@ -1,8 +1,8 @@
 <template>
 	<header class="sticky top-0 z-10 flex items-center justify-between bg-white px-5 py-2.5">
-		<PageBreadcrumbs class="h-7" :items="[{ label: 'Data Sources' }]" />
+		<PageBreadcrumbs class="h-7" :items="[{ label: __('Data Sources') }]" />
 		<div>
-			<Button label="New Data Source" variant="solid" @click="new_dialog = true">
+			<Button :label="__('New Data Source')" variant="solid" @click="new_dialog = true">
 				<template #prefix>
 					<PlusIcon class="w-4" />
 				</template>
@@ -12,7 +12,7 @@
 
 	<div class="mb-4 flex h-full flex-col gap-2 overflow-auto px-4">
 		<div class="flex gap-2 overflow-visible py-1">
-			<FormControl placeholder="Search by Title" v-model="searchQuery" :debounce="300">
+			<FormControl :placeholder="__('Search by Title')" v-model="searchQuery" :debounce="300">
 				<template #prefix>
 					<SearchIcon class="h-4 w-4 text-gray-500" />
 				</template>
@@ -29,10 +29,10 @@
 					params: { name: dataSource.name },
 				}),
 				emptyState: {
-					title: 'No Data Sources.',
-					description: 'No data sources to display.',
+					title: __('No Data Sources.'),
+					description: __('No data sources to display.'),
 					button: {
-						label: 'New Data Source',
+						label: __('New Data Source'),
 						variant: 'solid',
 						onClick: () => (new_dialog = true),
 					},
@@ -44,7 +44,7 @@
 
 	<NewDialogWithTypes
 		v-model:show="new_dialog"
-		title="Select Source Type"
+		:title="__('Select Source Type')"
 		:types="databaseTypes"
 	/>
 
@@ -92,7 +92,7 @@ const showCSVFileUploadDialog = ref(false)
 const databaseTypes = ref([
 	{
 		label: 'MariaDB',
-		description: 'Connect to a MariaDB database',
+		description: __('Connect to a MariaDB database'),
 		imgSrc: new URL('/src/assets/MariaDBIcon.png', import.meta.url),
 		onClick: () => {
 			new_dialog.value = false
@@ -101,7 +101,7 @@ const databaseTypes = ref([
 	},
 	{
 		label: 'PostgreSQL',
-		description: 'Connect to a PostgreSQL database',
+		description: __('Connect to a PostgreSQL database'),
 		imgSrc: new URL('/src/assets/PostgreSQLIcon.png', import.meta.url),
 		onClick: () => {
 			new_dialog.value = false
@@ -110,7 +110,7 @@ const databaseTypes = ref([
 	},
 	{
 		label: 'CSV',
-		description: 'Upload a CSV file',
+		description: __('Upload a CSV file'),
 		imgSrc: new URL('/src/assets/SheetIcon.png', import.meta.url),
 		onClick: () => {
 			new_dialog.value = false
@@ -120,19 +120,19 @@ const databaseTypes = ref([
 ])
 
 const dataSourceListColumns = [
-	{ label: 'Title', key: 'title' },
+	{ label: __('Title'), key: 'title' },
 	{
-		label: 'Status',
+		label: __('Status'),
 		key: 'status',
 		prefix: ({ row }) => {
 			const color = row.status == 'Inactive' ? 'text-gray-500' : 'text-green-500'
 			return <IndicatorIcon class={color} />
 		},
 	},
-	{ label: 'Database Type', key: 'database_type' },
-	{ label: 'Created', key: 'created_from_now' },
+	{ label: __('Database Type'), key: 'database_type' },
+	{ label: __('Created'), key: 'created_from_now' },
 ]
 
-const pageMeta = ref({ title: 'Data Sources' })
+const pageMeta = ref({ title: __('Data Sources') })
 updateDocumentTitle(pageMeta)
 </script>

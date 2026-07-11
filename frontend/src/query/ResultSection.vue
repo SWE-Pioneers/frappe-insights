@@ -47,7 +47,7 @@ const tanstackColumns = computed(() => {
 					@click="query.execute()"
 					:loading="query.executing"
 				>
-					Execute Query
+					{{ __('Execute Query') }}
 				</Button>
 			</div>
 		</div>

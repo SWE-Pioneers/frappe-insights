@@ -29,15 +29,15 @@ const columnOptions = computed(() => {
 	<div class="space-y-4">
 		<FormControl
 			type="text"
-			label="Title"
+			:label="__('Title')"
 			class="w-full"
 			v-model="options.title"
-			placeholder="Title"
+			:placeholder="__('Title')"
 		/>
 
 		<div>
 			<div class="mb-1 flex items-center justify-between">
-				<label class="block text-xs text-gray-600">Rows</label>
+				<label class="block text-xs text-gray-600">{{ __('Rows') }}</label>
 				<Autocomplete :multiple="true" v-model="options.rows" :options="columnOptions">
 					<template #target="{ togglePopover }">
 						<Button variant="ghost" icon="plus" @click="togglePopover"></Button>
@@ -48,14 +48,14 @@ const columnOptions = computed(() => {
 			<DraggableList
 				v-model:items="options.rows"
 				group="columnOptions"
-				empty-text="No rows selected"
+				:empty-text="__('No rows selected')"
 			>
 			</DraggableList>
 		</div>
 
 		<div>
 			<div class="mb-1 flex items-center justify-between">
-				<label class="block text-xs text-gray-600">Columns</label>
+				<label class="block text-xs text-gray-600">{{ __('Columns') }}</label>
 				<Autocomplete :multiple="true" v-model="options.columns" :options="columnOptions">
 					<template #target="{ togglePopover }">
 						<Button variant="ghost" icon="plus" @click="togglePopover"></Button>
@@ -66,14 +66,14 @@ const columnOptions = computed(() => {
 			<DraggableList
 				v-model:items="options.columns"
 				group="columnOptions"
-				emtpy-text="No columns selected"
+				:emtpy-text="__('No columns selected')"
 			>
 			</DraggableList>
 		</div>
 
 		<div>
 			<div class="mb-1 flex items-center justify-between">
-				<label class="block text-xs text-gray-600">Values</label>
+				<label class="block text-xs text-gray-600">{{ __('Values') }}</label>
 				<Autocomplete :multiple="true" v-model="options.values" :options="columnOptions">
 					<template #target="{ togglePopover }">
 						<Button variant="ghost" icon="plus" @click="togglePopover"></Button>
@@ -84,12 +84,12 @@ const columnOptions = computed(() => {
 			<DraggableList
 				v-model:items="options.values"
 				group="columnOptions"
-				emtpy-text="No values selected"
+				:emtpy-text="__('No values selected')"
 			>
 			</DraggableList>
 		</div>
 
-		<Checkbox v-model="options.showTotal" label="Show Total Row" />
-		<Checkbox v-model="options.filtersEnabled" label="Show Filter Row" />
+		<Checkbox v-model="options.showTotal" :label="__('Show Total Row')" />
+		<Checkbox v-model="options.filtersEnabled" :label="__('Show Filter Row')" />
 	</div>
 </template>

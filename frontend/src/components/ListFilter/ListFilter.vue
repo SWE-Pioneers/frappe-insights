@@ -1,7 +1,7 @@
 <template>
 	<NestedPopover>
 		<template #target>
-			<Button label="Filter">
+			<Button :label="__('Filter')">
 				<template #prefix><FilterIcon class="h-4" /></template>
 				<template v-if="filters.length" #suffix>
 					<div
@@ -24,14 +24,14 @@
 					>
 						<div class="flex flex-1 items-center gap-2">
 							<div class="w-13 flex-shrink-0 pl-2 text-end text-base text-gray-600">
-								{{ i == 0 ? 'Where' : 'And' }}
+								{{ i == 0 ? __('Where') : __('And') }}
 							</div>
 							<div id="fieldname" class="!min-w-[140px] flex-1">
 								<Autocomplete
 									:modelValue="filter.fieldname"
 									:options="fields"
 									@update:modelValue="filter.fieldname = $event.value"
-									placeholder="Filter by..."
+									:placeholder="__('Filter by...')"
 								/>
 							</div>
 							<div id="operator" class="!min-w-[140px] flex-shrink-0">
@@ -40,7 +40,7 @@
 									:modelValue="filter.operator"
 									@update:modelValue="filter.operator = $event"
 									:options="getOperators(filter.field.fieldtype)"
-									placeholder="Operator"
+									:placeholder="__('Operator')"
 								/>
 							</div>
 							<div id="value" class="!min-w-[140px] flex-1">
@@ -52,7 +52,7 @@
 									:doctype="filter.field.options"
 									:modelValue="filter.value"
 									@update:modelValue="filter.value = $event"
-									placeholder="Value"
+									:placeholder="__('Value')"
 								/>
 								<component
 									v-else
@@ -63,7 +63,7 @@
 										)
 									"
 									v-model="filter.value"
-									placeholder="Value"
+									:placeholder="__('Value')"
 								/>
 							</div>
 						</div>
@@ -72,21 +72,21 @@
 						</div>
 					</div>
 					<div v-else class="mb-3 flex h-7 items-center px-3 text-sm text-gray-600">
-						Empty - Choose a field to filter by
+						{{ __('Empty - Choose a field to filter by') }}
 					</div>
 					<div class="flex items-center justify-between gap-2">
 						<Autocomplete
 							:modelValue="''"
 							:options="fields"
 							@update:modelValue="(field) => addFilter(field.value)"
-							placeholder="Filter by..."
+							:placeholder="__('Filter by...')"
 						>
 							<template #target="{ togglePopover }">
 								<Button
 									class="!text-gray-600"
 									variant="ghost"
 									@click="togglePopover()"
-									label="Add filter"
+									:label="__('Add filter')"
 								>
 									<template #prefix>
 										<FeatherIcon name="plus" class="h-4" />
@@ -98,7 +98,7 @@
 							v-if="filters.length"
 							class="!text-gray-600"
 							variant="ghost"
-							label="Clear all filter"
+							:label="__('Clear all filter')"
 							@click="filters = []"
 						/>
 					</div>
@@ -198,10 +198,10 @@ function getOperators(fieldtype) {
 	if (typeString.includes(fieldtype) || typeLink.includes(fieldtype)) {
 		options.push(
 			...[
-				{ label: 'Equals', value: '=' },
-				{ label: 'Not Equals', value: '!=' },
-				{ label: 'Like', value: 'like' },
-				{ label: 'Not Like', value: 'not like' },
+				{ label: __('Equals'), value: '=' },
+				{ label: __('Not Equals'), value: '!=' },
+				{ label: __('Like'), value: 'like' },
+				{ label: __('Not Like'), value: 'not like' },
 			]
 		)
 	}
@@ -212,21 +212,21 @@ function getOperators(fieldtype) {
 				{ label: '>', value: '>' },
 				{ label: '<=', value: '<=' },
 				{ label: '>=', value: '>=' },
-				{ label: 'Equals', value: '=' },
-				{ label: 'Not Equals', value: '!=' },
+				{ label: __('Equals'), value: '=' },
+				{ label: __('Not Equals'), value: '!=' },
 			]
 		)
 	}
 	if (typeSelect.includes(fieldtype)) {
 		options.push(
 			...[
-				{ label: 'Equals', value: '=' },
-				{ label: 'Not Equals', value: '!=' },
+				{ label: __('Equals'), value: '=' },
+				{ label: __('Not Equals'), value: '!=' },
 			]
 		)
 	}
 	if (typeCheck.includes(fieldtype)) {
-		options.push(...[{ label: 'Equals', value: '=' }])
+		options.push(...[{ label: __('Equals'), value: '=' }])
 	}
 	return options
 }

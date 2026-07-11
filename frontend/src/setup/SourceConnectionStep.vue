@@ -14,8 +14,8 @@ const erpnextSiteTitle = ref(sitename)
 async function updateERPNextSourceTitle() {
 	if (erpnextSiteTitle.value === '') {
 		$notify({
-			title: 'Please enter a title',
-			message: 'Please enter a title to continue',
+			title: __('Please enter a title'),
+			message: __('Please enter a title to continue'),
 			type: 'error',
 		})
 		return
@@ -32,16 +32,16 @@ async function updateERPNextSourceTitle() {
 	<div class="mt-4 flex flex-col overflow-hidden">
 		<div class="flex flex-1 flex-col overflow-y-auto">
 			<div v-if="setupState.sourceType == 'erpnext'">
-				<Input v-model="erpnextSiteTitle" label="Title" />
+				<Input v-model="erpnextSiteTitle" :label="__('Title')" />
 				<div class="mt-6 flex flex-shrink-0 justify-end space-x-3">
-					<Button variant="solid" @click="updateERPNextSourceTitle"> Continue </Button>
+					<Button variant="solid" @click="updateERPNextSourceTitle"> {{ __('Continue') }} </Button>
 				</div>
 			</div>
 			<div v-if="setupState.sourceType == 'mariadb'">
-				<MariaDBForm @submit="emit('next')" submitLabel="Continue" />
+				<MariaDBForm @submit="emit('next')" :submitLabel="__('Continue')" />
 			</div>
 			<div v-if="setupState.sourceType == 'postgresql'">
-				<PostgreSQLForm @submit="emit('next')" submitLabel="Continue" />
+				<PostgreSQLForm @submit="emit('next')" :submitLabel="__('Continue')" />
 			</div>
 			<div v-if="setupState.sourceType == 'file'">
 				<FileSourceForm @submit="emit('next')" />

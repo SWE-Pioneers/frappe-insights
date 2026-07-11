@@ -1,6 +1,12 @@
 declare module 'frappe-ui'
 declare module '@/utils/dayjs'
 
+declare function __(message: string, replace?: any[], context?: string | null): string
+interface Window {
+	__: (message: string, replace?: any[], context?: string | null) => string
+	translatedMessages?: Record<string, string>
+}
+
 declare type HashString = `#${string}`
 declare type RGBString = `rgb(${number}, ${number}, ${number})`
 

@@ -30,9 +30,9 @@ function addMembers(members) {
 <template>
 	<div class="flex w-full flex-col space-y-3 text-base">
 		<div class="flex flex-shrink-0 flex-col space-y-2">
-			<div class="text-lg font-medium">Members</div>
+			<div class="text-lg font-medium">{{ __('Members') }}</div>
 			<ListPicker
-				placeholder="Add a member"
+				:placeholder="__('Add a member')"
 				v-model="selectedMembers"
 				:options="memberOptions"
 				:loading="team.search_team_members.loading"
@@ -72,7 +72,7 @@ function addMembers(members) {
 			v-else
 			class="flex flex-1 items-center justify-center rounded border border-dashed p-4 font-light text-gray-500"
 		>
-			This team has no members
+			{{ __('This team has no members') }}
 		</div>
 	</div>
 </template>

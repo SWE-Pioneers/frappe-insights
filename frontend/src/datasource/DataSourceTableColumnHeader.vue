@@ -26,7 +26,7 @@
 							<Input
 								class="w-40"
 								type="select"
-								label="Change Type"
+								:label="__('Change Type')"
 								:options="[
 									'String',
 									'Integer',

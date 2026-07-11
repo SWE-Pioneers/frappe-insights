@@ -13,7 +13,7 @@
 				{{ item.title }}
 			</button>
 		</template>
-		<div class="item" v-else>No result</div>
+		<div class="item" v-else>{{ __('No result') }}</div>
 	</div>
 </template>
 

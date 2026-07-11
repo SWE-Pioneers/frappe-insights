@@ -59,11 +59,11 @@ results = fetch_data_from_url()`
 <template>
 	<div class="flex h-full w-full flex-col pt-2">
 		<div class="flex-shrink-0 uppercase leading-7 tracking-wide text-gray-600">
-			Script Query
+			{{ __('Script Query') }}
 		</div>
 		<div class="flex flex-1 flex-shrink-0 overflow-hidden rounded border">
 			<div class="relative flex flex-1 flex-col overflow-y-auto">
-				<Code language="python" v-model="script" placeholder="Enter your script here...">
+				<Code language="python" v-model="script" :placeholder="__('Enter your script here...')">
 				</Code>
 				<div class="sticky bottom-0 flex justify-between border-t bg-white p-2">
 					<div class="flex gap-2">
@@ -105,7 +105,7 @@ results = fetch_data_from_url()`
 					v-if="showLogs"
 					class="flex h-full w-[30rem] flex-col overflow-hidden bg-gray-50 p-3"
 				>
-					<div class="text-sm uppercase tracking-wide text-gray-600">Logs</div>
+					<div class="text-sm uppercase tracking-wide text-gray-600">{{ __('Logs') }}</div>
 					<div class="mt-2 flex w-full flex-col gap-2 overflow-y-auto font-mono">
 						<div v-for="(log, index) in scriptLogs" :key="index" class="flex gap-2">
 							<div class="text-gray-400">[{{ index + 1 }}]</div>
@@ -129,30 +129,26 @@ results = fetch_data_from_url()`
 	<Dialog
 		v-model="showHelp"
 		:options="{
-			title: 'Help',
+			title: __('Help'),
 			size: '3xl',
 		}"
 	>
 		<template #body-content>
 			<div class="flex w-full flex-col gap-2 text-base leading-5">
 				<div class="">
-					In the Script Query interface, you can write custom Python scripts to query the
-					database and retrieve data as a Pandas DataFrame. You can also fetch data from
-					external sources using Pandas functions
+					{{ __('In the Script Query interface, you can write custom Python scripts to query the database and retrieve data as a Pandas DataFrame. You can also fetch data from external sources using Pandas functions') }}
 				</div>
 				<div>
-					For detailed information about these functions and how to use them, please refer
-					to
+					{{ __('For detailed information about these functions and how to use them, please refer to') }}
 					<a
 						class="text-blue-500 underline"
 						href="https://frappeframework.com/docs/user/en/desk/scripting/script-api"
 					>
-						Frappe Framework's Script API
+						{{ __("Frappe Framework's Script API") }}
 					</a>
 				</div>
 				<div class="">
-					Example script to read data from a CSV file hosted on a URL and create a Pandas
-					DataFrame:
+					{{ __('Example script to read data from a CSV file hosted on a URL and create a Pandas DataFrame:') }}
 				</div>
 				<div class="rounded bg-gray-50 text-sm">
 					<Code :readOnly="true" language="python" :model-value="exampleCode"> </Code>

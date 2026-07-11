@@ -104,13 +104,13 @@ function reset() {
 					<FeatherIcon name="upload" class="h-8 w-8 text-gray-500" />
 					<div class="mt-2 text-gray-600">
 						<p v-if="!uploading" class="text-center font-medium text-blue-500">
-							Select a file
+							{{ __('Select a file') }}
 						</p>
 						<p v-else class="text-center font-medium text-blue-500">
-							Uploading... ({{ progress }}%)
+							{{ __('Uploading... ({0}%)', [progress]) }}
 						</p>
 						<p v-if="!uploading" class="mt-1 text-center text-xs">
-							Only CSV files upto 10MB
+							{{ __('Only CSV files upto 10MB') }}
 						</p>
 					</div>
 				</div>
@@ -119,38 +119,38 @@ function reset() {
 		<div class="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
 			<transition-group name="fade">
 				<div>
-					<span class="mb-2 block text-sm leading-4 text-gray-700">Data Source</span>
+					<span class="mb-2 block text-sm leading-4 text-gray-700">{{ __('Data Source') }}</span>
 					<Autocomplete
 						v-model="table.data_source"
 						:returnValue="true"
 						:options="dataSourceStore.getDropdownOptions({ allow_imports: 1 })"
-						placeholder="Select Data Source"
+						:placeholder="__('Select Data Source')"
 					/>
 				</div>
 				<Attachment
 					v-model="table.file"
-					label="File"
+					:label="__('File')"
 					fileType=".csv"
-					placeholder="Upload CSV File"
+					:placeholder="__('Upload CSV File')"
 				/>
 				<Input
 					v-if="table.file"
-					label="New Table Label"
+					:label="__('New Table Label')"
 					type="text"
-					placeholder="eg. Sales Data"
+					:placeholder="__('eg. Sales Data')"
 					v-model="table.label"
 				/>
 				<Input
 					v-if="table.file"
-					label="New Table Name"
+					:label="__('New Table Name')"
 					type="text"
-					placeholder="eg. sales_data"
+					:placeholder="__('eg. sales_data')"
 					v-model="table.name"
 				/>
 				<Input
 					v-if="table.file"
 					type="select"
-					label="Action if exists"
+					:label="__('Action if exists')"
 					v-model="table.ifExists"
 					:options="['Fail', 'Overwrite', 'Append']"
 				/>
@@ -158,7 +158,7 @@ function reset() {
 		</div>
 	</div>
 	<div v-if="table.data_source && table.file" class="mt-4">
-		<span class="text-base font-medium leading-6 text-gray-900"> Columns </span>
+		<span class="text-base font-medium leading-6 text-gray-900"> {{ __('Columns') }} </span>
 		<div
 			v-if="columns?.length"
 			class="mt-2 flex max-h-[15rem] flex-col overflow-hidden text-base"
@@ -166,9 +166,9 @@ function reset() {
 			<div
 				class="sticky right-0 top-0 z-10 flex h-8 w-full cursor-pointer items-center space-x-8 pr-8 pb-1 text-xs uppercase text-gray-600"
 			>
-				<span class="flex-1"> CSV Column </span>
-				<span class="flex-1"> Column Name </span>
-				<span class="flex-1"> Column Type </span>
+				<span class="flex-1"> {{ __('CSV Column') }} </span>
+				<span class="flex-1"> {{ __('Column Name') }} </span>
+				<span class="flex-1"> {{ __('Column Type') }} </span>
 			</div>
 			<div class="flex flex-col overflow-y-auto">
 				<Draggable class="w-full" v-model="columns" group="columns" item-key="column">
@@ -210,11 +210,11 @@ function reset() {
 			class="mt-2 flex flex-col items-center justify-center space-y-2 p-12 text-center text-sm"
 		>
 			<LoadingIndicator class="h-4 w-4 text-gray-500" />
-			<p class="text-gray-600">Loading columns...</p>
+			<p class="text-gray-600">{{ __('Loading columns...') }}</p>
 		</div>
 		<div v-else class="mt-2 flex flex-col space-y-3 p-12 text-center text-sm text-gray-600">
-			No columns found in the uploaded file.<br />
-			Please upload a different file.
+			{{ __('No columns found in the uploaded file.') }}<br />
+			{{ __('Please upload a different file.') }}
 		</div>
 	</div>
 	<div class="mt-4 flex justify-between pt-2">
@@ -225,7 +225,7 @@ function reset() {
 				:disabled="importDisabled"
 				:loading="importingTable"
 			>
-				Import
+				{{ __('Import') }}
 			</Button>
 		</div>
 	</div>

@@ -19,12 +19,12 @@ function deletePage() {
 		:button="{ icon: 'more-horizontal', variant: 'ghost' }"
 		:options="[
 			{
-				label: 'Clear',
+				label: __('Clear'),
 				icon: 'x-square',
 				onClick: () => (page.doc.content = {}),
 			},
 			{
-				label: 'Delete',
+				label: __('Delete'),
 				icon: 'trash',
 				onClick: () => (show_delete_dialog = true),
 			},
@@ -33,11 +33,11 @@ function deletePage() {
 
 	<Dialog
 		:options="{
-			title: 'Delete Page',
+			title: __('Delete Page'),
 			icon: { name: 'trash', variant: 'solid', theme: 'red' },
 			actions: [
 				{
-					label: 'Delete',
+					label: __('Delete'),
 					variant: 'solid',
 					theme: 'red',
 					loading: page.delete.loading,
@@ -49,7 +49,7 @@ function deletePage() {
 		:dismissable="true"
 	>
 		<template #body-content>
-			<p class="text-base text-gray-600">Are you sure you want to delete this page?</p>
+			<p class="text-base text-gray-600">{{ __('Are you sure you want to delete this page?') }}</p>
 		</template>
 	</Dialog>
 </template>

@@ -2,10 +2,10 @@
 	<BasePage>
 		<template #header>
 			<div class="flex flex-1 justify-between">
-				<h1 class="text-3xl font-medium text-gray-900">Users</h1>
+				<h1 class="text-3xl font-medium text-gray-900">{{ __('Users') }}</h1>
 				<div class="space-x-4">
 					<Button variant="outline" iconLeft="plus" @click="showAddUserDialog = true">
-						Add User
+						{{ __('Add User') }}
 					</Button>
 				</div>
 			</div>
@@ -13,7 +13,7 @@
 		<template #main>
 			<div class="flex flex-1 flex-col overflow-hidden">
 				<div class="mb-4 flex flex-shrink-0 space-x-4">
-					<Input type="text" placeholder="Full Name" v-model="search.full_name" />
+					<Input type="text" :placeholder="__('Full Name')" v-model="search.full_name" />
 				</div>
 				<div class="flex flex-1 flex-col overflow-hidden rounded border">
 					<!-- List Header -->
@@ -23,10 +23,10 @@
 						<p class="mr-4">
 							<Input type="checkbox" class="rounded border-gray-300" />
 						</p>
-						<p class="flex-1 flex-shrink-0">Full Name</p>
-						<p class="flex-1 flex-shrink-0">Email</p>
-						<p class="flex-1 flex-shrink-0">Teams</p>
-						<p class="flex-1 flex-shrink-0">Last Active</p>
+						<p class="flex-1 flex-shrink-0">{{ __('Full Name') }}</p>
+						<p class="flex-1 flex-shrink-0">{{ __('Email') }}</p>
+						<p class="flex-1 flex-shrink-0">{{ __('Teams') }}</p>
+						<p class="flex-1 flex-shrink-0">{{ __('Last Active') }}</p>
 					</div>
 					<ul
 						role="list"

@@ -19,8 +19,8 @@ provide('query', query)
 
 const activeTab = ref(0)
 const tabs = ref([
-	{ label: 'Query', value: 0 },
-	{ label: 'Visualize', value: 1 },
+	{ label: __('Query'), value: 0 },
+	{ label: __('Visualize'), value: 1 },
 ])
 
 watchEffect(() => {
@@ -38,7 +38,7 @@ watchEffect(() => {
 		<PageBreadcrumbs
 			class="h-7"
 			:items="[
-				{ label: 'Queries', route: { path: '/query' } },
+				{ label: __('Queries'), route: { path: '/query' } },
 				{ component: QueryHeaderTitle },
 			]"
 		/>

@@ -2,14 +2,14 @@
 	<BasePage>
 		<template #header>
 			<div class="flex flex-1 justify-between">
-				<h1 class="text-3xl font-medium text-gray-900">Teams</h1>
+				<h1 class="text-3xl font-medium text-gray-900">{{ __('Teams') }}</h1>
 				<div class="space-x-4">
 					<Button
 						variant="outline"
 						class="shadow"
 						iconLeft="plus"
 						@click="showAddTeamDialog = true"
-						>Add Team</Button
+						>{{ __('Add Team') }}</Button
 					>
 				</div>
 			</div>
@@ -17,7 +17,7 @@
 		<template #main>
 			<div class="flex flex-1 flex-col overflow-hidden">
 				<div class="mb-4 flex flex-shrink-0 space-x-4">
-					<Input type="text" placeholder="Team Name" />
+					<Input type="text" :placeholder="__('Team Name')" />
 				</div>
 				<div class="flex flex-1 flex-col rounded border">
 					<!-- List Header -->
@@ -27,12 +27,12 @@
 						<p class="mr-4">
 							<Input type="checkbox" class="rounded border-gray-300" />
 						</p>
-						<p class="flex-1 flex-shrink-0">Team Name</p>
-						<p class="flex-1 flex-shrink-0">Members</p>
-						<p class="hidden flex-1 flex-shrink-0 lg:inline-block">Data Sources</p>
-						<p class="hidden flex-1 flex-shrink-0 lg:inline-block">Tables</p>
-						<p class="hidden flex-1 flex-shrink-0 lg:inline-block">Queries</p>
-						<p class="hidden flex-1 flex-shrink-0 lg:inline-block">Dashboards</p>
+						<p class="flex-1 flex-shrink-0">{{ __('Team Name') }}</p>
+						<p class="flex-1 flex-shrink-0">{{ __('Members') }}</p>
+						<p class="hidden flex-1 flex-shrink-0 lg:inline-block">{{ __('Data Sources') }}</p>
+						<p class="hidden flex-1 flex-shrink-0 lg:inline-block">{{ __('Tables') }}</p>
+						<p class="hidden flex-1 flex-shrink-0 lg:inline-block">{{ __('Queries') }}</p>
+						<p class="hidden flex-1 flex-shrink-0 lg:inline-block">{{ __('Dashboards') }}</p>
 					</div>
 					<ul
 						role="list"

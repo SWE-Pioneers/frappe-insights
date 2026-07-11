@@ -20,12 +20,12 @@ const props = defineProps({
 		<AxisChartOptions seriesType="bar" v-model:options="options" :columns="props.columns" />
 		<FormControl
 			type="select"
-			label="Rotate Labels"
+			:label="__('Rotate Labels')"
 			v-model="options.rotateLabels"
 			:options="['0', '45', '90']"
 		/>
 
-		<Checkbox v-model="options.stack" label="Stack Values" />
-		<Checkbox v-model="options.roundedBars" label="Rounded Bars" />
+		<Checkbox v-model="options.stack" :label="__('Stack Values')" />
+		<Checkbox v-model="options.roundedBars" :label="__('Rounded Bars')" />
 	</div>
 </template>

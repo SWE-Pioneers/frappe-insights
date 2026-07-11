@@ -19,7 +19,7 @@ const options = computed({
 
 <template>
 	<div class="space-y-2">
-		<span class="block text-sm leading-4 text-gray-700">Content</span>
+		<span class="block text-sm leading-4 text-gray-700">{{ __('Content') }}</span>
 		<TextEditor
 			ref="textEditor"
 			:editable="true"

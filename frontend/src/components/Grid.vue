@@ -4,7 +4,7 @@
 			v-if="props.rows.length == 0"
 			class="absolute top-0 flex h-full w-full items-center justify-center text-lg font-light text-gray-600"
 		>
-			<span>No Data</span>
+			<span>{{ __('No Data') }}</span>
 		</div>
 		<div class="flex flex-1 flex-col overflow-auto text-base">
 			<table>

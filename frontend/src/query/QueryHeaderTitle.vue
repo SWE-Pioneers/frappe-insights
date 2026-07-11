@@ -15,11 +15,11 @@ watchDebounced(title, query.updateTitle, { debounce: 500 })
 	</div>
 	<ContentEditable
 		v-model="title"
-		placeholder="Untitled Query"
+		:placeholder="__('Untitled Query')"
 		class="mr-3 rounded-sm px-1 text-lg font-medium focus:ring-2 focus:ring-gray-700 focus:ring-offset-2"
 	></ContentEditable>
 	<div v-if="query.loading" class="flex items-center gap-1 text-sm text-gray-600">
 		<LoadingIndicator class="w-3" />
-		<span>Saving...</span>
+		<span>{{ __('Saving...') }}</span>
 	</div>
 </template>

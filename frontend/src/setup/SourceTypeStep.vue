@@ -5,28 +5,28 @@ const emit = defineEmits(['next'])
 const selectedOption = ref(null)
 const options = reactive([
 	{
-		title: 'ERPNext',
-		description: 'Connect to your ERPNext site',
+		title: __('ERPNext'),
+		description: __('Connect to your ERPNext site'),
 		img: 'ERPNextIcon.png',
 	},
 	{
-		title: 'MariaDB',
-		description: 'Connect to MariaDB database',
+		title: __('MariaDB'),
+		description: __('Connect to MariaDB database'),
 		img: 'MariaDBIcon.png',
 	},
 	{
-		title: 'PostgreSQL',
-		description: 'Connect to PostgreSQL database',
+		title: __('PostgreSQL'),
+		description: __('Connect to PostgreSQL database'),
 		img: 'PostgreSQLIcon.png',
 	},
 	{
-		title: 'Spreadsheet',
-		description: 'Connect or Upload a spreadsheet',
+		title: __('Spreadsheet'),
+		description: __('Connect or Upload a spreadsheet'),
 		img: 'SheetIcon.png',
 	},
 	{
-		title: 'Sample Dataset',
-		description: 'Explore Insights with sample data',
+		title: __('Sample Dataset'),
+		description: __('Explore Insights with sample data'),
 		img: 'SampleDataIcon.png',
 	},
 ])
@@ -36,8 +36,8 @@ const setupState = inject('setupState')
 function validateAndContinue() {
 	if (selectedOption.value === null) {
 		$notify({
-			title: 'Please select an option',
-			message: 'Please select an option to continue',
+			title: __('Please select an option'),
+			message: __('Please select an option to continue'),
 			type: 'error',
 		})
 		return
@@ -100,7 +100,7 @@ function validateAndContinue() {
 				:disabled="selectedOption === null"
 				@click="validateAndContinue"
 			>
-				Continue
+				{{ __('Continue') }}
 			</Button>
 		</div>
 	</div>

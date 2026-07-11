@@ -1,8 +1,8 @@
 <template>
 	<header class="sticky top-0 z-10 flex items-center justify-between bg-white px-5 py-2.5">
-		<PageBreadcrumbs class="h-7" :items="[{ label: 'Dashboards' }]" />
+		<PageBreadcrumbs class="h-7" :items="[{ label: __('Dashboards') }]" />
 		<div class="space-x-2.5">
-			<Button label="New Dashboard" variant="solid" @click="showDialog = true">
+			<Button :label="__('New Dashboard')" variant="solid" @click="showDialog = true">
 				<template #prefix>
 					<Plus class="h-4 w-4" />
 				</template>
@@ -17,34 +17,34 @@
 			<DashboardsGroup
 				v-if="favorites.length > 0"
 				:dashboards="favorites"
-				title="Favorites"
+				:title="__('Favorites')"
 			/>
 			<DashboardsGroup
 				v-if="settings.enable_permissions"
 				:dashboards="privates"
-				title="Private"
+				:title="__('Private')"
 			/>
-			<DashboardsGroup :dashboards="sortedDashboards" title="All" :enableSearch="true" />
+			<DashboardsGroup :dashboards="sortedDashboards" :title="__('All')" :enableSearch="true" />
 		</div>
 		<div v-else class="flex flex-1 flex-col items-center justify-center space-y-1">
 			<div class="text-base font-light text-gray-600">
-				You haven't created any dashboards yet.
+				{{ __("You haven't created any dashboards yet.") }}
 			</div>
 			<div
 				class="cursor-pointer text-sm font-light text-blue-500 hover:underline"
 				@click="showDialog = true"
 			>
-				Create a new dashboard
+				{{ __('Create a new dashboard') }}
 			</div>
 		</div>
 	</div>
 
-	<Dialog :options="{ title: 'New Dashboard' }" v-model="showDialog">
+	<Dialog :options="{ title: __('New Dashboard') }" v-model="showDialog">
 		<template #body-content>
 			<Input
 				type="text"
-				label="Title"
-				placeholder="Enter a suitable title..."
+				:label="__('Title')"
+				:placeholder="__('Enter a suitable title...')"
 				v-model="newDashboardTitle"
 			/>
 		</template>
@@ -55,7 +55,7 @@
 				@click="createDashboard"
 				:loading="dashboards.creating"
 			>
-				Create
+				{{ __('Create') }}
 			</Button>
 		</template>
 	</Dialog>
@@ -102,6 +102,6 @@ async function createDashboard() {
 	router.push(`/dashboard/${name}`)
 }
 
-const pageMeta = ref({ title: 'Dashboards' })
+const pageMeta = ref({ title: __('Dashboards') })
 updateDocumentTitle(pageMeta)
 </script>

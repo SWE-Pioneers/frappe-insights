@@ -39,7 +39,7 @@ function getLabel() {
 				/>
 				<slot name="inputs"></slot>
 				<div class="flex w-full justify-end">
-					<Button variant="solid" @click="togglePopover()"> Done </Button>
+					<Button variant="solid" @click="togglePopover()"> {{ __('Done') }} </Button>
 				</div>
 			</div>
 		</template>

@@ -58,7 +58,7 @@
 									"
 									:value="query"
 									autocomplete="off"
-									placeholder="Search..."
+									:placeholder="__('Search...')"
 								/>
 								<div
 									v-if="loading"
@@ -73,7 +73,7 @@
 							v-if="filteredOptions.length === 0"
 							class="flex h-7 w-full items-center rounded bg-gray-50 px-3 text-sm font-light"
 						>
-							No results found
+							{{ __('No results found') }}
 						</div>
 						<ComboboxOption
 							v-for="(option, idx) in filteredOptions"
@@ -115,13 +115,13 @@
 						</ComboboxOption>
 						<div class="sticky bottom-0 flex justify-end space-x-2 bg-white py-2">
 							<Button variant="secondary" @click.prevent.stop="selectOrClearAll()">
-								{{ selectedOptions.length > 0 ? 'Clear' : 'Select All' }}
+								{{ selectedOptions.length > 0 ? __('Clear') : __('Select All') }}
 							</Button>
 							<Button
 								variant="solid"
 								@click="$emit('apply', selectedOptions) || closePopover()"
 							>
-								Apply
+								{{ __('Apply') }}
 							</Button>
 						</div>
 					</ComboboxOptions>

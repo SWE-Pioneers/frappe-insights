@@ -19,22 +19,22 @@ if (!series.value.type) series.value.type = 'bar'
 	<div class="flex flex-col gap-3">
 		<div v-if="!props.seriesType">
 			<FormControl
-				label="Axis Type"
+				:label="__('Axis Type')"
 				type="select"
 				:options="[
-					{ label: 'Line', value: 'line' },
-					{ label: 'Bar', value: 'bar' },
+					{ label: __('Line'), value: 'line' },
+					{ label: __('Bar'), value: 'bar' },
 				]"
 				v-model="series.type"
 			/>
 		</div>
 
-		<ColorInput label="Color" v-model="series.color" placement="right-start" />
+		<ColorInput :label="__('Color')" v-model="series.color" placement="right-start" />
 
 		<template v-if="series.type == 'line'">
-			<Checkbox v-model="series.smoothLines" label="Enable Curved Lines" />
-			<Checkbox v-model="series.showPoints" label="Show Data Points" />
-			<Checkbox v-model="series.showArea" label="Show Area" />
+			<Checkbox v-model="series.smoothLines" :label="__('Enable Curved Lines')" />
+			<Checkbox v-model="series.showPoints" :label="__('Show Data Points')" />
+			<Checkbox v-model="series.showArea" :label="__('Show Area')" />
 		</template>
 	</div>
 </template>

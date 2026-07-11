@@ -19,31 +19,31 @@ const state = inject('state')
 const path = computed(() => getBezierPath(props))
 const dropdownOptions = [
 	{
-		group: 'Cardinality',
+		group: __('Cardinality'),
 		items: [
 			{
-				label: 'One to One',
+				label: __('One to One'),
 				onClick: () => state.setCardinality(props.id, '1:1'),
 			},
 			{
-				label: 'One to Many',
+				label: __('One to Many'),
 				onClick: () => state.setCardinality(props.id, '1:N'),
 			},
 			{
-				label: 'Many to One',
+				label: __('Many to One'),
 				onClick: () => state.setCardinality(props.id, 'N:1'),
 			},
 			{
-				label: 'Many to Many',
+				label: __('Many to Many'),
 				onClick: () => state.setCardinality(props.id, 'N:N'),
 			},
 		],
 	},
 	{
-		group: 'Actions',
+		group: __('Actions'),
 		items: [
 			{
-				label: 'Delete',
+				label: __('Delete'),
 				icon: 'trash',
 				onClick: () => state.deleteRelationship(props.id),
 			},

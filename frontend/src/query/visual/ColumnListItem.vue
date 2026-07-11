@@ -45,7 +45,7 @@ function getAbbreviation(column) {
 				<component :is="fieldtypesToIcon[column.type]" class="h-4 w-4 text-gray-600" />
 				<div>{{ column.label }}</div>
 			</div>
-			<div v-else class="text-gray-600">Select a column</div>
+			<div v-else class="text-gray-600">{{ __('Select a column') }}</div>
 		</div>
 		<div class="flex items-center space-x-2">
 			<X

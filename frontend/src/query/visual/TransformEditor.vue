@@ -19,11 +19,11 @@ if (!activeTransform.type) activeTransform.type = 'Pivot'
 if (!activeTransform.options) activeTransform.options = {}
 
 const transformTypes = [
-	{ label: 'Select Transform Type', value: '', disabled: true },
-	{ label: 'Pivot', value: 'Pivot' },
+	{ label: __('Select Transform Type'), value: '', disabled: true },
+	{ label: __('Pivot'), value: 'Pivot' },
 	// { label: 'Unpivot', value: 'Unpivot' },
 	// { label: 'Transpose', value: 'Transpose' },
-	{ label: 'Cumulative Sum', value: 'CumulativeSum' },
+	{ label: __('Cumulative Sum'), value: 'CumulativeSum' },
 ]
 
 const isValidTransform = computed(
@@ -34,11 +34,11 @@ const isValidTransform = computed(
 <template>
 	<div class="flex flex-col gap-4 p-4">
 		<div class="space-y-1">
-			<span class="text-sm font-medium text-gray-700">Type</span>
+			<span class="text-sm font-medium text-gray-700">{{ __('Type') }}</span>
 			<FormControl
 				type="select"
 				v-model="activeTransform.type"
-				placeholder="Select Transform Type"
+				:placeholder="__('Select Transform Type')"
 				:options="transformTypes"
 				@update:modelValue="activeTransform.options = {}"
 			/>
@@ -53,16 +53,16 @@ const isValidTransform = computed(
 		></CumulativeSumTransformFields>
 		<div class="flex justify-between">
 			<Button variant="outline" @click="emit(isValidTransform ? 'discard' : 'remove')">
-				Discard
+				{{ __('Discard') }}
 			</Button>
 			<div class="flex gap-2">
-				<Button variant="outline" theme="red" @click="emit('remove')">Remove</Button>
+				<Button variant="outline" theme="red" @click="emit('remove')">{{ __('Remove') }}</Button>
 				<Button
 					variant="solid"
 					:disabled="!isValidTransform"
 					@click="emit('save', activeTransform)"
 				>
-					Save
+					{{ __('Save') }}
 				</Button>
 			</div>
 		</div>

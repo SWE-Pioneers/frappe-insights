@@ -39,15 +39,15 @@ const alert = reactive({
 })
 
 const frequencyOptions = [
-	{ value: 'Hourly', label: 'Check once an hour' },
-	{ value: 'Daily', label: 'Check once a day' },
-	{ value: 'Weekly', label: 'Check once a week' },
-	{ value: 'Monthly', label: 'Check once a month' },
-	{ value: 'Custom', label: 'Custom' },
+	{ value: 'Hourly', label: __('Check once an hour') },
+	{ value: 'Daily', label: __('Check once a day') },
+	{ value: 'Weekly', label: __('Check once a week') },
+	{ value: 'Monthly', label: __('Check once a month') },
+	{ value: 'Custom', label: __('Custom') },
 ]
 const channelOptions = [
-	{ label: 'Email', value: 'Email' },
-	{ label: 'Telegram', value: 'Telegram' },
+	{ label: __('Email'), value: 'Email' },
+	{ label: __('Telegram'), value: 'Telegram' },
 ]
 const operatorOptions = ['=', '!=', '>', '>=', '<', '<=']
 const createAlertDisabled = computed(() => {
@@ -98,27 +98,27 @@ function testSendAlert() {
 </script>
 
 <template>
-	<Dialog :options="{ title: 'Create Alert' }" v-model="show" :dismissable="true">
+	<Dialog :options="{ title: __('Create Alert') }" v-model="show" :dismissable="true">
 		<template #body-content>
 			<div class="space-y-4 text-base">
 				<div class="flex gap-4">
 					<div class="flex flex-1 flex-col space-y-4">
 						<Input
 							type="text"
-							label="Alert Name"
+							:label="__('Alert Name')"
 							v-model="alert.title"
-							placeholder="e.g. Low Inventory"
+							:placeholder="__('e.g. Low Inventory')"
 						/>
 						<Input
 							type="select"
-							label="Frequency"
+							:label="__('Frequency')"
 							v-model="alert.frequency"
 							:options="frequencyOptions"
 						/>
 						<Input
 							v-if="alert.frequency === 'Custom'"
 							type="text"
-							label="Cron"
+							:label="__('Cron')"
 							v-model="alert.cron"
 							placeholder="e.g. 0 0 12 * * ?"
 						/>
@@ -126,21 +126,21 @@ function testSendAlert() {
 					<div class="flex flex-1 flex-col space-y-4">
 						<Input
 							type="select"
-							label="Channel"
+							:label="__('Channel')"
 							v-model="alert.channel"
 							:options="channelOptions"
 						/>
 						<Input
 							v-if="alert.channel === 'Email'"
 							type="text"
-							label="Recipients"
+							:label="__('Recipients')"
 							v-model="alert.recipients"
-							placeholder="e.g. john@example.com, henry@example.com"
+							:placeholder="__('e.g. john@example.com, henry@example.com')"
 						/>
 						<Input
 							v-if="alert.channel === 'Telegram'"
 							type="text"
-							label="Telegram Chat ID"
+							:label="__('Telegram Chat ID')"
 							v-model="alert.telegram_chat_id"
 							placeholder="e.g. 123456789"
 						/>
@@ -148,7 +148,7 @@ function testSendAlert() {
 				</div>
 
 				<div class="space-y-4">
-					<p class="text-lg font-medium text-gray-800">Send alert when</p>
+					<p class="text-lg font-medium text-gray-800">{{ __('Send alert when') }}</p>
 					<div class="!mt-2 flex gap-4" v-if="!alert.condition.isAdvanced">
 						<Input
 							type="select"
@@ -172,30 +172,30 @@ function testSendAlert() {
 							type="text"
 							class="flex-1"
 							v-model="alert.condition.right"
-							placeholder="e.g. 100"
+							:placeholder="__('e.g. 100')"
 						/>
 					</div>
 					<div v-else class="!mt-2">
 						<div class="form-textarea h-20">
 							<Code
 								v-model="alert.condition.advanceCondition"
-								placeholder="Write a python expression..."
+								:placeholder="__('Write a python expression...')"
 							/>
 						</div>
 						<p class="font-code mt-1 text-sm text-gray-600">
-							Example: results["Count of Records"][0] > 100
+							{{ __('Example: results["Count of Records"][0] > 100') }}
 						</p>
 					</div>
 					<Input
 						type="checkbox"
-						label="Use Advanced Condition"
+						:label="__('Use Advanced Condition')"
 						v-model="alert.condition.isAdvanced"
 					/>
 				</div>
 
 				<div>
 					<p class="text-lg font-medium text-gray-800">
-						Message <span class="text-sm font-normal">(Optional)</span>
+						{{ __('Message') }} <span class="text-sm font-normal">({{ __('Optional') }})</span>
 					</p>
 					<Input
 						type="textarea"
@@ -209,9 +209,9 @@ Thanks,
 						`"
 					/>
 					<p class="mt-2 text-sm text-gray-600">
-						You can use all the fields from the query like
+						{{ __('You can use all the fields from the query like') }}
 						<span class="font-code px-1"> title, data_source </span>
-						etc. like this
+						{{ __('etc. like this') }}
 						<span class="font-code px-1" v-html="'{{ title }}'"></span>
 					</p>
 				</div>
@@ -225,14 +225,14 @@ Thanks,
 				class="mr-2"
 				@click="createAlert"
 			>
-				Create
+				{{ __('Create') }}
 			</Button>
 			<Button
 				:disabled="createAlertDisabled"
 				:loading="testSendAlert.loading"
 				@click="testSendAlert"
 			>
-				Test
+				{{ __('Test') }}
 			</Button>
 		</template>
 	</Dialog>

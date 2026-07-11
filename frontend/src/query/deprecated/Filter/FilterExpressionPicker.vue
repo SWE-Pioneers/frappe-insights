@@ -2,7 +2,7 @@
 	<div class="flex flex-col">
 		<!-- Expression Code Field -->
 		<div class="flex justify-between">
-			<div class="mb-1 text-sm">Expression</div>
+			<div class="mb-1 text-sm">{{ __('Expression') }}</div>
 			<Tooltip v-if="expression.error" :text="expression.error">
 				<div class="!mt-1 flex cursor-pointer items-center text-xs text-red-500">
 					<FeatherIcon name="alert-circle" class="h-4 w-4" />
@@ -46,7 +46,7 @@
 				@click="addExpressionFilter"
 				:disabled="Boolean(expression.error)"
 			>
-				{{ editing ? 'Update' : 'Add ' }}
+				{{ editing ? __('Update') : __('Add ') }}
 			</Button>
 		</div>
 	</div>

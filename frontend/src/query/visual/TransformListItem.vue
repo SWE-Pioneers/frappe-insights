@@ -12,10 +12,10 @@ const transformTypeToIcon = {
 	CumulativeSum: Sigma,
 }
 const transformTypeToLabel = {
-	Pivot: 'Convert Row to Column',
-	Unpivot: 'Convert Column to Row',
-	Transpose: 'Transpose',
-	CumulativeSum: 'Cumulative Sum',
+	Pivot: __('Convert Row to Column'),
+	Unpivot: __('Convert Column to Row'),
+	Transpose: __('Transpose'),
+	CumulativeSum: __('Cumulative Sum'),
 }
 
 function isValidTransform(transform) {
@@ -37,7 +37,7 @@ function isValidTransform(transform) {
 				/>
 				<span class="truncate">{{ transformTypeToLabel[transform.type] }}</span>
 			</div>
-			<div v-else class="text-gray-600">Select a transform</div>
+			<div v-else class="text-gray-600">{{ __('Select a transform') }}</div>
 		</div>
 		<div class="flex items-center space-x-2">
 			<X

@@ -21,7 +21,7 @@ const query = inject('query')
 			<template #prefix>
 				<Play class="h-4 w-4"></Play>
 			</template>
-			<span>Execute</span>
+			<span>{{ __('Execute') }}</span>
 		</Button>
 	</div>
 </template>

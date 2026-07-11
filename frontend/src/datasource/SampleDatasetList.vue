@@ -8,8 +8,8 @@ const selectedDataset = ref(null)
 const sampleDatasets = [
 	{
 		name: 'ecommerce',
-		title: 'eCommerce',
-		description: 'An eCommerce dataset with orders, products, customers, and suppliers data.',
+		title: __('eCommerce'),
+		description: __('An eCommerce dataset with orders, products, customers, and suppliers data.'),
 		icon: 'shopping-cart',
 	},
 ]
@@ -19,8 +19,8 @@ const settingUpSampleData = ref(false)
 async function setupSampleData() {
 	if (selectedDataset.value === null) {
 		$notify({
-			title: 'Please select a dataset',
-			message: 'Please select a dataset to continue',
+			title: __('Please select a dataset'),
+			message: __('Please select a dataset to continue'),
 			type: 'error',
 		})
 		return
@@ -35,12 +35,12 @@ async function setupSampleData() {
 
 const session = sessionStore()
 const $socket = inject('$socket')
-const progressLabel = ref('Continue')
+const progressLabel = ref(__('Continue'))
 $socket.on('insights_demo_setup_progress', (data) => {
 	if (data.user == session.user.user_id) {
-		progressLabel.value = `${data.progress.toFixed(0)}% complete...`
+		progressLabel.value = __('{0}% complete...', [data.progress.toFixed(0)])
 		if (data.progress == 100) {
-			progressLabel.value = 'Continue'
+			progressLabel.value = __('Continue')
 		}
 	}
 })

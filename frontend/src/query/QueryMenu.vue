@@ -6,58 +6,58 @@
 			:options="[
 				!query.doc.is_stored
 					? {
-							label: 'Store Query',
+							label: __('Store Query'),
 							icon: 'bookmark',
 							onClick: storeQuery,
 					  }
 					: {
-							label: 'Unstore Query',
+							label: __('Unstore Query'),
 							icon: BookmarkMinus,
 							onClick: unstoreQuery,
 					  },
 				{
-					label: 'Execute (⌘+E)',
+					label: __('Execute (⌘+E)'),
 					icon: 'play',
 					onClick: query.execute,
 				},
 				settings.enable_permissions && query.isOwner
 					? {
-							label: 'Share',
+							label: __('Share'),
 							icon: 'share-2',
 							onClick: () => (show_share_dialog = true),
 					  }
 					: null,
 				{
-					label: 'Set Alert',
+					label: __('Set Alert'),
 					icon: 'bell',
 					onClick: () => (show_alert_dialog = true),
 				},
 				!query.doc.is_native_query
 					? {
-							label: 'View SQL',
+							label: __('View SQL'),
 							icon: 'help-circle',
 							onClick: () => (show_sql_dialog = true),
 					  }
 					: null,
 				{
-					label: 'Duplicate',
+					label: __('Duplicate'),
 					icon: 'copy',
 					onClick: duplicateQuery,
 				},
 				{
-					label: 'Download CSV',
+					label: __('Download CSV'),
 					icon: 'download',
 					onClick: query.downloadResults,
 				},
 				{
 					label: query.doc.is_assisted_query
-						? 'Switch to Classic Query Builder'
-						: 'Switch to Visual Query Builder',
+						? __('Switch to Classic Query Builder')
+						: __('Switch to Visual Query Builder'),
 					icon: 'toggle-left',
 					onClick: () => (show_switch_dialog = true),
 				},
 				{
-					label: 'Delete',
+					label: __('Delete'),
 					icon: 'trash-2',
 					onClick: () => (show_delete_dialog = true),
 				},
@@ -68,12 +68,12 @@
 			v-model="show_delete_dialog"
 			:dismissable="true"
 			:options="{
-				title: 'Delete Query',
-				message: 'Are you sure you want to delete this query?',
+				title: __('Delete Query'),
+				message: __('Are you sure you want to delete this query?'),
 				icon: { name: 'trash', appearance: 'danger' },
 				actions: [
 					{
-						label: 'Delete',
+						label: __('Delete'),
 						variant: 'solid',
 						theme: 'red',
 						onClick: () => {
@@ -95,15 +95,15 @@
 			:dismissable="true"
 			:options="{
 				title: query.doc.is_assisted_query
-					? 'Switch to Classic Query Builder'
-					: 'Switch to Visual Query Builder',
+					? __('Switch to Classic Query Builder')
+					: __('Switch to Visual Query Builder'),
 				message: query.doc.is_assisted_query
-					? 'All the changes you have made in the query will be preserved. However, if you make any changes in the Classic Query Builder, they will be lost when you switch back to the Visual Query Builder. Are you sure you want to continue?'
-					: 'All the changes you have made in the Classic Query Builder will be converted to the Visual Query Builder. Are you sure you want to continue?',
+					? __('All the changes you have made in the query will be preserved. However, if you make any changes in the Classic Query Builder, they will be lost when you switch back to the Visual Query Builder. Are you sure you want to continue?')
+					: __('All the changes you have made in the Classic Query Builder will be converted to the Visual Query Builder. Are you sure you want to continue?'),
 				icon: { name: 'toggle-left', appearance: 'warning' },
 				actions: [
 					{
-						label: 'Switch',
+						label: __('Switch'),
 						variant: 'solid',
 						onClick: () =>
 							query.switchQueryBuilder().then(() => (show_switch_dialog = false)),
@@ -113,7 +113,7 @@
 		/>
 
 		<Dialog
-			:options="{ title: 'Generated SQL', size: '3xl' }"
+			:options="{ title: __('Generated SQL'), size: '3xl' }"
 			v-model="show_sql_dialog"
 			:dismissable="true"
 		>
@@ -191,7 +191,7 @@ function duplicateQuery() {
 		router.push(`/query/build/${query_name}`)
 		$notify({
 			variant: 'success',
-			title: 'Query Duplicated',
+			title: __('Query Duplicated'),
 		})
 	})
 }
@@ -200,7 +200,7 @@ function storeQuery() {
 	query.store().then((res) => {
 		$notify({
 			variant: 'success',
-			title: 'Query Stored',
+			title: __('Query Stored'),
 		})
 	})
 }
@@ -209,7 +209,7 @@ function unstoreQuery() {
 	query.unstore().then((res) => {
 		$notify({
 			variant: 'success',
-			title: 'Query Unstored',
+			title: __('Query Unstored'),
 		})
 	})
 }

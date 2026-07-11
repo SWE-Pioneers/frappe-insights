@@ -1,7 +1,7 @@
 <template>
 	<div class="flex flex-col overflow-hidden text-base">
 		<span class="mb-2 block text-sm leading-4 text-gray-700">
-			{{ label || 'Attach File' }}
+			{{ label || __('Attach File') }}
 		</span>
 		<input
 			ref="fileInput"
@@ -16,7 +16,7 @@
 		<!-- Upload Button -->
 		<Button v-if="!file?.name" @click="upload" :loading="uploading">
 			<FeatherIcon name="upload" class="mr-1 inline-block h-3 w-3" />
-			{{ placeholder || 'Upload a file' }}
+			{{ placeholder || __('Upload a file') }}
 		</Button>
 
 		<!-- Clear Button -->

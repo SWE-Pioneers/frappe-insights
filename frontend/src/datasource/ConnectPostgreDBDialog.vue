@@ -10,7 +10,7 @@ const show = computed({
 })
 </script>
 <template>
-	<Dialog v-model="show" :options="{ title: 'Connect to PostgreDB' }">
+	<Dialog v-model="show" :options="{ title: __('Connect to PostgreDB') }">
 		<template #body-content>
 			<PostgreSQLForm @submit="show = false" />
 		</template>

@@ -8,41 +8,44 @@ const router = useRouter()
 const showOnboarding = ref(false)
 const steps = reactive([
 	{
-		title: 'Connect Your Data',
+		title: __('Connect Your Data'),
 		name: 'connect_data',
-		description:
-			"Insights needs access to your data to start analyzing it. Don't worry, we do not store your data.",
+		description: __(
+			"Insights needs access to your data to start analyzing it. Don't worry, we do not store your data."
+		),
 		primary_button: {
-			label: 'Create Data Source',
+			label: __('Create Data Source'),
 			action: () => router.push('/data-source#new'),
 		},
 	},
 	{
-		title: 'Build Your First Query',
+		title: __('Build Your First Query'),
 		name: 'build_query',
-		description:
-			"Let's introduce you to the query builder, where you'll be spending most of your time building queries.",
+		description: __(
+			"Let's introduce you to the query builder, where you'll be spending most of your time building queries."
+		),
 		primary_button: {
-			label: 'Build Query',
+			label: __('Build Query'),
 			action: () => router.push('/query#new'),
 		},
 	},
 	{
-		title: 'Create Your First Dashboard',
+		title: __('Create Your First Dashboard'),
 		name: 'create_dashboard',
-		description:
-			'Organize your visualizations meaningfully by creating a dashboard for you and your team.',
+		description: __(
+			'Organize your visualizations meaningfully by creating a dashboard for you and your team.'
+		),
 		primary_button: {
-			label: 'Create Dashboard',
+			label: __('Create Dashboard'),
 			action: () => router.push('/dashboard#new'),
 		},
 	},
 	{
-		title: 'All set! 🎉',
+		title: __('All set! 🎉'),
 		name: 'all_set',
-		description: 'You are all set to use Insights. We hope you enjoy using it!',
+		description: __('You are all set to use Insights. We hope you enjoy using it!'),
 		primary_button: {
-			label: 'Close',
+			label: __('Close'),
 			action: () => completeOnboarding(),
 		},
 	},
@@ -73,16 +76,18 @@ function completeOnboarding() {
 					:progressLabel="currentStep"
 				/>
 				<div>
-					<div class="text-lg font-bold text-gray-900">Get Started with Insights</div>
+					<div class="text-lg font-bold text-gray-900">{{ __('Get Started with Insights') }}</div>
 					<div class="mt-1 text-gray-600">
-						Follow through a couple of steps to get yourself familiar with Insights.
+						{{ __('Follow through a couple of steps to get yourself familiar with Insights.') }}
 					</div>
 				</div>
 			</div>
 			<div class="flex justify-end space-x-2">
-				<Button variant="outline" iconLeft="x" @click="completeOnboarding"> Skip </Button>
+				<Button variant="outline" iconLeft="x" @click="completeOnboarding">
+					{{ __('Skip') }}
+				</Button>
 				<Button variant="solid" iconRight="arrow-right" @click="showOnboarding = true">
-					{{ steps.length - currentStep }} step(s) left
+					{{ __('{0} step(s) left', [steps.length - currentStep]) }}
 				</Button>
 			</div>
 		</div>
@@ -119,7 +124,7 @@ function completeOnboarding() {
 							src="../assets/create-first-dashboard-new.mp4"
 							type="video/mp4"
 						/>
-						Your browser does not support the video tag.
+						{{ __('Your browser does not support the video tag.') }}
 					</video>
 				</div>
 				<div class="">
@@ -131,7 +136,7 @@ function completeOnboarding() {
 						variant="ghost"
 						@click="skipCurrentStep"
 					>
-						Skip
+						{{ __('Skip') }}
 					</Button>
 					<Button variant="solid" @click="steps[currentStep].primary_button.action">
 						{{ steps[currentStep].primary_button.label }}

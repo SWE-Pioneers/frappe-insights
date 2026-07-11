@@ -114,8 +114,8 @@ const checkAndFetchColumnValues = debounce(async function (search_text = '') {
 const values = computed(() => {
 	if (filter.operator?.value == 'is') {
 		return [
-			{ label: 'Set', value: 'set' },
-			{ label: 'Not Set', value: 'not set' },
+			{ label: __('Set'), value: 'set' },
+			{ label: __('Not Set'), value: 'not set' },
 		]
 	}
 	return columnValues.value.map((value) => ({ label: value, value }))
@@ -150,7 +150,7 @@ if (isMultiple.value && Array.isArray(filter.value)) {
 	// for backward compatibility
 	const values = filter.value[0]?.value ? filter.value.map((v) => v.value) : filter.value
 	filter.value = {
-		label: `${filter.value?.length} values`,
+		label: __('{0} values', [filter.value?.length]),
 		value: values,
 	}
 }
@@ -178,7 +178,8 @@ const comboboxModelValue = computed({
 				}
 				return [...acc, value]
 			}, [])
-		const multipleValueLabel = values?.length > 1 ? `${values.length} values` : values?.[0]
+		const multipleValueLabel =
+			values?.length > 1 ? __('{0} values', [values.length]) : values?.[0]
 		filter.value = { label: multipleValueLabel, value: values }
 	},
 })
@@ -201,7 +202,7 @@ function isValueSelected(value) {
 						@click="togglePopover"
 					>
 						<span v-if="!filter.column" class="font-normal text-gray-600">
-							Select a filter...
+							{{ __('Select a filter...') }}
 						</span>
 						<div class="flex flex-shrink-0 items-center gap-1">
 							<component
@@ -234,7 +235,7 @@ function isValueSelected(value) {
 					v-if="selecting === 'column'"
 					class="mt-2 flex w-fit flex-col rounded bg-white p-2 text-base shadow"
 				>
-					<div class="mb-1 px-1 text-sm text-gray-500">Select a column</div>
+					<div class="mb-1 px-1 text-sm text-gray-500">{{ __('Select a column') }}</div>
 					<div
 						class="cursor-pointer rounded px-2 py-1.5 hover:bg-gray-100"
 						v-for="column in columns"
@@ -249,7 +250,7 @@ function isValueSelected(value) {
 					v-if="selecting === 'operator'"
 					class="mt-2 flex w-fit flex-col rounded bg-white p-2 text-base shadow"
 				>
-					<div class="mb-1 px-1 text-sm text-gray-500">Select an operator</div>
+					<div class="mb-1 px-1 text-sm text-gray-500">{{ __('Select an operator') }}</div>
 					<div
 						class="cursor-pointer rounded px-2 py-1.5 hover:bg-gray-100"
 						v-for="operator in operators"
@@ -275,12 +276,12 @@ function isValueSelected(value) {
 						<ComboboxInput
 							v-if="filter.operator?.value != 'is'"
 							autocomplete="off"
-							placeholder="Filter..."
+							:placeholder="__('Filter...')"
 							@input="checkAndFetchColumnValues($event.target.value)"
 							class="form-input mb-2 block h-7 w-full border-gray-400 placeholder-gray-500"
 						/>
 						<ComboboxOptions static class="flex max-h-[20rem] flex-col overflow-hidden">
-							<div class="mb-1 px-1 text-sm text-gray-500">Select an option</div>
+							<div class="mb-1 px-1 text-sm text-gray-500">{{ __('Select an option') }}</div>
 							<div class="flex-1 overflow-y-auto">
 								<ComboboxOption
 									v-for="value in values"
@@ -320,7 +321,7 @@ function isValueSelected(value) {
 									label: dates
 										.split(',')
 										.map((date) => formatDate(date))
-										.join(' to '),
+										.join(' ' + __('to') + ' '),
 								}
 								togglePopover(false)
 							}
@@ -344,7 +345,7 @@ function isValueSelected(value) {
 						<Input
 							:model-value="filter.value?.value"
 							@update:model-value="filter.value = { value: $event, label: $event }"
-							placeholder="Enter a value"
+							:placeholder="__('Enter a value')"
 						/>
 						<Button variant="solid" icon="check" @click="togglePopover(false)" />
 					</div>
